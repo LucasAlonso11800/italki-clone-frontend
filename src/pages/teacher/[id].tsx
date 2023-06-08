@@ -1,10 +1,10 @@
 import React from 'react'
-import Layout from '@/layout/Layout';
+import { Layout } from '@/layout';
 
 export default function TeacherPage() {
   return (
     <Layout>
-        <div>Whatever</div>
+        <div className='p-4'>Whatever</div>
     </Layout>
   )
 }

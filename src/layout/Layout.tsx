@@ -1,10 +1,16 @@
 import React from "react";
-import "./Layout.module.scss";
+import { Footer, Head } from "@/layout";
 
 type Props = {
   children: JSX.Element | JSX.Element[];
 };
 
 export default function Layout({ children }: Props) {
-  return <main>{children}</main>;
+  return (
+    <>
+      <Head />
+      <main>{children}</main>;
+      <Footer />
+    </>
+  );
 }

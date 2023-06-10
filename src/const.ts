@@ -12,7 +12,7 @@ export const ROUTES = {
     portuguese: "/teachers/portuguese",
     arabic: "/teachers/arabic",
     hindi: "/teachers/hindi",
-    all: '/teachers'
+    all: "/teachers",
   },
   learn: {
     english: "/learn/english",
@@ -29,13 +29,22 @@ export const ROUTES = {
     hindi: "/learn/hindi",
   },
   group_classes: {
-    english: '/group-classes/english'
+    english: "/group-classes/english",
   },
   resources: {
-    test: '/resources/test',
-    challenge: '/resources/challenge',
-    podcasts: '/resources/podcasts',
-    quiz: '/resources/quiz',
-    community: '/resources/community'
-  }
+    test: "/resources/test",
+    challenge: "/resources/challenge",
+    podcasts: "/resources/podcasts",
+    quiz: "/resources/quiz",
+    community: "/resources/community",
+  },
+};
+
+export const EXTERNAL_LINKS = {
+  facebook: "https://www.facebook.com/italkilanguage",
+  twitter: "https://twitter.com/italki",
+  instagram: "https://www.instagram.com/italki",
+  youtube: "https://www.youtube.com/user/italkilanguage",
+  vk: "https://vk.com/italkicom",
+  weibo: "https://weibo.com/italki",
 };

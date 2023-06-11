@@ -21,17 +21,17 @@
     font-family: Noto Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
 }
 
+img {
+    object-fit: cover;
+}
+
 .container {
     max-width: 1128px;
 }
 
 /* Fonts */
-.text-secondary1 {
-    color: #313140;
-}
-.text-secondary2 {
-    color: #515164;
-}
-.text-tiny {
-    font-size: 12px;
+.small-secondary {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 22px;
 }

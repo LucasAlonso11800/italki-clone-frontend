@@ -317,38 +317,33 @@ export default function Footer() {
                 <Image
                   src={SVG.Facebook}
                   alt="Facebook"
-                  style={{ objectFit: "cover" }}
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.twitter} target="_blank">
                 <Image
                   src={SVG.Twitter}
                   alt="Twitter"
-                  style={{ objectFit: "cover" }}
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.instagram} target="_blank">
                 <Image
                   src={SVG.Instagram}
                   alt="Instagram"
-                  style={{ objectFit: "cover" }}
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.youtube} target="_blank">
                 <Image
                   src={SVG.Youtube}
                   alt="Youtube"
-                  style={{ objectFit: "cover" }}
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.vk} target="_blank">
-                <Image src={SVG.VK} alt="VK" style={{ objectFit: "cover" }} />
+                <Image src={SVG.VK} alt="VK" />
               </Link>
               <Link href={EXTERNAL_LINKS.weibo} target="_blank">
                 <Image
                   src={SVG.Weibo}
                   alt="Weibo"
-                  style={{ objectFit: "cover" }}
                 />
               </Link>
             </div>
@@ -427,38 +422,33 @@ export default function Footer() {
                 <Image
                   src={SVG.Facebook}
                   alt="Facebook"
-                  style={{ objectFit: "cover" }}
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.twitter} target="_blank">
                 <Image
                   src={SVG.Twitter}
                   alt="Twitter"
-                  style={{ objectFit: "cover" }}
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.instagram} target="_blank">
                 <Image
                   src={SVG.Instagram}
                   alt="Instagram"
-                  style={{ objectFit: "cover" }}
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.youtube} target="_blank">
                 <Image
                   src={SVG.Youtube}
                   alt="Youtube"
-                  style={{ objectFit: "cover" }}
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.vk} target="_blank">
-                <Image src={SVG.VK} alt="VK" style={{ objectFit: "cover" }} />
+                <Image src={SVG.VK} alt="VK" />
               </Link>
               <Link href={EXTERNAL_LINKS.weibo} target="_blank">
                 <Image
                   src={SVG.Weibo}
                   alt="Weibo"
-                  style={{ objectFit: "cover" }}
                 />
               </Link>
             </div>

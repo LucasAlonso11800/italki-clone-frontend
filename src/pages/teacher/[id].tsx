@@ -1,19 +1,30 @@
-import React from 'react'
-import { Layout } from '@/layout';
+import React from "react";
+import { Layout } from "@/layout";
+import { TeacherStats } from "@/components";
 
 export default function TeacherPage() {
   return (
     <Layout>
-      <main className='bg-bg1 flex-1'>
+      <main className="bg-bg1 flex-1 min-h-[2000px]">
         {/* Sticky header */}
-        {/* Sticky video */}
-        
-        {/* Teacher info */}
-        {/* Stats */}
-        {/* Lessons */}
-        {/* Availability */}
-        {/* Reviews */}
+        <div className="p-4 md:p-0 container flex">
+          <div className="w-full md:w-7/12 lg:w-8/12">
+            <div className="pb-4 md:pb-6">
+              {/* <TeacherAboutMe /> */}
+              <TeacherStats 
+                attendance={100}
+                lessons={100}
+                students={753}
+                rating={5.0}
+                response={100}
+              />
+              {/* Lessons */}
+              {/* Availability */}
+              {/* Reviews */}
+            </div>
+          </div>
+        </div>
       </main>
     </Layout>
-  )
+  );
 }

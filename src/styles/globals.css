@@ -13,8 +13,7 @@
     outline: none;
     border: none;
     color: #515164;
-    line-height: 1.5715;
-    background-color: #fff;
+    line-height: 1.5;
     -webkit-font-feature-settings: normal;
     font-feature-settings: normal;
     font-variant: normal;
@@ -27,9 +26,22 @@ img {
 
 .container {
     max-width: 1128px;
+    margin: auto;
 }
 
 /* Fonts */
+.h4, h4 {
+    font-size: 24px;
+    line-height: 32px;
+}
+.h5, h5 {
+    font-size: 20px;
+    line-height: 28px;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    color: #313140;
+    font-weight: 700;
+}
 .small-secondary {
     font-size: 14px;
     font-weight: 500;

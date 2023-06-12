@@ -4,7 +4,16 @@ import { Layout } from '@/layout';
 export default function TeacherPage() {
   return (
     <Layout>
-        <div className='p-4'>Whatever</div>
+      <main className='bg-bg1 flex-1'>
+        {/* Sticky header */}
+        {/* Sticky video */}
+        
+        {/* Teacher info */}
+        {/* Stats */}
+        {/* Lessons */}
+        {/* Availability */}
+        {/* Reviews */}
+      </main>
     </Layout>
   )
 }

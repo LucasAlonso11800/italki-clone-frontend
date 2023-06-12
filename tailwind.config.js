@@ -6,6 +6,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'bg1': 'rgb(245,246,249)',
         'gray1': '#313140',
         'gray2': "#515164",
         'gray3': "#9c9cac",
@@ -15,6 +16,7 @@ module.exports = {
       },
       fontSize: {
         'tiny': '12px',
+        'base': '16px',
       },
     },
   },

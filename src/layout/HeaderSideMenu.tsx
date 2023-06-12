@@ -15,6 +15,9 @@ import {
 export default function HeaderSideMenu() {
   const [open, setOpen] = useState<boolean>(false);
   const handleOpen = () => setOpen(!open);
+  // todo
+  // Handle login and signup
+
   return (
     <div>
       <div>
@@ -46,63 +49,53 @@ export default function HeaderSideMenu() {
             </div>
 
             <Menu className="h-full" mode="vertical">
-              <Menu.Item>
+              <Menu.Item key="teacher">
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
-                    <SearchOutlined
-                      style={{ fontSize: "24px", fill: "#313140" }}
-                    />
+                    <Image src={SVG.HeaderFindTeacher} alt="Find a teacher" height={24} width={24}/>
                   </div>
-                  <Link className="w-full text-gray1" href={ROUTES.teachers.english}>
-                    Encontrar un profesor
+                  <Link className="w-full text-gray1 text-base" href={ROUTES.teachers.english}>
+                    Find a teacher
                   </Link>
                 </div>
               </Menu.Item>
               <Menu.Item>
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
-                    <TeamOutlined
-                      style={{ fontSize: "24px", fill: "#313140" }}
-                    />
+                    <Image src={SVG.HeaderGroupClass} alt="Group class" height={24} width={24}/>
                   </div>
                   <Link
-                    className="w-full text-gray1"
+                    className="w-full text-gray1 text-base"
                     href={ROUTES.group_classes.english}
                   >
-                    Clase en grupo
+                    Group Class
                   </Link>
                 </div>
               </Menu.Item>
               <Menu.Item>
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
-                    <TeamOutlined
-                      style={{ fontSize: "24px", fill: "#313140" }}
-                    />
+                    <Image src={SVG.HeaderCommunity} alt="Community" height={24} width={24}/>
                   </div>
-                  <Link className="w-full text-gray1" href={ROUTES.resources.community}>
-                    Comunidad
+                  <Link className="w-full text-gray1 text-base" href={ROUTES.resources.community}>
+                    Comunnity
                   </Link>
                 </div>
               </Menu.Item>
               <Menu.Item>
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
-                    <LoginOutlined
-                      style={{ fontSize: "24px", fill: "#313140" }}
-                    />
+                    <Image src={SVG.HeaderLogin} alt="Login" height={24} width={24}/>
                   </div>
-                  <span className="w-full text-gray1">Iniciar sesión</span>
+                  <span className="w-full text-gray1 text-base">Login</span>
                 </div>
               </Menu.Item>
               <Menu.Item>
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
-                    <UserOutlined
-                      style={{ fontSize: "24px", fill: "#313140" }}
-                    />
+                    <Image src={SVG.HeaderSignup} alt="Sign up" height={24} width={24}/>
                   </div>
-                  <span className="w-full text-gray1">Registrarse</span>
+                  <span className="w-full text-gray1 text-base">Sign Up</span>
                 </div>
               </Menu.Item>
             </Menu>

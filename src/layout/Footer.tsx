@@ -185,7 +185,7 @@ export default function Footer() {
               className="text-secondary2 font-medium text-tiny md:mb-2 sm:mr-6 sm:mb-4 mr-1"
               href={ROUTES.group_classes.english}
             >
-              Group className
+              Group class
             </Link>
             <div className="text-secondary1 font-bold text-base leading-6 mb-4">
               Teaching

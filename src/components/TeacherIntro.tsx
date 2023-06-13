@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TeacherIntroButtons, TeacherIntroMAT, TeacherIntroAboutMe } from ".";
+import { TeacherIntroButtons, TeacherIntroMAT, TeacherIntroAboutMe, TeacherIntroTeachingStyle } from ".";
 import { Avatar, Tabs } from "antd";
 
 export default function TeacherIntro() {
@@ -128,7 +128,9 @@ export default function TeacherIntro() {
             tab="My Lessons &amp; Teaching Style"
             key="lessons-teaching"
             className="ant-tabs-version2-tabpane ant-tabs-version2-tabpane-inactive"
-          ></Tabs.TabPane>
+          >
+            <TeacherIntroTeachingStyle />
+          </Tabs.TabPane>
         </Tabs>
       </div>
     </div>

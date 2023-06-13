@@ -26,7 +26,7 @@ export default function TeacherIntroMAT() {
           Show less
         </div>
         <div
-          className="hidden h-20 absolute left-0 right-0 bottom-0"
+          className="block h-20 absolute left-0 right-0 bottom-0"
           style={{
             background:
               "linear-gradient(to top, rgb(255, 255, 255), rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0) 100%)",

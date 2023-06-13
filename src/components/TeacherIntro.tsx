@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { TeacherIntroButtons } from ".";
+import { TeacherIntroButtons, TeacherIntroMAT, TeacherIntroAboutMe } from ".";
 import { Avatar, Tabs } from "antd";
-import TeacherIntroAboutMe from "./TeacherIntroAboutMe";
 
 export default function TeacherIntro() {
   const [section, setSection] = useState<
@@ -110,38 +109,21 @@ export default function TeacherIntro() {
         id="readmore"
         className="mt-4 md:mt-6 pt-4 md:pt-0 border-t md:border-t-0"
       >
-        <Tabs className="ant-tabs-version2 ant-tabs-version2-top ant-tabs-version2-line">
+        <Tabs className="ant-tabs-version2 ant-tabs-version2-top ant-tabs-version2-line" >
           <Tabs.TabPane
             tab="About Me"
             key="about-me"
             className="ant-tabs-version2-tabpane ant-tabs-version2-tabpane-active"
           >
-            {/* <div
-              tabIndex={0}
-              role="presentation"
-              style={{
-                width: "0px",
-                height: "0px",
-                overflow: "hidden",
-                position: "absolute",
-              }}
-            ></div>
-            <div
-              tabIndex={0}
-              role="presentation"
-              style={{
-                width: "0px",
-                height: "0px",
-                overflow: "hidden",
-                position: "absolute",
-              }}
-            ></div> */}
+          <TeacherIntroAboutMe />
           </Tabs.TabPane>
           <Tabs.TabPane
             tab="Me as a Teacher"
             key="me-teacher"
             className="ant-tabs-version2-tabpane ant-tabs-version2-tabpane-inactive"
-          ></Tabs.TabPane>
+          >
+            <TeacherIntroMAT />
+          </Tabs.TabPane>
           <Tabs.TabPane
             tab="My Lessons &amp; Teaching Style"
             key="lessons-teaching"
@@ -149,10 +131,6 @@ export default function TeacherIntro() {
           ></Tabs.TabPane>
         </Tabs>
       </div>
-
-      {section === 'about-me' && 
-        <TeacherIntroAboutMe />
-      }
     </div>
   );
 }

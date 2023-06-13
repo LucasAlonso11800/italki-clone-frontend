@@ -19,7 +19,7 @@ export default function TeacherStats(props: Props) {
         <div className="flex flex-col flex-1 justify-center items-center">
           <div className="mb-2 flex flex-row items-center h4 text-title">
             <Image src={SVG.Star} alt="star" />
-            <div className="text-warning leading-8">{rating}</div>
+            <div className="text-warning leading-8">{rating.toFixed(1)}</div>
           </div>
           <div className="small-secondary text-gray3 break-words text-center">
             Rating

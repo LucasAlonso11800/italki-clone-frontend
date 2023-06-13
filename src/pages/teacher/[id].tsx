@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout } from "@/layout";
-import { TeacherStats } from "@/components";
+import { TeacherStats, TeacherIntro } from "@/components";
 
 export default function TeacherPage() {
   return (
@@ -10,7 +10,7 @@ export default function TeacherPage() {
         <div className="p-4 md:p-0 container flex">
           <div className="w-full md:w-7/12 lg:w-8/12">
             <div className="pb-4 md:pb-6">
-              {/* <TeacherAboutMe /> */}
+              <TeacherIntro />
               <TeacherStats 
                 attendance={100}
                 lessons={100}

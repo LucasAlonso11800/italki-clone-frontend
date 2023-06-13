@@ -1,0 +1,16 @@
+
+<svg
+  fill="#313140"
+  height="24"
+  viewBox="0 0 24 24"
+  width="24"
+  xmlns="http://www.w3.org/2000/svg"
+  data-cy="tp_about-more"
+  className="transform duration-200 cursor-pointer"
+>
+  <g>
+    <circle cx="5" cy="12" r="1.5"></circle>
+    <circle cx="12" cy="12" r="1.5"></circle>
+    <circle cx="19" cy="12" r="1.5"></circle>
+  </g>
+</svg>

@@ -12,7 +12,6 @@
     list-style-type: none;
     outline: none;
     border: none;
-    color: #515164;
     line-height: 1.5;
     -webkit-font-feature-settings: normal;
     font-feature-settings: normal;
@@ -24,9 +23,11 @@ img {
     object-fit: cover;
 }
 
-.container {
-    max-width: 1128px;
-    margin: auto;
+@media all and (min-width: 1280px){
+    .container {
+        max-width: 1176px;
+        margin: auto;
+    }
 }
 
 /* Fonts */
@@ -38,6 +39,10 @@ img {
     font-size: 20px;
     line-height: 28px;
 }
+.h6, .regular-body, h6 {
+    font-size: 16px;
+    line-height: 24px;
+}
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     color: #313140;
     font-weight: 700;
@@ -46,4 +51,9 @@ img {
     font-size: 14px;
     font-weight: 500;
     line-height: 22px;
+}
+.tiny-caption {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
 }

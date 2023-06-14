@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function TeacherIntroTeachingStyle() {
+  const [open, setOpen] = useState<boolean>(false);
+  const handleClick = () => setOpen(!open);
+
   return (
     <div className="relative overflow-hidden">
-      <div className="relative md:mt-6 h-[250px]">
-        <div className="absolute left-0 right-0 top-0">
+      <div className={`relative md:mt-6 ${open ? 'max-h-auto' : 'max-h-[250px]'}`}>
           <div className="mb-4">
             <div className="h6 text-gray1">My lessons &amp; teaching style</div>
             <span className="block mt-3 small-secondary text-gray2 break-words whitespace-pre-wrap">
@@ -32,14 +34,13 @@ export default function TeacherIntroTeachingStyle() {
               </ul>
             </div>
           </div>
-        </div>
       </div>
-      <div className="h-7 absolute left-0 right-0 bottom-0 flex flex-row justify-start items-end bg-white">
-        <div className="z-10 h-5 flex justify-center items-center text-button text-link cursor-pointer">
-          Read more
+      <div className="h-7 left-0 right-0 bottom-0 flex flex-row justify-start items-end bg-white">
+        <div className="z-10 h-5 flex justify-center items-center text-button text-link cursor-pointer" onClick={handleClick}>
+          {open ? 'Show less' : 'Read more'}
         </div>
         <div
-          className="block h-20 absolute left-0 right-0 bottom-0"
+          className={`${open ? 'hidden' : 'block'} h-20 absolute left-0 right-0 bottom-0`}
           style={{
             background:
               "linear-gradient(to top, rgb(255, 255, 255), rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0) 100%)",

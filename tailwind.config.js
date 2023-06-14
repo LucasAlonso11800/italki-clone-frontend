@@ -29,6 +29,9 @@ module.exports = {
       },
       fontWeight: {
         link: 500
+      },
+      zIndex: {
+        100: 100
       }
     },
   },

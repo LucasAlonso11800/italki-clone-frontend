@@ -1,11 +1,31 @@
-import React, { useState } from "react";
-import { TeacherIntroButtons, TeacherIntroMAT, TeacherIntroAboutMe, TeacherIntroTeachingStyle } from ".";
+import React, { useMemo, useState } from "react";
+import {
+  TeacherIntroButtons,
+  TeacherIntroMAT,
+  TeacherIntroAboutMe,
+  TeacherIntroTeachingStyle,
+  List,
+} from ".";
 import { Avatar, Tabs } from "antd";
 
 export default function TeacherIntro() {
-  const [section, setSection] = useState<
-    "about-me" | "me-as-teacher" | "teaching-style"
-  >("about-me");
+  const ITEMS = [
+    { name: "About Me" },
+    { name: "Me as a Teacher" },
+    { name: "My Lessons & Teaching Style" },
+  ];
+  const [selected, setSelected] = useState(ITEMS[0].name);
+
+  const section = useMemo(() => {
+    switch (selected) {
+      case ITEMS[0].name:
+        return <TeacherIntroAboutMe />;
+      case ITEMS[1].name:
+        return <TeacherIntroMAT />;
+      default:
+        return <TeacherIntroTeachingStyle />;
+    };
+  }, [selected]);
 
   return (
     <div className="relative mt-0 md:mt-6 p-4 md:p-8 rounded-3 bg-white overflow-hidden md:shadow-panel min-[200px]">
@@ -105,34 +125,14 @@ export default function TeacherIntro() {
       <TeacherIntroButtons />
 
       {/* Description, teaching style */}
-      <div
-        id="readmore"
-        className="mt-4 md:mt-6 pt-4 md:pt-0 border-t md:border-t-0"
-      >
-        <Tabs className="ant-tabs-version2 ant-tabs-version2-top ant-tabs-version2-line" >
-          <Tabs.TabPane
-            tab="About Me"
-            key="about-me"
-            className="ant-tabs-version2-tabpane ant-tabs-version2-tabpane-active"
-          >
-          <TeacherIntroAboutMe />
-          </Tabs.TabPane>
-          <Tabs.TabPane
-            tab="Me as a Teacher"
-            key="me-teacher"
-            className="ant-tabs-version2-tabpane ant-tabs-version2-tabpane-inactive"
-          >
-            <TeacherIntroMAT />
-          </Tabs.TabPane>
-          <Tabs.TabPane
-            tab="My Lessons &amp; Teaching Style"
-            key="lessons-teaching"
-            className="ant-tabs-version2-tabpane ant-tabs-version2-tabpane-inactive"
-          >
-            <TeacherIntroTeachingStyle />
-          </Tabs.TabPane>
-        </Tabs>
-      </div>
+      <List
+        items={ITEMS}
+        classes="justify-start md:mt-6"
+        childClasses="py-3.5 px-2" 
+        selected={selected}
+        setSelected={setSelected}
+      />
+      {section}
     </div>
   );
 }

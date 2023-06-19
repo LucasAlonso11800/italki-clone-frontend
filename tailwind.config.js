@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       borderRadius: {
         3: "12px",
+        "dot5": "px"
       },
       screens: {
         lg: "992px",
@@ -15,6 +16,7 @@ module.exports = {
         gray1: "#313140",
         gray2: "#515164",
         gray3: "#9c9cac",
+        gray6: "rgb(245,246,249)",
         secondary1: "#313140",
         secondary2: "#515164",
         secondary3: "#9c9cac",
@@ -22,6 +24,7 @@ module.exports = {
         info: '#00b3bd',
         success: 'rgb(13,226,152)',
         link: '#59779a',
+        red2: '#ff4438',
       },
       fontSize: {
         tiny: "12px",

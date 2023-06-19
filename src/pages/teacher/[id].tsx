@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Layout } from "@/layout";
-import { TeacherStats, TeacherIntro, TeacherHeader } from "@/components";
+import {
+  TeacherStats,
+  TeacherIntro,
+  TeacherHeader,
+  TeacherLessons,
+} from "@/components";
 
 export default function TeacherPage() {
   return (
@@ -12,14 +17,17 @@ export default function TeacherPage() {
           <div className="w-full md:w-7/12 lg:w-8/12">
             <div className="pb-4 md:pb-6">
               <TeacherIntro />
-              <TeacherStats 
+              <TeacherStats
                 attendance={100}
                 lessons={100}
                 students={753}
                 rating={5.0}
                 response={100}
               />
-              {/* Lessons */}
+              <TeacherLessons
+                language="Spanish"
+                lessons={[{ name: "Trial Lesson", number: 133, price: 5 }, { name: "Informal conversation Lesson", number: 133, price: 6 }]}
+              />
               {/* Availability */}
               {/* Reviews */}
             </div>

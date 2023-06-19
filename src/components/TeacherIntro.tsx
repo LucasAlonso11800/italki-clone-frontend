@@ -14,7 +14,7 @@ export default function TeacherIntro() {
     { name: "Me as a Teacher" },
     { name: "My Lessons & Teaching Style" },
   ];
-  const [selected, setSelected] = useState(ITEMS[0].name);
+  const [selected, setSelected] = useState<string>(ITEMS[0].name);
 
   const section = useMemo(() => {
     switch (selected) {
@@ -28,7 +28,7 @@ export default function TeacherIntro() {
   }, [selected]);
 
   return (
-    <div className="relative mt-0 md:mt-6 p-4 md:p-8 rounded-3 bg-white overflow-hidden md:shadow-panel min-[200px]">
+    <section id="about-me" className="relative mt-0 md:mt-6 p-4 md:p-8 rounded-3 bg-white overflow-hidden md:shadow-panel min-[200px]">
       {/* Intro */}
       <div className="mb-4 md:mb-0 flex flex-row">
         <div className="md:w-20 mr-4 md:mr-6 flex-none">
@@ -133,6 +133,6 @@ export default function TeacherIntro() {
         setSelected={setSelected}
       />
       {section}
-    </div>
+    </section>
   );
 }

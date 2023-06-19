@@ -17,7 +17,7 @@ export default function TeacherLessons({ lessons, language }: Props) {
       </div>
       <div className="relative p-4 md:p-5 rounded-3 bg-white overflow-hidden md:shadow-panel">
         {lessons.map((lesson, index) => (
-          <div>
+          <div key={index}>
             <div className="p-3 hover:bg-gray6 rounded transition-all">
               <div className="flex cursor-pointer flex-col md:flex-row items-start md:items-center">
                 <div className="flex-1 mb-4 md:mb-0 mr-0 md:mr-4">

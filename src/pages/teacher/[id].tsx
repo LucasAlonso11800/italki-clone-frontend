@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Layout } from "@/layout";
 import {
   TeacherStats,
   TeacherIntro,
   TeacherHeader,
   TeacherLessons,
+  TeacherReviews,
 } from "@/components";
 
 export default function TeacherPage() {
@@ -26,10 +27,44 @@ export default function TeacherPage() {
               />
               <TeacherLessons
                 language="Spanish"
-                lessons={[{ name: "Trial Lesson", number: 133, price: 5 }, { name: "Informal conversation Lesson", number: 133, price: 6 }]}
+                lessons={[
+                  { name: "Trial Lesson", number: 133, price: 5 },
+                  {
+                    name: "Informal conversation Lesson",
+                    number: 133,
+                    price: 6,
+                  },
+                ]}
               />
               {/* Availability */}
-              {/* Reviews */}
+              <TeacherReviews
+                reviews={[
+                  {
+                    student: "Alex Kopen",
+                    date: "1 April, 2022",
+                    number: 100,
+                    review:
+                      "Brandon is one of the most down-to-earth person I have ever met!.I've been taking classes with him 4 days a week for some time now, and can say we've had many amazing conversations. If you're looking for a passionate teacher, Brandon is your guy!",
+                    teacherPick: true,
+                  },
+                  {
+                    student: "Someone else",
+                    date: "12 August, 2021",
+                    number: 120,
+                    review:
+                      "Brandon is one of the most down-to-earth person I have ever met!.I've been taking classes with him 4 days a week for some time now, and can say we've had many amazing conversations. If you're looking for a passionate teacher, Brandon is your guy!",
+                    teacherPick: false,
+                  },
+                  {
+                    student: "Someone else",
+                    date: "12 August, 2021",
+                    number: 120,
+                    review:
+                      "Brandon is one of the most down-to-earth person I have ever met!.I've been taking classes with him 4 days a week for some time now, and can say we've had many amazing conversations. If you're looking for a passionate teacher, Brandon is your guy!",
+                    teacherPick: false,
+                  },
+                ]}
+              />
             </div>
           </div>
         </div>

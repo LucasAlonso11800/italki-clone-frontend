@@ -1,3 +1,4 @@
+export { default as ArrowDown } from "./arrow-down.svg";
 export { default as BurgerMenu } from "./burger-menu.svg";
 export { default as CloseMenu } from "./close-menu.svg";
 export { default as Facebook } from "./facebook.svg";

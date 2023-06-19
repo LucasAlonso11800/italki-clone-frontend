@@ -25,6 +25,7 @@ export default function List(props: Props) {
     <div className={`flex items-center flex-auto ${classes}`}>
       {items.map((item) => (
         <div
+          key={item.name}
           className={`cursor-pointer mx-1 relative transition-all ${
             value === item.name ? "font-bold text-gray1" : "text-sm text-gray3"
           } ${childClasses}`}

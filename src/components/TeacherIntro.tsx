@@ -6,7 +6,7 @@ import {
   TeacherIntroTeachingStyle,
   List,
 } from ".";
-import { Avatar, Tabs } from "antd";
+import { Avatar } from "antd";
 
 export default function TeacherIntro() {
   const ITEMS = [

@@ -20,7 +20,7 @@ export default function Header() {
             href={ROUTES.teachers.english}
           >
             <div className="small-secondary text-gray3 hover:text-gray2 text-gray3">
-              Encontrar un profesor
+              Find a Teacher
             </div>
           </Link>
           <Link
@@ -28,7 +28,7 @@ export default function Header() {
             href={ROUTES.group_classes.english}
           >
             <div className="small-secondary relative hover:text-gray2 text-gray3">
-              Clase en grupo
+              Group Class
             </div>
           </Link>
           <Link
@@ -36,14 +36,14 @@ export default function Header() {
             href={ROUTES.resources.community}
           >
             <div className="small-secondary hover:text-gray2 text-gray3">
-              Comunidad
+              Community
             </div>
           </Link>
           <div className="hidden p-2 mr-4 md:inline-block small-secondary cursor-pointer hover:text-gray2 text-gray3">
-            Iniciar sesión
+            Login
           </div>
           <div className="hidden p-2 md:inline-block small-secondary cursor-pointer hover:text-gray2 text-gray3">
-            Registrarse
+            Sign Up
           </div>
 
           <div className="md:hidden">

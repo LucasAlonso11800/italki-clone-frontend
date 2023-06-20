@@ -10,7 +10,7 @@ export default function TeacherHeader() {
   return (
     <div
       className="z-100 fixed left-0 top-0 flex items-center right-0 bg-white px-4 border-b overflow-x-auto border-bg1 transition-opacity h-[66px]"
-      style={{ opacity: scrollPosition < 61 ? 0 : 1 }}
+      style={{ opacity: scrollPosition < 61 ? 0 : 1, display: scrollPosition < 30 ? 'none' : 'flex' }}
     >
       <div className="flex items-center mr-4">
         <span className="ant-avatar inline-flex rounded-full justify-center items-center mr-2 md:mr-4 w-10 h-10 ant-avatar-circle ant-avatar-image w-[40px] h-[40px] text-lg">

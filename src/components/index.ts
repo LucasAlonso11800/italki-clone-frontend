@@ -1,10 +1,11 @@
+export { default as List } from './List';
 export { default as TeacherHeader } from './TeacherHeader';
 export { default as TeacherIntro } from './TeacherIntro';
 export { default as TeacherIntroButtons } from './TeacherIntroButtons';
 export { default as TeacherIntroAboutMe } from './TeacherIntroAboutMe';
 export { default as TeacherIntroMAT } from './TeacherIntroMAT';
 export { default as TeacherIntroTeachingStyle } from './TeacherIntroTeachingStyle';
-export { default as TeacherStats } from './TeacherStats';
 export { default as TeacherLessons } from './TeacherLessons';
 export { default as TeacherReviews } from './TeacherReviews';
-export { default as List } from './List';
+export { default as TeacherStats } from './TeacherStats';
+export { default as TeacherVideo } from './TeacherVideo';

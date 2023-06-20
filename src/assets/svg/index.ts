@@ -14,6 +14,7 @@ export { default as Options } from './options.svg';
 export { default as Share } from './share.svg';
 export { default as Star } from "./star.svg";
 export { default as Twitter } from "./twitter.svg";
+export { default as VideoPlay } from "./video-play.svg";
 export { default as VK } from "./vk.svg";
 export { default as Weibo } from "./weibo.svg";
 export { default as Youtube } from "./youtube.svg";

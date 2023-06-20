@@ -6,14 +6,15 @@ import {
   TeacherHeader,
   TeacherLessons,
   TeacherReviews,
+  TeacherVideo,
 } from "@/components";
 
 export default function TeacherPage() {
   return (
     <Layout>
       <TeacherHeader />
-      <main className="bg-bg1 flex-1 min-h-[2000px]">
-        {/* Sticky header */}
+
+      <main className="bg-bg1 flex-1">
         <div className="p-4 md:p-0 container flex">
           <div className="w-full md:w-7/12 lg:w-8/12">
             <div className="pb-4 md:pb-6">
@@ -67,7 +68,11 @@ export default function TeacherPage() {
               />
             </div>
           </div>
+
+          <TeacherVideo />
         </div>
+
+        <div className="md:p-0 md:pb-6 sm:mb-6 container flex small-secondary text-gray3">Your final payment will be made in USD</div>
       </main>
     </Layout>
   );

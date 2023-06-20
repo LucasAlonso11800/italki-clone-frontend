@@ -16,6 +16,7 @@ module.exports = {
         gray1: "#313140",
         gray2: "#515164",
         gray3: "#9c9cac",
+        gray5: "#e5e8ed",
         gray6: "rgb(245,246,249)",
         secondary1: "#313140",
         secondary2: "#515164",
@@ -24,6 +25,7 @@ module.exports = {
         info: '#00b3bd',
         success: 'rgb(13,226,152)',
         link: '#59779a',
+        red1: '#d3382f',
         red2: '#ff4438',
       },
       fontSize: {

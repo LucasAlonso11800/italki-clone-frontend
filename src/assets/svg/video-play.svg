@@ -1,0 +1,33 @@
+                  <svg
+                    width="60"
+                    height="60"
+                    viewBox="0 0 60 60"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="play">
+                      <g id="Group 9120">
+                        <g id="Group 9064">
+                          <g id="Group 9120_2">
+                            <g id="Group 9064_2">
+                              <g id="Group 9120_3">
+                                <circle
+                                  id="Ellipse 198"
+                                  cx="30"
+                                  cy="30"
+                                  r="28"
+                                  stroke="white"
+                                  stroke-width="4"
+                                ></circle>
+                                <path
+                                  id="play_2"
+                                  d="M26.1094 18.0729C24.7803 17.1869 23 18.1396 23 19.737V40.263C23 41.8604 24.7803 42.8131 26.1094 41.9271L41.5038 31.6641C42.6913 30.8725 42.6913 29.1275 41.5038 28.3359L26.1094 18.0729Z"
+                                  fill="white"
+                                ></path>
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>

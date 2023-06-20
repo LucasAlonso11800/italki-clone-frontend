@@ -1,5 +1,5 @@
 import { SVG } from "@/assets";
-import { Button } from "antd";
+import { Avatar, Button } from "antd";
 import Image from "next/image";
 import React from "react";
 
@@ -30,11 +30,11 @@ export default function TeacherReviews({ reviews }: Props) {
             <div className="p-4 pb-2 bg-gray6">
               <div className="flex justify-between items-end mb-2">
                 <section className="flex items-center">
-                  {/* <span className="ant-avatar inline-flex justify-center items-center mr-2 ant-avatar-circle ant-avatar-image" style="width: 40px; height: 40px; line-height: 38px; font-size: 18px; border: 2px solid white;"><img src="https://imagesavatar-static01.italki.com/T086430890_Avatar.jpg" srcset="https://imagesavatar-static01.italki.com/T086430890_Avatar.jpg" alt="Student Alex Kopen" style="width: 36px; height: 36px;">
-                                    <i className="ant-avatar-flag" 
-                                    style="display: inline-block; background-size: contain; background-position: 50% center; background-repeat: no-repeat; border-radius: 50%; border: 2px solid white; right: 0px; width: 16px; height: 16px; background-image: url(&quot;https://scdn.italki.com/orion/static/flags/us.svg&quot;);">
-                                    </i>
-                                </span> */}
+                  <Avatar
+                    src="https://imagesavatar-static01.italki.com/1T095076430_Avatar.jpg"
+                    alt="teacher"
+                    style={{ width: 40, height: 40, marginRight: '8px' }}
+                  />
                   <section>
                     <div className="tiny-caption">{review.student}</div>
                     <div className="tiny-caption text-gray3">
@@ -61,7 +61,9 @@ export default function TeacherReviews({ reviews }: Props) {
         ))}
 
         <button className="mt-4 w-full flex justify-center items-center cursor-pointer px-4 py-2.5">
-          <span className="font-bold text-gray2 text-sm tracking-wider">Show more</span>
+          <span className="font-bold text-gray2 text-sm tracking-wider">
+            Show more
+          </span>
           <Image src={SVG.ArrowDown} alt="down" />
         </button>
       </div>

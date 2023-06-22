@@ -8,8 +8,12 @@ import {
   TeacherReviews,
   TeacherVideo,
 } from "@/components";
+import { GetStaticPaths, GetStaticProps } from "next";
+import axios from "axios";
+import { API_BASE_URL, API_ROUTES } from "@/const";
 
-export default function TeacherPage() {
+export default function TeacherPage(props: any) {
+  console.log(props);
   return (
     <Layout>
       <TeacherHeader />
@@ -72,8 +76,42 @@ export default function TeacherPage() {
           <TeacherVideo />
         </div>
 
-        <div className="md:p-0 md:pb-6 sm:mb-6 container flex small-secondary text-gray3">Your final payment will be made in USD</div>
+        <div className="md:p-0 md:pb-6 sm:mb-6 container flex small-secondary text-gray3">
+          Your final payment will be made in USD
+        </div>
       </main>
     </Layout>
   );
 }
+
+export const getStaticPaths: GetStaticPaths = async (context) => {
+  return {
+    paths: [
+      {
+        params: {
+          id: "1",
+        },
+      },
+    ],
+    fallback: true,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  try {
+    const url = `${API_BASE_URL}/${API_ROUTES.teacher}/${context.params?.id}`;
+    const result = await (await axios.get(url)).data;
+    return {
+      props: result,
+      revalidate: 60
+    };
+  } catch(err){
+    console.log(err)
+    return {
+      redirect: {
+        destination: '/error',
+        permanent: false
+      }
+    }
+  }
+};

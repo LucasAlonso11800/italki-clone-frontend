@@ -21,9 +21,9 @@ export default function TeacherReviews({ reviews }: Props) {
       </div>
 
       <div className="flex flex-wrap justify-between rounded-3 overflow-hidden md:shadow-panelp-4 bg-transparent md:bg-white teacher-profile-reviews-list md:p-8 md:pb-4">
-        {reviews.map((review) => (
+        {reviews.map((review, index) => (
           <div
-            key={review.student}
+            key={index}
             className="overflow-hidden rounded-lg pb-2 relative"
             style={{ width: "calc(50% - 4px)" }}
           >

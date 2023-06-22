@@ -48,3 +48,26 @@ export const EXTERNAL_LINKS = {
   vk: "https://vk.com/italkicom",
   weibo: "https://weibo.com/italki",
 };
+
+export const API_ROUTES = {
+  auth: {
+      generate_access_token: 'auth/generate',
+      verify_access_token: 'auth/verify',
+      generate_refresh_token: 'auth/generate-refresh',
+      verify_refresh_token: 'auth/verify-refresh'
+  },
+  services: 'services',
+  signin: {
+      student: 'signin/student',
+      teacher: 'signin/teacher'
+  },
+  signup: {
+      student: 'signup/student',
+      teacher: 'signup/teacher'
+  },
+  teacher: 'teacher',
+  teachers: 'teachers'
+};
+
+
+export const API_BASE_URL = 'https://cls9taco80.execute-api.us-west-2.amazonaws.com';

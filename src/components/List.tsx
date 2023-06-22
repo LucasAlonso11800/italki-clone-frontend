@@ -38,7 +38,6 @@ export default function List(props: Props) {
             style={{
               backgroundColor: "#ff4438",
               transform: "translate(-50%)",
-              content: "",
             }}
           ></div>
           {item.name}

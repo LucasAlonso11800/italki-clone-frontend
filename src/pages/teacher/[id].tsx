@@ -84,34 +84,33 @@ export default function TeacherPage(props: any) {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  type Item = {
+    teacher_id: number
+  }
+  const url = `${API_BASE_URL}/${API_ROUTES.teacher.ids}`;
+  const {result} = await (await axios.get(url)).data;
   return {
-    paths: [
-      {
-        params: {
-          id: "1",
-        },
-      },
-    ],
+    paths: result.map((item: Item) => ({ params: { id: item.teacher_id.toString() } })),
     fallback: true,
   };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const url = `${API_BASE_URL}/${API_ROUTES.teacher}/${context.params?.id}`;
-    const result = await (await axios.get(url)).data;
+    const url = `${API_BASE_URL}/${API_ROUTES.teacher.info}/${context.params?.id}`;
+    const {result} = await (await axios.get(url)).data;
     return {
-      props: result,
-      revalidate: 60
+      props: result[0],
+      revalidate: 60,
     };
-  } catch(err){
-    console.log(err)
+  } catch (err) {
+    console.log(err);
     return {
       redirect: {
-        destination: '/error',
-        permanent: false
-      }
-    }
+        destination: "/error",
+        permanent: false,
+      },
+    };
   }
 };

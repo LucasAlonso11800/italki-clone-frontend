@@ -1,16 +1,13 @@
-import { SVG } from "@/assets";
-import { Avatar, Button } from "antd";
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
+import { SVG } from "@/assets";
+import { ReviewType } from "@/types";
+import { Avatar } from "antd";
+import moment from "moment";
+import { DATE_FORMAT } from "@/const";
 
 type Props = {
-  reviews: {
-    student: string;
-    number: number;
-    date: string;
-    review: string;
-    teacherPick: boolean;
-  }[];
+  reviews: ReviewType[]
 };
 
 export default function TeacherReviews({ reviews }: Props) {
@@ -36,25 +33,25 @@ export default function TeacherReviews({ reviews }: Props) {
                     style={{ width: 40, height: 40, marginRight: '8px' }}
                   />
                   <section>
-                    <div className="tiny-caption">{review.student}</div>
+                    <div className="tiny-caption">{review.student_first_name} {review.student_last_name}</div>
                     <div className="tiny-caption text-gray3">
-                      {review.number} Spanish lessons
+                      {review.student_total_lessons} Spanish {review.student_total_lessons === 1 ? 'lesson' : 'lessons'}
                     </div>
                   </section>
                 </section>
               </div>
 
-              {review.teacherPick && (
+              {review.teacher_review_is_pick === "Y" && (
                 <div className="absolute top-0 right-0 bg-info rounded-bl-lg text-white tiny-caption px-3 py-1">
                   Teacher’s pick
                 </div>
               )}
 
               <div className="regular-body relative break-words whitespace-pre-wrap overflow-hidden tiny-caption text-gray2 break-words">
-                {review.review}
+                {review.teacher_review_text}
               </div>
               <div className="text-tiny text-secondary3 mt-2">
-                {review.date}
+                {moment(review.teacher_review_date).format(DATE_FORMAT)}
               </div>
             </div>
           </div>

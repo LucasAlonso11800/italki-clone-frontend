@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
-export default function TeacherIntroMAT() {
+type Props = {
+  text: string
+}
+export default function TeacherIntroMAT({text}: Props) {
   const [open, setOpen] = useState<boolean>(false);
   const handleClick = () => setOpen(!open);
 

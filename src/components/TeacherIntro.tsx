@@ -7,8 +7,24 @@ import {
   List,
 } from ".";
 import { Avatar } from "antd";
+import { GenderType, YesOrNoType } from "@/types";
 
-export default function TeacherIntro() {
+type Props = {
+  country_name: string;
+  teacher_birthdate: string;
+  teacher_description: string;
+  teacher_about_me: string;
+  teacher_me_as_a_teacher: string;
+  teacher_teaching_style: string;
+  teacher_first_name: string;
+  teacher_gender: GenderType;
+  teacher_image: string | null;
+  teacher_last_name: string;
+  teacher_professional: YesOrNoType;
+  teacher_startdate: string;
+  teacher_video: string | null;
+};
+export default function TeacherIntro(props: Props) {
   const ITEMS = [
     { name: "About Me" },
     { name: "Me as a Teacher" },
@@ -19,16 +35,19 @@ export default function TeacherIntro() {
   const section = useMemo(() => {
     switch (selected) {
       case ITEMS[0].name:
-        return <TeacherIntroAboutMe />;
+        return <TeacherIntroAboutMe text={props.teacher_about_me} startdate={props.teacher_startdate} country={props.country_name}/>;
       case ITEMS[1].name:
-        return <TeacherIntroMAT />;
+        return <TeacherIntroMAT text={props.teacher_me_as_a_teacher}/>;
       default:
-        return <TeacherIntroTeachingStyle />;
-    };
+        return <TeacherIntroTeachingStyle text={props.teacher_teaching_style}/>;
+    }
   }, [selected]);
 
   return (
-    <section id="about-me" className="relative mt-0 md:mt-6 p-4 md:p-8 rounded-3 bg-white overflow-hidden md:shadow-panel min-[200px]">
+    <section
+      id="about-me"
+      className="relative mt-0 md:mt-6 p-4 md:p-8 rounded-3 bg-white overflow-hidden md:shadow-panel min-[200px]"
+    >
       {/* Intro */}
       <div className="mb-4 md:mb-0 flex flex-row">
         <div className="md:w-20 mr-4 md:mr-6 flex-none">
@@ -59,7 +78,7 @@ export default function TeacherIntro() {
         </div>
         <div className="flex-1 flex flex-col justify-center">
           <div className="flex flex-row items-start pr-[120xp]">
-            <h1 className="break-words h4">Brandon Cerón</h1>
+            <h1 className="break-words h4">{props.teacher_first_name} {props.teacher_last_name}</h1>
             <div className="flex justify-start items-center h-8">
               <div className="w-6 h-6 flex justify-center items-center ml-2">
                 <img
@@ -75,7 +94,7 @@ export default function TeacherIntro() {
             </div>
           </div>
           <div className="md:mb-4 flex flex-row items-center tiny-caption text-gray3 uppercase">
-            Community Tutor
+            {props.teacher_professional === 'Y' ? 'Community Tutor' : 'Professional Teacher'}
           </div>
           <div className="hidden md:flex flex-col">
             <div className="mb-4 md:flex">
@@ -113,8 +132,7 @@ export default function TeacherIntro() {
             </div>
             <div className="mt-3">
               <span className="font-medium text-gray2 text-sm break-words">
-                Bilingual, positive, fun, patient, knowledgeable, good internet
-                connection. Let's have fun!
+                {props.teacher_description}
               </span>
             </div>
           </div>
@@ -128,7 +146,7 @@ export default function TeacherIntro() {
       <List
         items={ITEMS}
         classes="justify-start md:mt-6"
-        childClasses="py-3.5 px-2" 
+        childClasses="py-3.5 px-2"
         selected={selected}
         setSelected={setSelected}
       />

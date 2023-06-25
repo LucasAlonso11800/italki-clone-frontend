@@ -1,6 +1,13 @@
+import { DATE_FORMAT } from "@/const";
 import React, { useState } from "react";
+import moment from 'moment';
 
-export default function TeacherIntroAboutMe() {
+type Props = {
+  text: string;
+  startdate: string;
+  country: string
+}
+export default function TeacherIntroAboutMe({startdate, text, country}: Props) {
   const [open, setOpen] = useState<boolean>(false);
   const handleClick = () => setOpen(!open);
 
@@ -10,7 +17,7 @@ export default function TeacherIntroAboutMe() {
         className={`relative md:mt-6 ${open ? "max-h-auto" : "max-h-[250px]"}`}
       >
         <div className="flex flex-col tiny-caption text-gray2">
-          <span>From Mexico</span>
+          <span>From {country}</span>
           <span>
             Living in Mexico City, Mexico &nbsp;
             <span className="tiny-caption text-gray2">(07:54, UTC 06:00)</span>
@@ -20,21 +27,14 @@ export default function TeacherIntroAboutMe() {
           <div className="h6 text-gray1 flex flex-col md:flex-row justify-between md:items-center">
             <div>About Me</div>
             <span className="mt-2 md:mt-0 tiny-caption text-gray3">
-              italki teacher since Jul 28, 2021
+              italki teacher since {moment(startdate).format(DATE_FORMAT)}
             </span>
           </div>
           <span className="block mt-3 small-secondary text-gray2 break-words whitespace-pre-wrap">
-            Hola! Soy Brandon, vivo en la Ciudad de México y estoy muy
-            emocionado de estar aquí en Italki para ayudarte a lograr tus metas
-            aprendiendo el idioma español. Amo aprender todo lo que puedo sobre
-            el mundo en el que vivimos, la gente en el y compartir el
-            conocimiento.
+            {text}
             <br />
             <br />
-            Hi! My name is Brandon, I live in Mexico City and I'm so excited to
-            be here in Italki to help you achieve your goals by learning the
-            spanish language. I love learning all I can about the world we live
-            in and the people in it and sharing acknowledge.
+            Same in english
           </span>
         </div>
       </div>

@@ -37,7 +37,10 @@ module.exports = {
       },
       zIndex: {
         100: 100
-      }
+      },
+      borderColor: {
+        gray3: "#9c9cac",
+      },
     },
   },
   plugins: [],

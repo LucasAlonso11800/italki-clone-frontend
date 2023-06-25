@@ -1,12 +1,9 @@
+import { LessonPostType } from "@/types";
 import React from "react";
 
 type Props = {
   language: string;
-  lessons: {
-    name: string;
-    number: number;
-    price: number;
-  }[];
+  lessons: LessonPostType[]
 };
 
 export default function TeacherLessons({ lessons, language }: Props) {
@@ -22,10 +19,14 @@ export default function TeacherLessons({ lessons, language }: Props) {
               <div className="flex cursor-pointer flex-col md:flex-row items-start md:items-center">
                 <div className="flex-1 mb-4 md:mb-0 mr-0 md:mr-4">
                   <div className="mb-2 font-bold text-base leading-6 text-gray1">
-                    {lesson.name}
+                    {lesson.lesson_post_title}
                   </div>
-                  <div className="speech-italic text-gray3 flex justify-start items-center w-full flex-wrap">
-                    {lesson.number} {lesson.number > 1 ? "lessons" : "lesson"}{" "}
+                  <div className="italic text-gray3 flex justify-start items-center w-full flex-wrap">
+                    {lesson.language_level_code_from} - {lesson.language_level_code_to} 
+                    <p className="mx-2 border-l bg-gray3 h-2 w-[1px]"></p>
+                    {lesson.lesson_post_description}
+                    <p className="mx-2 border-l bg-gray3 h-2 w-[1px]"></p>
+                    {lesson.total_lessons} {lesson.total_lessons > 1 ? "lessons" : "lesson"}{" "}
                     completed
                   </div>
                 </div>
@@ -34,7 +35,7 @@ export default function TeacherLessons({ lessons, language }: Props) {
                     className="px-4 py-1 text-base leading-6 font-bold text-red2 rounded-full"
                     style={{ background: "#FFF2F1" }}
                   >
-                    USD {lesson.price.toFixed(2)}
+                    USD {parseFloat(lesson.lesson_post_price).toFixed(2)}
                   </div>
                 </div>
               </div>

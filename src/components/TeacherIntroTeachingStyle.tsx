@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-export default function TeacherIntroTeachingStyle() {
+type Props = {
+  text: string
+};
+
+export default function TeacherIntroTeachingStyle({text}: Props) {
   const [open, setOpen] = useState<boolean>(false);
   const handleClick = () => setOpen(!open);
 
@@ -10,17 +14,7 @@ export default function TeacherIntroTeachingStyle() {
           <div className="mb-4">
             <div className="h6 text-gray1">My lessons &amp; teaching style</div>
             <span className="block mt-3 small-secondary text-gray2 break-words whitespace-pre-wrap">
-              Las clases serán con conversaciones informales, no debes sentirte
-              intimidado o nervioso! No importa tu edad o nivel de Español, pues
-              también puedo hablar Ingles. Ya sea que hablemos sobre tu día a
-              día, comidas, cultura, tradiciones, religión, política,
-              naturaleza, etc... tengo una amplia gama de intereses, ¡podemos
-              hablar de cualquier cosa! The classes will be with informal
-              conversations, you should not feel intimidated or nervous! It
-              doesn´t matter your age or level of Spanish as I can speak English
-              too. Whether we talk about your day to day, food, culture,
-              traditions, religion, politics, nature, etc... I have a wide range
-              of interests, so we can talk about anything!
+              {text}
             </span>
           </div>
           <div className="mb-4">

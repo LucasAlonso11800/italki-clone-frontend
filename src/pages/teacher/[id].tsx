@@ -11,9 +11,33 @@ import {
 import { GetStaticPaths, GetStaticProps } from "next";
 import axios from "axios";
 import { API_BASE_URL, API_ROUTES } from "@/const";
+import { GenderType, LessonPostType, ReviewType, YesOrNoType } from "@/types";
 
-export default function TeacherPage(props: any) {
-  console.log(props);
+type Props = {
+  average_rating: string;
+  country_id: number;
+  country_name: string;
+  teacher_birthdate: string;
+  teacher_description: string;
+  teacher_email: string;
+  teacher_about_me: string;
+  teacher_me_as_a_teacher: string;
+  teacher_teaching_style: string;
+  teacher_first_name: string;
+  teacher_gender: GenderType;
+  teacher_id: number;
+  teacher_image: string | null;
+  teacher_last_name: string;
+  teacher_lessons: LessonPostType[];
+  teacher_professional: YesOrNoType;
+  teacher_reviews: ReviewType[];
+  teacher_startdate: string;
+  teacher_video: string | null;
+  total_lessons: number;
+  total_students: number;
+};
+export default function TeacherPage(props: Props) {
+  console.log(props)
   return (
     <Layout>
       <TeacherHeader />
@@ -22,53 +46,19 @@ export default function TeacherPage(props: any) {
         <div className="p-4 md:p-0 container flex">
           <div className="w-full md:w-7/12 lg:w-8/12">
             <div className="pb-4 md:pb-6">
-              <TeacherIntro />
+              <TeacherIntro {...props}/>
               <TeacherStats
-                attendance={100}
-                lessons={100}
-                students={753}
-                rating={5.0}
-                response={100}
+                lessons={props.total_lessons}
+                students={props.total_students}
+                rating={props.average_rating}
               />
               <TeacherLessons
                 language="Spanish"
-                lessons={[
-                  { name: "Trial Lesson", number: 133, price: 5 },
-                  {
-                    name: "Informal conversation Lesson",
-                    number: 133,
-                    price: 6,
-                  },
-                ]}
+                lessons={props.teacher_lessons}
               />
               {/* Availability */}
               <TeacherReviews
-                reviews={[
-                  {
-                    student: "Alex Kopen",
-                    date: "1 April, 2022",
-                    number: 100,
-                    review:
-                      "Brandon is one of the most down-to-earth person I have ever met!.I've been taking classes with him 4 days a week for some time now, and can say we've had many amazing conversations. If you're looking for a passionate teacher, Brandon is your guy!",
-                    teacherPick: true,
-                  },
-                  {
-                    student: "Someone else",
-                    date: "12 August, 2021",
-                    number: 120,
-                    review:
-                      "Brandon is one of the most down-to-earth person I have ever met!.I've been taking classes with him 4 days a week for some time now, and can say we've had many amazing conversations. If you're looking for a passionate teacher, Brandon is your guy!",
-                    teacherPick: false,
-                  },
-                  {
-                    student: "Someone else",
-                    date: "12 August, 2021",
-                    number: 120,
-                    review:
-                      "Brandon is one of the most down-to-earth person I have ever met!.I've been taking classes with him 4 days a week for some time now, and can say we've had many amazing conversations. If you're looking for a passionate teacher, Brandon is your guy!",
-                    teacherPick: false,
-                  },
-                ]}
+                reviews={props.teacher_reviews}
               />
             </div>
           </div>
@@ -86,12 +76,14 @@ export default function TeacherPage(props: any) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   type Item = {
-    teacher_id: number
-  }
+    teacher_id: number;
+  };
   const url = `${API_BASE_URL}/${API_ROUTES.teacher.ids}`;
-  const {result} = await (await axios.get(url)).data;
+  const { result } = await (await axios.get(url)).data;
   return {
-    paths: result.map((item: Item) => ({ params: { id: item.teacher_id.toString() } })),
+    paths: result.map((item: Item) => ({
+      params: { id: item.teacher_id.toString() },
+    })),
     fallback: true,
   };
 };
@@ -99,7 +91,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
     const url = `${API_BASE_URL}/${API_ROUTES.teacher.info}/${context.params?.id}`;
-    const {result} = await (await axios.get(url)).data;
+    const { result } = await (await axios.get(url)).data;
     return {
       props: result[0],
       revalidate: 60,

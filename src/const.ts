@@ -74,3 +74,4 @@ export const API_ROUTES = {
 
 
 export const API_BASE_URL = 'https://cls9taco80.execute-api.us-west-2.amazonaws.com';
+export const DATE_FORMAT = 'MMM, DD, YYYY'

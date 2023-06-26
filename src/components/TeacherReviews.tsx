@@ -1,23 +1,54 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { SVG } from "@/assets";
 import { ReviewType } from "@/types";
-import { Avatar } from "antd";
+import { Avatar, Spin } from "antd";
 import moment from "moment";
-import { DATE_FORMAT } from "@/const";
+import { API_BASE_URL, API_ROUTES, DATE_FORMAT } from "@/const";
+import axios from "axios";
 
 type Props = {
-  reviews: ReviewType[]
+  reviews: ReviewType[];
+  totalReviews: number;
 };
 
-export default function TeacherReviews({ reviews }: Props) {
+export default function TeacherReviews(props: Props) {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [reviews, setReviews] = useState<ReviewType[]>(props.reviews);
+  const page = useRef<number>(0);
+
+  const fetchReviews = async () => {
+    try {
+      setLoading(true);
+      const url = `${API_BASE_URL}/${API_ROUTES.services}`;
+      page.current++;
+
+      const response = await (
+        await axios.post(url, {
+          procedure: "TeacherReviewGet",
+          params: {
+            teacher_id: props.reviews.at(0)?.teacher_id.toString(),
+            page: page.current,
+          },
+        })
+      ).data;
+      setReviews((reviews) => [...reviews, ...response.result]);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section id="reviews" className="mt-6">
       <div className="mb-4 flex flex-col md:flex-row md:justify-between md:items-center h5 text-gray1">
-        <h2 className="mb-4 md:mb-0 h5 text-gray1">108 Reviews</h2>
+        <h2 className="mb-4 md:mb-0 h5 text-gray1">
+          {props.totalReviews} Reviews
+        </h2>
       </div>
 
-      <div className="flex flex-wrap justify-between rounded-3 overflow-hidden md:shadow-panelp-4 bg-transparent md:bg-white teacher-profile-reviews-list md:p-8 md:pb-4">
+      <div className="flex flex-wrap items-center justify-between rounded-3 overflow-hidden md:shadow-panelp-4 bg-transparent md:bg-white teacher-profile-reviews-list md:p-8 md:pb-4">
         {reviews.map((review, index) => (
           <div
             key={index}
@@ -26,19 +57,24 @@ export default function TeacherReviews({ reviews }: Props) {
           >
             <div className="p-4 pb-2 bg-gray6">
               <div className="flex justify-between items-end mb-2">
-                <section className="flex items-center">
+                <div className="flex items-center">
                   <Avatar
                     src="https://imagesavatar-static01.italki.com/1T095076430_Avatar.jpg"
                     alt="teacher"
-                    style={{ width: 40, height: 40, marginRight: '8px' }}
+                    style={{ width: 40, height: 40, marginRight: "8px" }}
                   />
-                  <section>
-                    <div className="tiny-caption">{review.student_first_name} {review.student_last_name}</div>
-                    <div className="tiny-caption text-gray3">
-                      {review.student_total_lessons} Spanish {review.student_total_lessons === 1 ? 'lesson' : 'lessons'}
+                  <div>
+                    <div className="tiny-caption">
+                      {review.student_first_name} {review.student_last_name}
                     </div>
-                  </section>
-                </section>
+                    <div className="tiny-caption text-gray3">
+                      {review.student_total_lessons} Spanish{" "}
+                      {review.student_total_lessons === 1
+                        ? "lesson"
+                        : "lessons"}
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {review.teacher_review_is_pick === "Y" && (
@@ -57,12 +93,18 @@ export default function TeacherReviews({ reviews }: Props) {
           </div>
         ))}
 
-        <button className="mt-4 w-full flex justify-center items-center cursor-pointer px-4 py-2.5">
-          <span className="font-bold text-gray2 text-sm tracking-wider">
-            Show more
-          </span>
-          <Image src={SVG.ArrowDown} alt="down" />
-        </button>
+        {loading && <Spin size="large" style={{ margin: "auto", marginTop: '16px' }} />}
+        {reviews.length < props.totalReviews && (
+          <button
+            className="mt-4 w-full flex justify-center items-center cursor-pointer px-4 py-2.5"
+            onClick={fetchReviews}
+          >
+            <span className="font-bold text-gray2 text-sm tracking-wider">
+              Show more
+            </span>
+            <Image src={SVG.ArrowDown} alt="down" />
+          </button>
+        )}
       </div>
     </section>
   );

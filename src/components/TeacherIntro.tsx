@@ -5,9 +5,10 @@ import {
   TeacherIntroAboutMe,
   TeacherIntroTeachingStyle,
   List,
+  LanguageLevel,
 } from ".";
 import { Avatar } from "antd";
-import { GenderType, YesOrNoType } from "@/types";
+import { GenderType, LanguageType, YesOrNoType } from "@/types";
 
 type Props = {
   country_name: string;
@@ -23,7 +24,11 @@ type Props = {
   teacher_professional: YesOrNoType;
   teacher_startdate: string;
   teacher_video: string | null;
+  teacher_living_in: string;
+  teacher_languages: LanguageType[];
+  country_image: string
 };
+
 export default function TeacherIntro(props: Props) {
   const ITEMS = [
     { name: "About Me" },
@@ -35,11 +40,20 @@ export default function TeacherIntro(props: Props) {
   const section = useMemo(() => {
     switch (selected) {
       case ITEMS[0].name:
-        return <TeacherIntroAboutMe text={props.teacher_about_me} startdate={props.teacher_startdate} country={props.country_name}/>;
+        return (
+          <TeacherIntroAboutMe
+            text={props.teacher_about_me}
+            startdate={props.teacher_startdate}
+            country={props.country_name}
+            livingIn={props.teacher_living_in}
+          />
+        );
       case ITEMS[1].name:
-        return <TeacherIntroMAT text={props.teacher_me_as_a_teacher}/>;
+        return <TeacherIntroMAT text={props.teacher_me_as_a_teacher} />;
       default:
-        return <TeacherIntroTeachingStyle text={props.teacher_teaching_style}/>;
+        return (
+          <TeacherIntroTeachingStyle text={props.teacher_teaching_style} />
+        );
     }
   }, [selected]);
 
@@ -56,7 +70,7 @@ export default function TeacherIntro(props: Props) {
             style={{ border: "2px solid white" }}
           >
             <Avatar
-              src="https://imagesavatar-static01.italki.com/1T095076430_Avatar.jpg"
+              src={props.teacher_image || "https://imagesavatar-static01.italki.com/1T095076430_Avatar.jpg"}
               alt="teacher"
               style={{ width: 76, height: 76 }}
             />
@@ -66,7 +80,7 @@ export default function TeacherIntro(props: Props) {
                 backgroundPosition: "50% center",
                 borderRadius: "50%",
                 border: "2px solid white",
-                backgroundImage: `url("https://scdn.italki.com/orion/static/flags/mx.svg")`,
+                backgroundImage: `url(${props.country_image}.svg)`,
               }}
             ></i>
           </span>
@@ -78,7 +92,9 @@ export default function TeacherIntro(props: Props) {
         </div>
         <div className="flex-1 flex flex-col justify-center">
           <div className="flex flex-row items-start pr-[120xp]">
-            <h1 className="break-words h4">{props.teacher_first_name} {props.teacher_last_name}</h1>
+            <h1 className="break-words h4">
+              {props.teacher_first_name} {props.teacher_last_name}
+            </h1>
             <div className="flex justify-start items-center h-8">
               <div className="w-6 h-6 flex justify-center items-center ml-2">
                 <img
@@ -94,41 +110,50 @@ export default function TeacherIntro(props: Props) {
             </div>
           </div>
           <div className="md:mb-4 flex flex-row items-center tiny-caption text-gray3 uppercase">
-            {props.teacher_professional === 'Y' ? 'Community Tutor' : 'Professional Teacher'}
+            {props.teacher_professional === "Y"
+              ? "Community Tutor"
+              : "Professional Teacher"}
           </div>
           <div className="hidden md:flex flex-col">
             <div className="mb-4 md:flex">
               <div className="tiny-caption text-gray3 whitespace-nowrap md:mr-2 md:leading-5dot5 min-w-[56px]">
                 Teaches
               </div>
-              <div className="flex regular-body flex-wrap space-y-1 md:space-y-0">
-                <div className="flex mr-2 items-center">
-                  <span className="small-secondary text-gray1">Spanish</span>
-                  <div className="h-5 px-2 rounded-3 flex justify-center items-center self-center tiny-caption text-info bg-bgInfo ml-1">
-                    Native
+              {props.teacher_languages
+                .filter((lang) => lang.teacher_teaches === "Y")
+                .map((lang) => (
+                  <div className="flex regular-body flex-wrap space-y-1 md:space-y-0" key={lang.language_id}>
+                    <div className="flex mr-2 items-center">
+                      <span className="small-secondary text-gray1">
+                        {lang.language_name}
+                      </span>
+                      {lang.language_level_code === "N" ? (
+                        <div className="h-5 px-2 rounded-3 flex justify-center items-center self-center tiny-caption text-info bg-bgInfo ml-1">
+                          {lang.language_level_name}
+                        </div>
+                      ) : (
+                        <LanguageLevel code={lang.language_level_code} name={lang.language_level_name}/>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </div>
+                ))}
             </div>
             <div className="md:flex">
               <div className="tiny-caption text-gray3 whitespace-nowrap md:mr-2 md:leading-5dot5 min-w-[56px]">
                 Speaks
               </div>
-              <div className="flex regular-body flex-wrap space-y-1 md:space-y-0">
-                <div className="flex mr-2 items-center">
-                  <span className="small-secondary text-gray1">English</span>
-                  <div className="self-center ml-1 h-[8px]">
-                    <div className="flex flex-row items-center h-[8px]">
-                      <span className="rounded-1 bg-success h-[8px] w-[2px] ml-0"></span>
-                      <span className="rounded-1 bg-success h-[8px] w-[2px] ml-[2px]"></span>
-                      <span className="rounded-1 bg-success h-[8px] w-[2px] ml-[2px]"></span>
-                      <span className="rounded-1 bg-success h-[8px] w-[2px] ml-[2px]"></span>
-                      <span className="rounded-1 bg-success h-[8px] w-[2px] ml-[2px]"></span>
-                      <span className="rounded-1 bg-gray5 h-[8px] w-[2px] ml-[2px]"></span>
+              {props.teacher_languages
+                .filter((lang) => lang.teacher_teaches === "N")
+                .map((lang) => (
+                  <div className="flex regular-body flex-wrap space-y-1 md:space-y-0" key={lang.language_id}>
+                    <div className="flex mr-2 items-center">
+                      <span className="small-secondary text-gray1">
+                        {lang.language_name}
+                      </span>
+                      <LanguageLevel code={lang.language_level_code} name={lang.language_level_name}/>
                     </div>
                   </div>
-                </div>
-              </div>
+                ))}
             </div>
             <div className="mt-3">
               <span className="font-medium text-gray2 text-sm break-words">

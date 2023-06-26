@@ -1,13 +1,19 @@
 import { DATE_FORMAT } from "@/const";
 import React, { useState } from "react";
-import moment from 'moment';
+import moment from "moment";
 
 type Props = {
   text: string;
   startdate: string;
-  country: string
-}
-export default function TeacherIntroAboutMe({startdate, text, country}: Props) {
+  country: string;
+  livingIn: string;
+};
+export default function TeacherIntroAboutMe({
+  startdate,
+  text,
+  country,
+  livingIn,
+}: Props) {
   const [open, setOpen] = useState<boolean>(false);
   const handleClick = () => setOpen(!open);
 
@@ -18,10 +24,7 @@ export default function TeacherIntroAboutMe({startdate, text, country}: Props) {
       >
         <div className="flex flex-col tiny-caption text-gray2">
           <span>From {country}</span>
-          <span>
-            Living in Mexico City, Mexico &nbsp;
-            <span className="tiny-caption text-gray2">(07:54, UTC 06:00)</span>
-          </span>
+          <span>{livingIn}</span>
         </div>
         <div className="mt-4">
           <div className="h6 text-gray1 flex flex-col md:flex-row justify-between md:items-center">

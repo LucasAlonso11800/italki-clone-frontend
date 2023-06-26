@@ -11,7 +11,13 @@ import {
 import { GetStaticPaths, GetStaticProps } from "next";
 import axios from "axios";
 import { API_BASE_URL, API_ROUTES } from "@/const";
-import { GenderType, LessonPostType, ReviewType, YesOrNoType } from "@/types";
+import {
+  GenderType,
+  LanguageType,
+  LessonPostType,
+  ReviewType,
+  YesOrNoType,
+} from "@/types";
 
 type Props = {
   average_rating: string;
@@ -35,9 +41,14 @@ type Props = {
   teacher_video: string | null;
   total_lessons: number;
   total_students: number;
+  teacher_living_in: string;
+  teacher_languages: LanguageType[];
+  country_image: string;
+  total_reviews: number;
 };
+
 export default function TeacherPage(props: Props) {
-  console.log(props)
+  console.log(props);
   return (
     <Layout>
       <TeacherHeader />
@@ -46,7 +57,7 @@ export default function TeacherPage(props: Props) {
         <div className="p-4 md:p-0 container flex">
           <div className="w-full md:w-7/12 lg:w-8/12">
             <div className="pb-4 md:pb-6">
-              <TeacherIntro {...props}/>
+              <TeacherIntro {...props} />
               <TeacherStats
                 lessons={props.total_lessons}
                 students={props.total_students}
@@ -59,6 +70,7 @@ export default function TeacherPage(props: Props) {
               {/* Availability */}
               <TeacherReviews
                 reviews={props.teacher_reviews}
+                totalReviews={props.total_reviews}
               />
             </div>
           </div>
@@ -78,8 +90,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
   type Item = {
     teacher_id: number;
   };
-  const url = `${API_BASE_URL}/${API_ROUTES.teacher.ids}`;
-  const { result } = await (await axios.get(url)).data;
+  const url = `${API_BASE_URL}/${API_ROUTES.services}`;
+  const { result } = await (
+    await axios.post(url, {
+      procedure: "TeacherIdsGet",
+      params: {},
+    })
+  ).data;
   return {
     paths: result.map((item: Item) => ({
       params: { id: item.teacher_id.toString() },

@@ -1,4 +1,4 @@
-export type LanguageLevelCodeType = "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
+export type LanguageLevelCodeType = "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | "N";
 export type YesOrNoType = "Y" | "N";
 export type GenderType = "M" | "F" | "X";
 export type ReviewType = {
@@ -28,4 +28,15 @@ export type LessonPostType = {
   lesson_post_title: string;
   teacher_id: number;
   total_lessons: number;
+};
+
+export type LanguageType = {
+  language_id: number;
+  language_level_code: LanguageLevelCodeType;
+  language_level_id: number;
+  language_level_name: string;
+  language_name: string;
+  teacher_id: number;
+  teacher_language_id: number;
+  teacher_teaches: YesOrNoType;
 };

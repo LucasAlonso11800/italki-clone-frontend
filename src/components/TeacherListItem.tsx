@@ -1,7 +1,7 @@
 import { SVG } from "@/assets";
 import { Avatar } from "antd";
 import Image from "next/image";
-import React from "react";
+import React, { useMemo } from "react";
 import { TeacherFavButton } from ".";
 import Link from "next/link";
 import { TeacherListItemType } from "@/types";
@@ -10,6 +10,22 @@ type Props = {
   teacher: TeacherListItemType;
 };
 export default function TeacherListItem({ teacher }: Props) {
+  const nativeLanguage = useMemo(
+    () =>
+      teacher.teacher_languages.find(
+        (lang) => lang.language_level_code === "N"
+      ),
+    []
+  );
+
+  const otherLanguages = useMemo(
+    () =>
+      teacher.teacher_languages.filter(
+        (lang) => lang.language_level_code !== "N"
+      ),
+    []
+  );
+
   return (
     <Link href="/en/teacher/7487723/english" target="_blank">
       <section
@@ -39,7 +55,8 @@ export default function TeacherListItem({ teacher }: Props) {
                       borderRadius: "50%",
                       border: "2px solid white",
                       backgroundImage: `url(${
-                        teacher.country_image || "https://scdn.italki.com/orion/static/flags/ar"
+                        teacher.country_image ||
+                        "https://scdn.italki.com/orion/static/flags/ar"
                       }.svg)`,
                     }}
                   ></i>
@@ -59,7 +76,10 @@ export default function TeacherListItem({ teacher }: Props) {
                         {parseFloat(teacher.average_rating).toFixed(2)}
                       </div>
                     </div>
-                    <p className="font-light text-tiny">{teacher.total_lessons} {teacher.total_lessons === 1 ? 'Lesson' : 'Lessons'}</p>
+                    <p className="font-light text-tiny">
+                      {teacher.total_lessons}{" "}
+                      {teacher.total_lessons === 1 ? "Lesson" : "Lessons"}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -86,7 +106,9 @@ export default function TeacherListItem({ teacher }: Props) {
               </div>
               <div className="mb-2">
                 <span className=" font-medium text-sm  text-gray3 align-middle ">
-                  {teacher.teacher_professional === 'Y' ? 'Professional Teacher' : 'Community Tutor'}
+                  {teacher.teacher_professional === "Y"
+                    ? "Professional Teacher"
+                    : "Community Tutor"}
                 </span>
               </div>
               <div className="flex items-center flex-wrap">
@@ -96,22 +118,23 @@ export default function TeacherListItem({ teacher }: Props) {
                       SPEAKS:
                     </span>
                     <span className=" text-base font-medium text-gray2 ml-1">
-                      English
+                      {nativeLanguage?.language_name.toUpperCase()}
                     </span>
-                    <div
-                      className="ml-1 text-tiny text-info text-center px-[2px] py-1.5 rounded-full min-w-[50px]"
-                      style={{ backgroundColor: "#E6F7F8" }}
-                    >
+                    <div className="h-5 px-2 rounded-3 flex justify-center items-center self-center tiny-caption text-info bg-bgInfo ml-1">
                       Native
                     </div>
                   </div>
+                  {otherLanguages.length &&
                   <p className=" text-base font-medium text-gray2  truncate-1 overflow-hidden">
-                    <span className="mr-1.5">Hindi</span>
-                    <span className="mr-1.5">Telugu</span>
-                  </p>
+                  {otherLanguages.slice(0,3).map(lang => (
+                      <span className="mr-1.5">{lang.language_name}</span>
+                  ))} 
+                  </p>}
+                  {otherLanguages.length > 3 &&
                   <span className=" text-tiny font-medium text-gray2   rounded-full leading-none bg-gray6 px-1 py-2.5">
-                    +1
+                    +{otherLanguages.length - 4}
                   </span>
+                  }
                 </div>
               </div>
               <div

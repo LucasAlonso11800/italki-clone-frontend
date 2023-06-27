@@ -55,4 +55,5 @@ export type TeacherListItemType = {
     teacher_me_as_a_teacher: string
     trial_lesson_price: number
     total_lessons: number
+    teacher_languages: LanguageType[]
 }

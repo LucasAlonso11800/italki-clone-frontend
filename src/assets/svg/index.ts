@@ -14,6 +14,7 @@ export { default as Options } from './options.svg';
 export { default as Share } from './share.svg';
 export { default as Speaker } from './speaker.svg'
 export { default as Star } from "./star.svg";
+export { default as TeacherPageBannerLogo } from "./teacher-page-banner-logo.svg";
 export { default as VerifyIcon } from "./verify-icon.svg";
 export { default as Twitter } from "./twitter.svg";
 export { default as VideoPlay } from "./video-play.svg";

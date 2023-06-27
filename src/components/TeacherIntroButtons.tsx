@@ -1,6 +1,7 @@
 import { SVG } from "@/assets";
 import Image from "next/image";
 import React from "react";
+import { TeacherFavButton } from ".";
 
 export default function TeacherIntroButtons() {
   return (
@@ -9,7 +10,7 @@ export default function TeacherIntroButtons() {
         <Image src={SVG.Share} alt="share" />
       </div>
       <div className="cursor-pointer mx-4">
-        <Image src={SVG.Fav} alt="fav" />
+        <TeacherFavButton />
       </div>
       <Image src={SVG.Options} alt="options" />
     </div>

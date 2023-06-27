@@ -79,6 +79,7 @@ export default function TeacherPage(props: Props) {
                 if (lessons.length) {
                   return (
                     <TeacherLessons
+                      key={lang.language_id}
                       language={lang.language_name}
                       lessons={lessons}
                     />

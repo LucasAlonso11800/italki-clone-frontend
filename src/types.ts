@@ -42,3 +42,17 @@ export type LanguageType = {
   teacher_language_id: number;
   teacher_teaches: YesOrNoType;
 };
+
+export type TeacherListItemType = {
+    teacher_id: number
+    teacher_image: string
+    country_image: string
+    average_rating: string
+    teacher_first_name: string
+    teacher_last_name: string
+    teacher_professional: YesOrNoType
+    teacher_description: string
+    teacher_me_as_a_teacher: string
+    trial_lesson_price: number
+    total_lessons: number
+}

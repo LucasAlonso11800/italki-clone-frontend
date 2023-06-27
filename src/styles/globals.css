@@ -68,3 +68,11 @@ img {
     overflow-wrap: break-word;
     word-break: break-word;
 }
+
+.truncate-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow-wrap: break-word;
+    -webkit-line-clamp: 2;
+}

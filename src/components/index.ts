@@ -1,6 +1,7 @@
 export { default as LanguageLevel } from './LanguageLevel';
 export { default as LessonModal } from './LessonModal';
 export { default as List } from './List';
+export { default as TeacherFavButton } from './TeacherFavButton';
 export { default as TeacherHeader } from './TeacherHeader';
 export { default as TeacherIntro } from './TeacherIntro';
 export { default as TeacherIntroButtons } from './TeacherIntroButtons';

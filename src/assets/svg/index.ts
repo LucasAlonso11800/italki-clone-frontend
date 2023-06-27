@@ -12,6 +12,7 @@ export { default as Instagram } from "./instagram.svg";
 export { default as Italki } from './italki.svg';
 export { default as Options } from './options.svg';
 export { default as Share } from './share.svg';
+export { default as Speaker } from './speaker.svg'
 export { default as Star } from "./star.svg";
 export { default as Twitter } from "./twitter.svg";
 export { default as VideoPlay } from "./video-play.svg";

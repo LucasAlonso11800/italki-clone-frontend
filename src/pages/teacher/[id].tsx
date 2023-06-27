@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Layout } from "@/layout";
 import {
   TeacherStats,
@@ -49,6 +49,13 @@ type Props = {
 
 export default function TeacherPage(props: Props) {
   console.log(props);
+
+  const languagesTheyTeach = useMemo(
+    () =>
+      props.teacher_languages.filter((lang) => lang.teacher_teaches === "Y"),
+    []
+  );
+
   return (
     <Layout>
       <TeacherHeader />
@@ -63,10 +70,21 @@ export default function TeacherPage(props: Props) {
                 students={props.total_students}
                 rating={props.average_rating}
               />
-              <TeacherLessons
-                language="Spanish"
-                lessons={props.teacher_lessons}
-              />
+
+              {/* Lessons */}
+              {languagesTheyTeach.map((lang) => {
+                const lessons = props.teacher_lessons.filter(
+                  (lesson) => lesson.language_id === lang.language_id
+                );
+                if (lessons.length) {
+                  return (
+                    <TeacherLessons
+                      language={lang.language_name}
+                      lessons={lessons}
+                    />
+                  );
+                }
+              })}
               {/* Availability */}
               <TeacherReviews
                 reviews={props.teacher_reviews}

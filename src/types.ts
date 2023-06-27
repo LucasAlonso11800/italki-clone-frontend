@@ -16,6 +16,7 @@ export type ReviewType = {
 
 export type LessonPostType = {
   language_id: number;
+  language_name: string;
   language_level_id_from: number;
   language_level_id_to: number;
   language_level_name_to: string;
@@ -28,6 +29,7 @@ export type LessonPostType = {
   lesson_post_title: string;
   teacher_id: number;
   total_lessons: number;
+  lesson_post_subtitle: string;
 };
 
 export type LanguageType = {

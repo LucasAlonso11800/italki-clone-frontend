@@ -9,8 +9,9 @@ import React from "react";
 type Props = {
   language: string;
   teachers: TeacherListItemType[];
+  total: number
 };
-export default function Teachers({ language, teachers }: Props) {
+export default function Teachers({ language, teachers, total }: Props) {
   return (
     <Layout>
       <main className="bg-bg1">
@@ -29,7 +30,7 @@ export default function Teachers({ language, teachers }: Props) {
                   className=" bg-gray6 rounded-1 text-tiny leading-4 text-gray3 md:ml-2 py-1 px-2 mb-1 md:mb-0"
                   data-cy="tec-count"
                 >
-                  5289 Teachers
+                  {total} Teachers
                 </div>
               </div>
               <p className="text-tiny leading-5 text-gray3 mb-0 mt-1 font-medium">
@@ -45,7 +46,7 @@ export default function Teachers({ language, teachers }: Props) {
           <div className=" relative items-start flex flex-wrap w-full ">
             <div className=" flex flex-1 flex-col  md:mb-14 md:w-8/12">
               {teachers.map((teacher) => (
-                <TeacherListItem teacher={teacher} />
+                <TeacherListItem teacher={teacher} key={teacher.teacher_id}/>
               ))}
             </div>
           </div>
@@ -70,14 +71,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const language = context.params?.language?.toString() as string;
     const url = `${API_BASE_URL}/${
       API_ROUTES.teachers
-    }/${language[0].toUpperCase()}${language.slice(1)}`;
+    }?language=${language[0].toUpperCase()}${language.slice(1)}`;
 
     const { result } = await (await axios.get(url)).data;
-
+    
     return {
       props: {
         language: language[0].toUpperCase() + language.slice(1),
-        teachers: result,
+        teachers: result[0].teachers || [],
+        total: result[0].total
       },
       revalidate: 60,
     };

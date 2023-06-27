@@ -56,7 +56,7 @@ export default function TeacherListItem({ teacher }: Props) {
                           width={16}
                           height={16}
                         />
-                        {parseInt(teacher.average_rating).toFixed(2)}
+                        {parseFloat(teacher.average_rating).toFixed(2)}
                       </div>
                     </div>
                     <p className="font-light text-tiny">{teacher.total_lessons} {teacher.total_lessons === 1 ? 'Lesson' : 'Lessons'}</p>
@@ -73,7 +73,7 @@ export default function TeacherListItem({ teacher }: Props) {
                   className="text-base text-gray2 font-bold md:max-w-xs whitespace-nowrap overflow-hidden mr-1 "
                   style={{ maxWidth: "90%", textOverflow: "ellipsis" }}
                 >
-                  Sasank
+                  {teacher.teacher_first_name} {teacher.teacher_last_name}
                 </span>
                 <div>
                   <Image

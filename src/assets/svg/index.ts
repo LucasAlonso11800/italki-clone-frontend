@@ -9,6 +9,7 @@ export { default as HeaderGroupClass } from './header-group-class.svg';
 export { default as HeaderLogin } from './header-login.svg';
 export { default as HeaderSignup } from './header-signup.svg';
 export { default as Instagram } from "./instagram.svg";
+export { default as InvisiblePassword } from './invisible-password.svg'
 export { default as Italki } from './italki.svg';
 export { default as Options } from './options.svg';
 export { default as Share } from './share.svg';
@@ -18,6 +19,7 @@ export { default as TeacherPageBannerLogo } from "./teacher-page-banner-logo.svg
 export { default as VerifyIcon } from "./verify-icon.svg";
 export { default as Twitter } from "./twitter.svg";
 export { default as VideoPlay } from "./video-play.svg";
+export { default as VisiblePassword } from './visible-password.svg'
 export { default as VK } from "./vk.svg";
 export { default as Weibo } from "./weibo.svg";
 export { default as Youtube } from "./youtube.svg";

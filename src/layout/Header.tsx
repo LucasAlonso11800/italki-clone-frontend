@@ -5,9 +5,11 @@ import Link from "next/link";
 import React from "react";
 import { HeaderSideMenu } from ".";
 
-export default function Header() {
-  // Todo
-  // Handle login and signup
+type Props = {
+  setModal: React.Dispatch<React.SetStateAction<"login" | "signup" | null>>;
+};
+
+export default function Header({ setModal }: Props) {
   return (
     <header className="bg-white border-b-gray">
       <div className="h-18 flex flex-row items-center px-4 py-4 md:px-10">
@@ -39,10 +41,16 @@ export default function Header() {
               Community
             </div>
           </Link>
-          <div className="hidden p-2 mr-4 md:inline-block small-secondary cursor-pointer hover:text-gray2 text-gray3">
+          <div
+            className="hidden p-2 mr-4 md:inline-block small-secondary cursor-pointer hover:text-gray2 text-gray3"
+            onClick={() => setModal("login")}
+          >
             Login
           </div>
-          <div className="hidden p-2 md:inline-block small-secondary cursor-pointer hover:text-gray2 text-gray3">
+          <div
+            className="hidden p-2 md:inline-block small-secondary cursor-pointer hover:text-gray2 text-gray3"
+            onClick={() => setModal("signup")}
+          >
             Sign Up
           </div>
 

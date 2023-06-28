@@ -27,7 +27,7 @@ export default function TeacherListItem({ teacher }: Props) {
   );
 
   return (
-    <Link href="/en/teacher/7487723/english" target="_blank">
+    <Link href={`/teacher/${teacher.teacher_id}`} target="_blank">
       <section
         id="teacher-card-first"
         className="teacher-card relative hover:shadow-hover bg-white mb-5 transition-all duration-200 ease-in rounded-3 w-full p-4 cursor-pointer md:p-6"

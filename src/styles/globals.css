@@ -43,6 +43,9 @@ img {
     font-size: 16px;
     line-height: 24px;
 }
+.regular-body {
+    font-weight: 500;
+}
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     color: #313140;
     font-weight: 700;
@@ -75,4 +78,83 @@ img {
     -webkit-box-orient: vertical;
     overflow-wrap: break-word;
     -webkit-line-clamp: 2;
+}
+
+.ant-form-item {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    color: #515164;
+    font-size: 14px;
+    font-variant: normal;
+    line-height: 1.5715;
+    list-style: none;
+    -webkit-font-feature-settings: normal;
+    font-feature-settings: normal;
+    margin: 0 0 16px;
+    vertical-align: top;
+}
+
+.ant-form-item-control-input {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    min-height: 40px;
+}
+
+.ant-form-item-control-input-content {
+    -ms-flex: auto;
+    flex: auto;
+    max-width: 100%;
+}
+
+.ant-input-affix-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    min-width: 0;
+    padding: 8px 12px;
+    color: #515164;
+    font-size: 14px;
+    line-height: 1.5715;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #e5e8ed;
+    border-radius: 8px;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+}
+
+.ant-input {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    font-variant: normal;
+    list-style: none;
+    -webkit-font-feature-settings: normal;
+    font-feature-settings: normal;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    min-width: 0;
+    padding: 8px 12px;
+    color: #515164;
+    font-size: 14px;
+    line-height: 1.5715;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #e5e8ed;
+    border-radius: 8px;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.ant-input-affix-wrapper>input.ant-input {
+    padding: 0;
+    border: none;
+    outline: none;
 }

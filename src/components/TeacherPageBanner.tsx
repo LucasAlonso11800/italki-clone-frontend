@@ -10,7 +10,7 @@ export default function TeacherPageBanner({ language }: Props) {
   return (
     <div id="teacher-banner" className="ant-row">
       <div className="ant-col ant-col-24 bg-white">
-        <div className="pt-10 px-4 pb-6 flex justify-between items-center">
+        <div className="pt-10 px-4 pb-6 flex justify-between items-center container">
           <div className="bg-white">
             <h1 className="cursor-default font-bold text-[40px] leading-10 text-gray1">
               The best

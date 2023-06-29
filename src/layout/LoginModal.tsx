@@ -1,8 +1,10 @@
 import { SVG } from "@/assets";
-import { Form, Input, Modal } from "antd";
+import { API_BASE_URL, API_ROUTES } from "@/const";
+import { Alert, Form, Input, Modal } from "antd";
+import axios, { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type Props = {
   open: boolean;
@@ -10,19 +12,64 @@ type Props = {
 };
 
 export default function LoginModal({ open, setModal }: Props) {
+  const [values, setValues] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState({
+    field: "email",
+    message: "Please enter your email.",
+  });
+
   const toggleIcon = () => setShowPassword(!showPassword);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
+  };
+
+  const validateFields = () => {
+    if (values.email.length > 40) {
+      setError({ field: "email", message: "Email too long" });
+      return false;
+    }
+    if (values.password.length < 8) {
+      setError({ field: "password", message: "Password too short" });
+      return false;
+    }
+    if (values.password.length > 40) {
+      setError({ field: "password", message: "Password too long" });
+      return false;
+    }
+    setError({ field: "", message: "" });
+    return true;
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+      if (!validateFields()) return;
+
+      setLoading(true);
+      const url = `${API_BASE_URL}/${API_ROUTES.signin.student}`;
+      const response = await (await axios.post(url, values)).data;
+      console.log(response);
+    } catch (err: any) {
+      console.log(err);
+      setError({ field: "server", message: err.response.data.errmsg });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!open) setError({ field: "", message: "" });
+  }, [open]);
 
   return (
     <Modal
       open={open}
       centered
       closeIcon={
-        <Image
-          src={SVG.CloseMenu}
-          alt="Close"
-          onClick={() => setModal(null)}
-        />
+        <Image src={SVG.CloseMenu} alt="Close" onClick={() => setModal(null)} />
       }
       width={520}
       cancelButtonProps={{ hidden: true }}
@@ -57,7 +104,14 @@ export default function LoginModal({ open, setModal }: Props) {
         </div>
       </div>
       <div className="content pt-4">
-        <Form id="login" className="ant-form ant-form-horizontal">
+        {error.field === "server" && (
+          <Alert type="error" message={error.message} style={{marginBottom: '16px'}}/>
+        )}
+        <form
+          id="login"
+          className="ant-form ant-form-horizontal"
+          onSubmit={handleSubmit}
+        >
           <div className="ant-form-item">
             <div className="ant-form-item-control">
               <div className="ant-form-item-control-input">
@@ -66,11 +120,19 @@ export default function LoginModal({ open, setModal }: Props) {
                     placeholder="Email"
                     type="email"
                     id="email"
-                    className="ant-input"
-                    value=""
+                    className={`ant-input ${
+                      error.field === "email" && "border-red"
+                    }`}
+                    value={values.email}
+                    name="email"
+                    onChange={handleChange}
+                    disabled={loading}
                   />
                 </div>
               </div>
+              {error.field === "email" && (
+                <div className="mt-1 text-red1 text-xs">{error.message}</div>
+              )}
             </div>
           </div>
 
@@ -83,7 +145,12 @@ export default function LoginModal({ open, setModal }: Props) {
                       placeholder="Password"
                       id="password"
                       type={showPassword ? "text" : "password"}
-                      className="ant-input"
+                      className={`ant-input ${
+                        error.field === "password" && "border-red"
+                      }`}
+                      name="password"
+                      onChange={handleChange}
+                      disabled={loading}
                     />
                     <Image
                       src={
@@ -98,6 +165,9 @@ export default function LoginModal({ open, setModal }: Props) {
                   </span>
                 </div>
               </div>
+              {error.field === "password" && (
+                <div className="mt-1 text-red1 text-xs">{error.message}</div>
+              )}
             </div>
           </div>
 
@@ -107,12 +177,13 @@ export default function LoginModal({ open, setModal }: Props) {
             </Link>
           </div>
           <button
-            type="button"
+            type="submit"
+            disabled={loading}
             className="block w-full mb-6 rounded-lg tracking-wider font-bold py-2.5 px-4 transition-all cursor-pointer text-white bg-red2 hover:bg-red1 mt-auto"
           >
             <span>Log In</span>
           </button>
-        </Form>
+        </form>
       </div>
 
       <div className="toggle pb-10">
@@ -120,7 +191,7 @@ export default function LoginModal({ open, setModal }: Props) {
           <span className="text-gray3">No account yet?</span>
           <span
             className="text-gray2 ml-2 cursor-pointer font-medium hover:text-gray1"
-            onClick={() => setModal('signup')}
+            onClick={() => setModal("signup")}
           >
             Sign up
           </span>

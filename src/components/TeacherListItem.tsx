@@ -127,7 +127,7 @@ export default function TeacherListItem({ teacher }: Props) {
                   {otherLanguages.length &&
                   <p className=" text-base font-medium text-gray2  truncate-1 overflow-hidden">
                   {otherLanguages.slice(0,3).map(lang => (
-                      <span className="mr-1.5">{lang.language_name}</span>
+                      <span className="mr-1.5" key={lang.language_id}>{lang.language_name}</span>
                   ))} 
                   </p>}
                   {otherLanguages.length > 3 &&

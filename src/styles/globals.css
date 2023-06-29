@@ -152,6 +152,9 @@ img {
     -webkit-transition: all .3s;
     transition: all .3s;
 }
+.ant-input.border-red{
+    border-color: rgb(211 56 47);
+}
 
 .ant-input-affix-wrapper>input.ant-input {
     padding: 0;

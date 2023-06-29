@@ -4,19 +4,12 @@ import { ROUTES } from "@/const";
 import { Menu } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  SearchOutlined,
-  TeamOutlined,
-  //   CommunityOutlined,
-  LoginOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-
-export default function HeaderSideMenu() {
+type Props = {
+  setModal: React.Dispatch<React.SetStateAction<"login" | "signup" | null>>;
+};
+export default function HeaderSideMenu({ setModal }: Props) {
   const [open, setOpen] = useState<boolean>(false);
   const handleOpen = () => setOpen(!open);
-  // todo
-  // Handle login and signup
 
   return (
     <div>
@@ -52,9 +45,17 @@ export default function HeaderSideMenu() {
               <Menu.Item key="teacher">
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
-                    <Image src={SVG.HeaderFindTeacher} alt="Find a teacher" height={24} width={24}/>
+                    <Image
+                      src={SVG.HeaderFindTeacher}
+                      alt="Find a teacher"
+                      height={24}
+                      width={24}
+                    />
                   </div>
-                  <Link className="w-full text-gray1 text-base" href={ROUTES.teachers.english}>
+                  <Link
+                    className="w-full text-gray1 text-base"
+                    href={ROUTES.teachers.english}
+                  >
                     Find a teacher
                   </Link>
                 </div>
@@ -62,7 +63,12 @@ export default function HeaderSideMenu() {
               <Menu.Item>
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
-                    <Image src={SVG.HeaderGroupClass} alt="Group class" height={24} width={24}/>
+                    <Image
+                      src={SVG.HeaderGroupClass}
+                      alt="Group class"
+                      height={24}
+                      width={24}
+                    />
                   </div>
                   <Link
                     className="w-full text-gray1 text-base"
@@ -75,25 +81,53 @@ export default function HeaderSideMenu() {
               <Menu.Item>
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
-                    <Image src={SVG.HeaderCommunity} alt="Community" height={24} width={24}/>
+                    <Image
+                      src={SVG.HeaderCommunity}
+                      alt="Community"
+                      height={24}
+                      width={24}
+                    />
                   </div>
-                  <Link className="w-full text-gray1 text-base" href={ROUTES.resources.community}>
+                  <Link
+                    className="w-full text-gray1 text-base"
+                    href={ROUTES.resources.community}
+                  >
                     Comunnity
                   </Link>
                 </div>
               </Menu.Item>
-              <Menu.Item>
+              <Menu.Item
+                onClick={() => {
+                  handleOpen();
+                  setModal("login");
+                }}
+              >
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
-                    <Image src={SVG.HeaderLogin} alt="Login" height={24} width={24}/>
+                    <Image
+                      src={SVG.HeaderLogin}
+                      alt="Login"
+                      height={24}
+                      width={24}
+                    />
                   </div>
                   <span className="w-full text-gray1 text-base">Login</span>
                 </div>
               </Menu.Item>
-              <Menu.Item>
+              <Menu.Item
+                onClick={() => {
+                  handleOpen();
+                  setModal("signup");
+                }}
+              >
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
-                    <Image src={SVG.HeaderSignup} alt="Sign up" height={24} width={24}/>
+                    <Image
+                      src={SVG.HeaderSignup}
+                      alt="Sign up"
+                      height={24}
+                      width={24}
+                    />
                   </div>
                   <span className="w-full text-gray1 text-base">Sign Up</span>
                 </div>

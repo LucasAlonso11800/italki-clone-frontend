@@ -56,27 +56,6 @@ export default function Header({ setModal }: Props) {
 
           <div className="md:hidden">
             <div className="flex items-center md:hidden">
-              {/* <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-5 callapp_callIcon___XoTu"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M8.75 17.5C8.75 17.0858 9.08579 16.75 9.5 16.75H14.5C14.9142 16.75 15.25 17.0858 15.25 17.5C15.25 17.9142 14.9142 18.25 14.5 18.25H9.5C9.08579 18.25 8.75 17.9142 8.75 17.5Z"
-                  fill="#313140"
-                ></path>
-                <path
-                  d="M4.75 4C4.75 3.30964 5.30964 2.75 6 2.75H18C18.6904 2.75 19.25 3.30964 19.25 4V20C19.25 20.6904 18.6904 21.25 18 21.25H6C5.30964 21.25 4.75 20.6904 4.75 20V4Z"
-                  stroke="#313140"
-                  stroke-width="1.5"
-                  stroke-linejoin="round"
-                ></path>
-              </svg> */}
               <button
                 style={{ maxWidth: "120px" }}
                 type="button"
@@ -90,7 +69,7 @@ export default function Header({ setModal }: Props) {
                 </span>
               </button>
 
-              <HeaderSideMenu />
+              <HeaderSideMenu setModal={setModal}/>
             </div>
           </div>
 

@@ -57,3 +57,9 @@ export type TeacherListItemType = {
     total_lessons: number
     teacher_languages: LanguageType[]
 }
+
+export type CountryType = {
+  country_id: number
+  country_name: string
+  country_image: string
+}

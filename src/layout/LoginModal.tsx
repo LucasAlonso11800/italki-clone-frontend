@@ -1,7 +1,7 @@
 import { SVG } from "@/assets";
 import { API_BASE_URL, API_ROUTES } from "@/const";
-import { Alert, Form, Input, Modal } from "antd";
-import axios, { AxiosError } from "axios";
+import { Alert, Modal } from "antd";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";

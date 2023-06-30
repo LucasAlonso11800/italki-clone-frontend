@@ -117,8 +117,10 @@ export default function SignUpModal({ open, setModal }: Props) {
     }
     if (!open) {
       cleanErrors();
-      setValues({ ...initialValues, country: countries[0].country_id });
       setStep(1);
+      if (countries.length){ 
+        setValues({ ...initialValues, country: countries[0].country_id });
+      }
     }
   }, [open]);
 

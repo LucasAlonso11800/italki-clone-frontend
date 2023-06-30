@@ -1,3 +1,4 @@
+export { default as FAQ } from './FAQ';
 export { default as LanguageLevel } from './LanguageLevel';
 export { default as LessonModal } from './LessonModal';
 export { default as List } from './List';

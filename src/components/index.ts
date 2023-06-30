@@ -18,3 +18,5 @@ export { default as TeacherPageBanner } from './TeacherPageBanner';
 export { default as TeacherReviews } from './TeacherReviews';
 export { default as TeacherStats } from './TeacherStats';
 export { default as TeacherVideo } from './TeacherVideo';
+export { default as WhatItalkiOffers } from './WhatItalkiOffers';
+export { default as WhatItalkiOffersItem } from './WhatItalkiOffersItem';

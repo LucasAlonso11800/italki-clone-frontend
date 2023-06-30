@@ -1,4 +1,7 @@
+export { default as CarruselItem } from './CarouselItem';
 export { default as FAQ } from './FAQ';
+export { default as HomePageBanner } from './HomePageBanner';
+export { default as LanguageCarrousel } from './LanguageCarrousel';
 export { default as LanguageLevel } from './LanguageLevel';
 export { default as LessonModal } from './LessonModal';
 export { default as List } from './List';

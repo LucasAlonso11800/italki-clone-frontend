@@ -41,6 +41,9 @@ module.exports = {
       borderColor: {
         gray3: "#9c9cac",
       },
+      width: {
+        50: '200px'
+      }
     },
   },
   plugins: [],

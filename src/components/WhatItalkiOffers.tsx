@@ -1,5 +1,6 @@
 import React from "react";
 import WhatItalkiOffersItem from "./WhatItalkiOffersItem";
+import { ROUTES } from "@/const";
 
 export default function WhatItalkiOffers() {
   return (
@@ -14,21 +15,21 @@ export default function WhatItalkiOffers() {
             text="Find teachers from all over the world sharing their languages,
           dialects, and cultures."
             linkText="Find my teacher"
-            href="/en/teachers/"
+            href={ROUTES.teachers.english}
             image="https://scdn.italki.com/ng/static/image/asgardhp/offers_01.png"
           />
           <WhatItalkiOffersItem
             title="Group Class"
             text="Fun and engaging online group classes designed and led by expert teachers."
             linkText="View all classes"
-            href="/en/teachers/"
+            href={ROUTES.group_classes.english}
             image="https://scdn.italki.com/ng/static/image/asgardhp/offers_02.png"
           />
           <WhatItalkiOffersItem
             title="Practice for free"
             text="Meet and share experiences with millions of language learners from more than 190 countries."
             linkText="Explore the community"
-            href="/en/teachers/"
+            href={ROUTES.resources.community}
             image="https://scdn.italki.com/ng/static/image/asgardhp/offers_03.png"
           />
         </div>

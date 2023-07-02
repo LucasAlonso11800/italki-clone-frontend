@@ -41,19 +41,18 @@ export default function SignUpModal({ open, setModal }: Props) {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState({
-    field: "email",
-    message: "Please enter your email.",
+    field: "",
+    message: "",
   });
   const [step, setStep] = useState<number>(3);
 
   const toggleIcon = () => setShowPassword(!showPassword);
-
   const cleanErrors = () => setError({ field: "", message: "" });
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-  const validateStepOne = () => {
+  const validateStepOne = (): boolean => {
     if (values.email.length > 40) {
       setError({ field: "email", message: "Email too long" });
       return false;
@@ -70,59 +69,86 @@ export default function SignUpModal({ open, setModal }: Props) {
     return true;
   };
 
-  const validateStepTwo = () => {
+  const validateStepTwo = (): boolean => {
     if (!values.first_name.trim().length) {
       setError({ field: "first_name", message: "First name required" });
+      return false;
+    }
+    if (values.first_name.trim().length > 40) {
+      setError({
+        field: "first_name",
+        message: "First name longer than 40 characters",
+      });
       return false;
     }
     if (!values.last_name.trim().length) {
       setError({ field: "last_name", message: "Last name required" });
       return false;
     }
+    if (values.last_name.trim().length > 40) {
+      setError({
+        field: "first_name",
+        message: "Last name longer than 40 characters",
+      });
+      return false;
+    }
     cleanErrors();
     return true;
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const validateStepThree = (): boolean => {
+    if (!values.country) {
+      setError({ field: "country", message: "Country required" });
+      return false;
+    }
+    if (!values.gender.trim()) {
+      setError({ field: "gender", message: "Gender required" });
+      return false;
+    }
+    if (!values.birthdate.trim()) {
+      setError({ field: "birthdate", message: "Birthdate required" });
+      return false;
+    }
+    const minimumDate = new Date();
+    minimumDate.setFullYear(minimumDate.getFullYear() - 18);
+    if (new Date(values.birthdate) > minimumDate) {
+      setError({ field: "birthdate", message: "Must be 18 years old or more" });
+      return false;
+    }
+    cleanErrors();
+    return true;
+  };
+
+  const handleSignUp = async () => {
     try {
-      e.preventDefault();
-      if (step === 1) {
-        if (!validateStepOne()) return;
-        setStep(2);
-      }
-      if (step === 2) {
-        if (!validateStepTwo()) return;
-        setStep(3);
-      }
-      if (step === 3) {
-        setStep(4);
-      }
-      if (step === 4) {
-        setLoading(true);
-        const url = `${API_BASE_URL}/${API_ROUTES.signup.student}`;
-        const response = await (await axios.post(url, values)).data;
-        console.log(response);
-      }
+      setLoading(true);
+      const url = `${API_BASE_URL}/${API_ROUTES.signup.student}`;
+      const response = await (await axios.post(url, values)).data;
+      console.log(response);
     } catch (err: any) {
       console.log(err);
+      setStep(1);
       setError({ field: "server", message: err.response.data.errmsg });
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    if (open && !countries.length) {
-      countryGet();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (step === 1) {
+      if (!validateStepOne()) return;
+      setStep(2);
     }
-    if (!open) {
-      cleanErrors();
-      setStep(1);
-      if (countries.length){ 
-        setValues({ ...initialValues, country: countries[0].country_id });
-      }
+    if (step === 2) {
+      if (!validateStepTwo()) return;
+      setStep(3);
     }
-  }, [open]);
+    if (step === 3) {
+      if (!validateStepThree()) return;
+      handleSignUp();
+    }
+  };
 
   const countryGet = async () => {
     try {
@@ -140,7 +166,20 @@ export default function SignUpModal({ open, setModal }: Props) {
       setError({ field: "server", message: err.response.data.errmsg });
     }
   };
-  console.log(values)
+
+  useEffect(() => {
+    if (open && !countries.length) {
+      countryGet();
+    }
+    if (!open) {
+      cleanErrors();
+      setStep(1);
+      if (countries.length) {
+        setValues({ ...initialValues, country: countries[0].country_id });
+      }
+    }
+  }, [open]);
+
   const Inputs = useMemo(() => {
     switch (step) {
       case 1:
@@ -307,7 +346,10 @@ export default function SignUpModal({ open, setModal }: Props) {
                     className="w-full"
                     onChange={(value) =>
                       handleChange({
-                        target: { name: "birthdate", value: value?.toISOString().substring(0, 10) },
+                        target: {
+                          name: "birthdate",
+                          value: value?.toISOString().substring(0, 10),
+                        },
                       } as any)
                     }
                   />
@@ -324,9 +366,6 @@ export default function SignUpModal({ open, setModal }: Props) {
     }
   }, [step, values, error, countries]);
 
-  // Birthdate and gender
-  // Country
-
   return (
     <Modal
       open={open}
@@ -337,8 +376,22 @@ export default function SignUpModal({ open, setModal }: Props) {
       width={520}
       cancelButtonProps={{ hidden: true }}
       okButtonProps={{ hidden: true }}
-      bodyStyle={{ margin: "-20px -24px", padding: "0 32px" }}
+      bodyStyle={{
+        margin: "-20px -24px",
+        padding: "0 32px",
+        position: "relative",
+      }}
     >
+      {step > 1 && (
+        <Image
+          src={SVG.ArrowRight}
+          className="rotate-180	absolute left-[17px] top-[14px] cursor-pointer"
+          alt="Back"
+          onClick={() => setStep(step - 1)}
+          width={32}
+          height={32}
+        />
+      )}
       <div className="text-gray1 text-2xl font-medium font-bold pt-14 pb-2">
         Welcome to italki!
       </div>
@@ -385,11 +438,10 @@ export default function SignUpModal({ open, setModal }: Props) {
             type="submit"
             className="block w-full mb-6 rounded-lg tracking-wider font-bold py-2.5 px-4 transition-all cursor-pointer text-white bg-red2 hover:bg-red1 mt-auto"
           >
-            <span>{step === 4 ? "Sign Up" : "Continue"}</span>
+            <span>{step === 3 ? "Sign Up" : "Continue"}</span>
           </button>
         </form>
       </div>
-
       <div className="toggle pb-10">
         <div className="toggle-hint small-secondary text-center">
           <span className="text-gray3">Already have an account?</span>

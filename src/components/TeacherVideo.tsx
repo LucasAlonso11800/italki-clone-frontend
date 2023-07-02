@@ -9,7 +9,7 @@ export default function TeacherVideo() {
         <div className="mt-6 bg-white rounded-t-3 overflow-hidden">
           <div className="video-player h-full w-full">
             <div className="flex items-center relative w-full h-full overflow-hidden">
-              <img
+              <Image
                 width="3200"
                 height="1800"
                 className="w-full h-auto"
@@ -41,7 +41,7 @@ export default function TeacherVideo() {
                 <div className="flex items-center">
                   <div className="mr-1">Trial Lesson</div>
                   <div className="cursor-pointer">
-                    <img
+                    <Image
                       id="icon_help_sml"
                       src="https://scdn.italki.com/ng/static/image/teacher/icon_help_sml.svg"
                       width="24"

@@ -97,7 +97,7 @@ export default function TeacherIntro(props: Props) {
             </h1>
             <div className="flex justify-start items-center h-8">
               <div className="w-6 h-6 flex justify-center items-center ml-2">
-                <img
+                <Image
                   height="14"
                   width="14"
                   className="flex-none ls-is-cached lazyloaded"

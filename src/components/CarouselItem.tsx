@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -14,9 +15,9 @@ export default function CarouselItem({ href, image, language }: Props) {
           style={{ width: "156px" }}
           className="hp-language-item relative h-14 shrink-0 mr-4 pl-4 cursor-pointer rounded-3 flex flex-nowrap items-center hover-"
         >
-          <img
-            height="32"
-            width="32"
+          <Image
+            height={32}
+            width={32}
             className=" inline-block mr-2 rounded-2"
             style={{ background: "#FFCCC9", border: "none" }}
             src={image}

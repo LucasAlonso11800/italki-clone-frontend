@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 export default function HomePageBanner() {
@@ -14,7 +15,7 @@ export default function HomePageBanner() {
           <ul className="list-none space-y-1 font-medium text-sm text-gray2 mt-7">
             <li className="flex items-center">
               <div className="shrink-0 mr-3">
-                <img
+                <Image
                   height="12"
                   width="12"
                   className=" "
@@ -28,7 +29,7 @@ export default function HomePageBanner() {
             </li>
             <li className="flex items-center">
               <div className="shrink-0 mr-3">
-                <img
+                <Image
                   height="12"
                   width="12"
                   className=" "
@@ -42,7 +43,7 @@ export default function HomePageBanner() {
             </li>
             <li className="flex items-center">
               <div className="shrink-0 mr-3">
-                <img
+                <Image
                   height="12"
                   width="12"
                   className=" "
@@ -61,7 +62,7 @@ export default function HomePageBanner() {
           </button>
         </div>
         <div className="flex-1 flex justify-end">
-          <img
+          <Image
             height="360"
             width="560"
             className=" "

@@ -48,8 +48,6 @@ type Props = {
 };
 
 export default function TeacherPage(props: Props) {
-  console.log(props);
-
   const languagesTheyTeach = useMemo(
     () =>
       props.teacher_languages.filter((lang) => lang.teacher_teaches === "Y"),

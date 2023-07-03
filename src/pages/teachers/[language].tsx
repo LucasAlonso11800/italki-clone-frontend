@@ -40,7 +40,7 @@ export default function Teachers({ language, teachers, total }: Props) {
 
           <div className=" relative items-start flex flex-wrap w-full ">
             <div className=" flex flex-1 flex-col  md:mb-14 md:w-8/12">
-              {teachers.map((teacher) => (
+              {teachers?.map((teacher) => (
                 <TeacherListItem teacher={teacher} key={teacher.teacher_id} />
               ))}
             </div>

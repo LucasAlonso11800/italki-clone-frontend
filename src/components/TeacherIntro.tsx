@@ -116,8 +116,7 @@ export default function TeacherIntro(props: Props) {
               <div className="tiny-caption text-gray3 whitespace-nowrap md:mr-2 md:leading-5dot5 min-w-[56px]">
                 Teaches
               </div>
-              {props.teacher_languages
-                .filter((lang) => lang.teacher_teaches === "Y")
+              {props.teacher_languages?.filter((lang) => lang.teacher_teaches === "Y")
                 .map((lang) => (
                   <div className="flex regular-body flex-wrap space-y-1 md:space-y-0" key={lang.language_id}>
                     <div className="flex mr-2 items-center">
@@ -139,8 +138,7 @@ export default function TeacherIntro(props: Props) {
               <div className="tiny-caption text-gray3 whitespace-nowrap md:mr-2 md:leading-5dot5 min-w-[56px]">
                 Speaks
               </div>
-              {props.teacher_languages
-                .filter((lang) => lang.teacher_teaches === "N")
+              {props.teacher_languages?.filter((lang) => lang.teacher_teaches === "N")
                 .map((lang) => (
                   <div className="flex regular-body flex-wrap space-y-1 md:space-y-0" key={lang.language_id}>
                     <div className="flex mr-2 items-center">

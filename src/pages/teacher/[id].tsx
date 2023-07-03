@@ -50,8 +50,8 @@ type Props = {
 export default function TeacherPage(props: Props) {
   const languagesTheyTeach = useMemo(
     () =>
-      props.teacher_languages.filter((lang) => lang.teacher_teaches === "Y"),
-    []
+      props.teacher_languages?.filter((lang) => lang.teacher_teaches === "Y"),
+    [props]
   );
 
   return (
@@ -70,7 +70,7 @@ export default function TeacherPage(props: Props) {
               />
 
               {/* Lessons */}
-              {languagesTheyTeach.map((lang) => {
+              {languagesTheyTeach?.map((lang) => {
                 const lessons = props.teacher_lessons.filter(
                   (lesson) => lesson.language_id === lang.language_id
                 );

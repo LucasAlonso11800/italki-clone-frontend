@@ -13,7 +13,7 @@ type Props = {
 
 export default function TeacherReviews(props: Props) {
   const [loading, setLoading] = useState<boolean>(false);
-  const [reviews, setReviews] = useState<ReviewType[]>(props.reviews);
+  const [reviews, setReviews] = useState<ReviewType[]>(props.reviews || []);
   const page = useRef<number>(0);
 
   const fetchReviews = async () => {

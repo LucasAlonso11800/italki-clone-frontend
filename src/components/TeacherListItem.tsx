@@ -1,6 +1,5 @@
 import { SVG } from "@/assets";
 import { Avatar } from "antd";
-import Image from "next/image";
 import React, { useMemo } from "react";
 import { TeacherFavButton } from ".";
 import Link from "next/link";
@@ -67,11 +66,10 @@ export default function TeacherListItem({ teacher }: Props) {
                   <div className=" items-center block mb-6">
                     <div className="mr-0 mb-1">
                       <div className="italki-ratings  text-warning font-medium leading-none flex justify-center">
-                        <Image
+                        <img
                           src={SVG.Star}
                           alt="star"
-                          width={16}
-                          height={16}
+                          className="h-[16px] w-[16px]"
                         />
                         {parseFloat(teacher.average_rating).toFixed(2)}
                       </div>
@@ -96,10 +94,9 @@ export default function TeacherListItem({ teacher }: Props) {
                   {teacher.teacher_first_name} {teacher.teacher_last_name}
                 </span>
                 <div>
-                  <Image
+                  <img
                     src={SVG.VerifyIcon}
-                    width={14}
-                    height={14}
+                    className="w-[14px] h-[14px]"
                     alt="verified"
                   />
                 </div>

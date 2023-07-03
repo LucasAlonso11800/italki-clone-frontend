@@ -1,5 +1,4 @@
 import { SVG } from "@/assets";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -21,13 +20,11 @@ export default function WhatItalkiOffersItem({
   return (
     <div className="ant-col ant-col-8 px-6">
       <div className="AgardHPBelow_SeeWhatOffersCard__tl_KK flex flex-col justify-center items-center space-y-2 text-center rounded-3 h-full py-6 px-4 md:bg-transparent md:py-0">
-        <Image
-          className="felx-none lazyloaded rounded-full"
+        <img
+          className="felx-none w-[250px] h-[160px] lazyloaded rounded-full"
           loading="lazy"
           alt="1-on-1 language lessons"
           src={image}
-          width={250}
-          height={160}
         />
         <div className="felx-none pt-6 text-lg text-gray2 font-bold sm:text-base">
           {title}
@@ -42,7 +39,7 @@ export default function WhatItalkiOffersItem({
               >
                 {linkText}
               </span>
-              <Image src={SVG.ArrowRight} alt="right" />
+              <img src={SVG.ArrowRight} alt="right" />
             </p>
           </Link>
         </div>

@@ -4,7 +4,6 @@ import { useTokenHandler } from "@/hooks";
 import { CountryType } from "@/types";
 import { Alert, DatePicker, Form, Modal, Select } from "antd";
 import axios from "axios";
-import Image from "next/image";
 import Link from "next/link";
 import {useRouter} from "next/router"
 import React, { useEffect, useMemo, useState } from "react";
@@ -245,7 +244,7 @@ export default function SignUpModal({ open, setModal }: Props) {
                         onChange={handleChange}
                         disabled={loading}
                       />
-                      <Image
+                      <img
                         src={
                           showPassword
                             ? SVG.VisiblePassword
@@ -394,7 +393,7 @@ export default function SignUpModal({ open, setModal }: Props) {
       open={open}
       centered
       closeIcon={
-        <Image src={SVG.CloseMenu} alt="Close" onClick={() => setModal(null)} />
+        <img src={SVG.CloseMenu} alt="Close" onClick={() => setModal(null)} />
       }
       width={520}
       cancelButtonProps={{ hidden: true }}
@@ -406,13 +405,11 @@ export default function SignUpModal({ open, setModal }: Props) {
       }}
     >
       {step > 1 && (
-        <Image
+        <img
           src={SVG.ArrowRight}
-          className="rotate-180	absolute left-[17px] top-[14px] cursor-pointer"
+          className="rotate-180	absolute left-[17px] top-[14px] w-[32px] h-[32px] cursor-pointer"
           alt="Back"
           onClick={() => setStep(step - 1)}
-          width={32}
-          height={32}
         />
       )}
       <div className="text-gray1 text-2xl font-medium font-bold pt-14 pb-2">

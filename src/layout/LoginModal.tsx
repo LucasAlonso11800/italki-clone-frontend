@@ -3,7 +3,6 @@ import { API_BASE_URL, API_ROUTES, EMAIL_REGEX, ROUTES } from "@/const";
 import { useTokenHandler } from "@/hooks";
 import { Alert, Modal } from "antd";
 import axios from "axios";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -91,7 +90,7 @@ export default function LoginModal({ open, setModal }: Props) {
       open={open}
       centered
       closeIcon={
-        <Image src={SVG.CloseMenu} alt="Close" onClick={() => setModal(null)} />
+        <img src={SVG.CloseMenu} alt="Close" onClick={() => setModal(null)} />
       }
       width={520}
       cancelButtonProps={{ hidden: true }}
@@ -178,7 +177,7 @@ export default function LoginModal({ open, setModal }: Props) {
                       onChange={handleChange}
                       disabled={loading}
                     />
-                    <Image
+                    <img
                       src={
                         showPassword
                           ? SVG.VisiblePassword

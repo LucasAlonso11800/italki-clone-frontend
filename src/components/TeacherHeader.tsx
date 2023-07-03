@@ -1,7 +1,6 @@
 import { useScrollPosition } from "@/hooks";
 import React from "react";
 import List from "./List";
-import Image from "next/image";
 import { SVG } from "@/assets";
 
 export default function TeacherHeader() {
@@ -14,10 +13,8 @@ export default function TeacherHeader() {
     >
       <div className="flex items-center mr-4">
         <span className="ant-avatar inline-flex rounded-full justify-center items-center mr-2 md:mr-4 w-10 h-10 ant-avatar-circle ant-avatar-image w-[40px] h-[40px] text-lg">
-          <Image
-            width={36}
-            height={36}
-            className="rounded-full"
+          <img
+            className="h-[36px] w-[36px] rounded-full"
             src="https://imagesavatar-static01.italki.com/1T095076430_Avatar.jpg"
             alt="Avatar"
           />
@@ -38,8 +35,8 @@ export default function TeacherHeader() {
       />
 
       <div className="hidden md:w-20 md:flex md:justify-end">
-        <Image src={SVG.Fav} className="cursor-pointer mr-4" alt="Fav" />
-        <Image src={SVG.Options} className="cursor-pointer" alt="Options" />
+        <img src={SVG.Fav} className="cursor-pointer mr-4" alt="Fav" />
+        <img src={SVG.Options} className="cursor-pointer" alt="Options" />
       </div>
     </div>
   );

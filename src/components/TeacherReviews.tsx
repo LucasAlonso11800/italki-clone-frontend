@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import Image from "next/image";
 import { SVG } from "@/assets";
 import { ReviewType } from "@/types";
 import { Avatar, Spin } from "antd";
@@ -102,7 +101,7 @@ export default function TeacherReviews(props: Props) {
             <span className="font-bold text-gray2 text-sm tracking-wider">
               Show more
             </span>
-            <Image src={SVG.ArrowDown} alt="down" />
+            <img src={SVG.ArrowDown} alt="down" />
           </button>
         )}
       </div>

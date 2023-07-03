@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { SVG } from "@/assets";
 import { ROUTES } from "@/const";
 import { Menu } from "antd";
-import Image from "next/image";
 import Link from "next/link";
+
 type Props = {
   setModal: React.Dispatch<React.SetStateAction<"login" | "signup" | null>>;
 };
+
 export default function HeaderSideMenu({ setModal }: Props) {
   const [open, setOpen] = useState<boolean>(false);
   const handleOpen = () => setOpen(!open);
@@ -14,7 +15,7 @@ export default function HeaderSideMenu({ setModal }: Props) {
   return (
     <div>
       <div>
-        <Image src={SVG.BurgerMenu} alt="Burger menu" onClick={handleOpen} />
+        <img src={SVG.BurgerMenu} alt="Burger menu" onClick={handleOpen} />
       </div>
 
       {/* Overlay */}
@@ -37,7 +38,7 @@ export default function HeaderSideMenu({ setModal }: Props) {
           <div className="h-full overflow-auto pt-12 bg-white">
             <div>
               <div className="absolute w-4 h-4 top-3.5 right-4">
-                <Image src={SVG.CloseMenu} alt="close" onClick={handleOpen} />
+                <img src={SVG.CloseMenu} alt="close" onClick={handleOpen} />
               </div>
             </div>
 
@@ -45,11 +46,10 @@ export default function HeaderSideMenu({ setModal }: Props) {
               <Menu.Item key="teacher">
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
-                    <Image
+                    <img
                       src={SVG.HeaderFindTeacher}
                       alt="Find a teacher"
-                      height={24}
-                      width={24}
+                      className="w-[24px] h-[24px]"
                     />
                   </div>
                   <Link
@@ -63,11 +63,10 @@ export default function HeaderSideMenu({ setModal }: Props) {
               <Menu.Item>
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
-                    <Image
+                    <img
                       src={SVG.HeaderGroupClass}
                       alt="Group class"
-                      height={24}
-                      width={24}
+                      className="h-[24px] w-[24px]"
                     />
                   </div>
                   <Link
@@ -81,11 +80,10 @@ export default function HeaderSideMenu({ setModal }: Props) {
               <Menu.Item>
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
-                    <Image
+                    <img
                       src={SVG.HeaderCommunity}
                       alt="Community"
-                      height={24}
-                      width={24}
+                      className="h-[24px] w-[24px]"
                     />
                   </div>
                   <Link
@@ -104,11 +102,10 @@ export default function HeaderSideMenu({ setModal }: Props) {
               >
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
-                    <Image
+                    <img
                       src={SVG.HeaderLogin}
                       alt="Login"
-                      height={24}
-                      width={24}
+                      className="h-[24px] w-[24px]"
                     />
                   </div>
                   <span className="w-full text-gray1 text-base">Login</span>
@@ -122,11 +119,10 @@ export default function HeaderSideMenu({ setModal }: Props) {
               >
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
-                    <Image
+                    <img
                       src={SVG.HeaderSignup}
                       alt="Sign up"
-                      height={24}
-                      width={24}
+                      className="h-[24px] w-[24px]"
                     />
                   </div>
                   <span className="w-full text-gray1 text-base">Sign Up</span>

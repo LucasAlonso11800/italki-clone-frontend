@@ -1,5 +1,4 @@
 import { SVG } from "@/assets";
-import Image from "next/image";
 import React from "react";
 
 export default function TeacherVideo() {
@@ -9,16 +8,14 @@ export default function TeacherVideo() {
         <div className="mt-6 bg-white rounded-t-3 overflow-hidden">
           <div className="video-player h-full w-full">
             <div className="flex items-center relative w-full h-full overflow-hidden">
-              <Image
-                width="3200"
-                height="1800"
+              <img
                 className="w-full h-auto"
                 src="https://ofs-cdn.italki.com/u/9507643/cover/c5eeef69psq5ga77kdr0.jpg"
                 alt=""
               />
               <div className="absolute top-0 left-0 right-0 bottom-0">
                 <div className="absolute top-0 left-0 right-0 bottom-0 cursor-pointer ">
-                  <Image
+                  <img
                     src={SVG.VideoPlay}
                     alt="play"
                     className="absolute w-12 h-12"
@@ -41,11 +38,10 @@ export default function TeacherVideo() {
                 <div className="flex items-center">
                   <div className="mr-1">Trial Lesson</div>
                   <div className="cursor-pointer">
-                    <Image
+                    <img
                       id="icon_help_sml"
                       src="https://scdn.italki.com/ng/static/image/teacher/icon_help_sml.svg"
-                      width="24"
-                      height="24"
+                      className="w-[24px] h-[24px]"
                       alt=""
                     />
                   </div>

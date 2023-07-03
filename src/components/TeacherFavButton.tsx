@@ -1,5 +1,4 @@
 import { SVG } from "@/assets";
-import Image from "next/image";
 import React from "react";
 
 export default function TeacherFavButton() {
@@ -8,7 +7,7 @@ export default function TeacherFavButton() {
       type="button"
       className="ant-btn cursor-pointer ant-btn-default ant-btn-circle ant-btn-sm"
     >
-      <Image src={SVG.Fav} width={24} height={24} alt="fav"/>
+      <img src={SVG.Fav} className="w-[24px] h-[24px]" alt="fav"/>
     </button>
   );
 }

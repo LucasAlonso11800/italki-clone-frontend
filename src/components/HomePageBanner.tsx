@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 
 export default function HomePageBanner() {
@@ -9,16 +8,17 @@ export default function HomePageBanner() {
     >
       <div className="flex m-auto max-w-grid-12 flex-col sm:flex-row md:px-6">
         <div className="flex flex-col flex-1">
-          <h1 className=" font-bold sm:text-5xl text-gray1 text-2xl text-center sm:text-left" style={{lineHeight: "60px"}}>
+          <h1
+            className=" font-bold sm:text-5xl text-gray1 text-2xl text-center sm:text-left"
+            style={{ lineHeight: "60px" }}
+          >
             Become fluent in any language
           </h1>
           <ul className="list-none space-y-1 font-medium text-sm text-gray2 mt-7">
             <li className="flex items-center">
               <div className="shrink-0 mr-3">
-                <Image
-                  height="12"
-                  width="12"
-                  className=" "
+                <img
+                  className="h-[12px] w-[12px]"
                   src="https://scdn.italki.com/ng/static/image/asgardhp/redx2.png"
                   alt=""
                 />
@@ -29,10 +29,8 @@ export default function HomePageBanner() {
             </li>
             <li className="flex items-center">
               <div className="shrink-0 mr-3">
-                <Image
-                  height="12"
-                  width="12"
-                  className=" "
+                <img
+                  className="h-[12px] w-[12px]"
                   src="https://scdn.italki.com/ng/static/image/asgardhp/redx2.png"
                   alt=""
                 />
@@ -43,10 +41,8 @@ export default function HomePageBanner() {
             </li>
             <li className="flex items-center">
               <div className="shrink-0 mr-3">
-                <Image
-                  height="12"
-                  width="12"
-                  className=" "
+                <img
+                  className="h-[12px] w-[12px]"
                   src="https://scdn.italki.com/ng/static/image/asgardhp/redx2.png"
                   alt=""
                 />
@@ -62,10 +58,8 @@ export default function HomePageBanner() {
           </button>
         </div>
         <div className="flex-1 flex justify-end">
-          <Image
-            height="360"
-            width="560"
-            className=" "
+          <img
+            className="h-[360px] w-[560px]"
             src="https://scdn.italki.com/ng/static/image/asgardhp/hp_cover_w.png"
             alt=""
           />

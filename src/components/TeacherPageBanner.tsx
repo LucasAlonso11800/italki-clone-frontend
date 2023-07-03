@@ -1,5 +1,4 @@
 import { SVG } from "@/assets";
-import Image from "next/image";
 import React from "react";
 
 type Props = {
@@ -23,11 +22,9 @@ export default function TeacherPageBanner({ language }: Props) {
               {language} tutor to help you learn {language}.
             </div>
           </div>
-          <Image
+          <img
             alt="banner"
-            height={150}
-            width={180}
-            className="mt-4"
+            className="h-[150px] w-[180px] mt-4"
             src={SVG.TeacherPageBannerLogo}
           />
         </div>

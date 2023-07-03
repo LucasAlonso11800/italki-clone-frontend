@@ -1,9 +1,11 @@
 import { SVG } from "@/assets";
-import { API_BASE_URL, API_ROUTES } from "@/const";
+import { API_BASE_URL, API_ROUTES, EMAIL_REGEX, ROUTES } from "@/const";
+import { useTokenHandler } from "@/hooks";
 import { Alert, Modal } from "antd";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 type Props = {
@@ -20,19 +22,33 @@ export default function LoginModal({ open, setModal }: Props) {
     message: "Please enter your email.",
   });
 
+  const router = useRouter();
+  const { setTokens } = useTokenHandler();
   const toggleIcon = () => setShowPassword(!showPassword);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-  const validateFields = () => {
+  const validateFields = (): boolean => {
+    if (!values.email.trim().length) {
+      setError({ field: "email", message: "Email required" });
+      return false;
+    }
+    if (!EMAIL_REGEX.test(values.email)) {
+      setError({ field: "email", message: "Invalid email" });
+      return false;
+    }
     if (values.email.length > 40) {
       setError({ field: "email", message: "Email too long" });
       return false;
     }
+    if (!values.password.trim().length) {
+      setError({ field: "password", message: "Password required" });
+      return false;
+    }
     if (values.password.length < 8) {
-      setError({ field: "password", message: "Password too short" });
+      setError({ field: "password", message: "Password must be at least 8 characters long" });
       return false;
     }
     if (values.password.length > 40) {
@@ -51,7 +67,13 @@ export default function LoginModal({ open, setModal }: Props) {
       setLoading(true);
       const url = `${API_BASE_URL}/${API_ROUTES.signin.student}`;
       const response = await (await axios.post(url, values)).data;
-      console.log(response);
+      if (response.data.code === 1) {
+        setTokens(
+          response.headers.access_token,
+          response.headers.refresh_token
+        );
+        router.push(ROUTES.user.dashboard);
+      }
     } catch (err: any) {
       console.log(err);
       setError({ field: "server", message: err.response.data.errmsg });
@@ -105,7 +127,11 @@ export default function LoginModal({ open, setModal }: Props) {
       </div>
       <div className="content pt-4">
         {error.field === "server" && (
-          <Alert type="error" message={error.message} style={{marginBottom: '16px'}}/>
+          <Alert
+            type="error"
+            message={error.message}
+            style={{ marginBottom: "16px" }}
+          />
         )}
         <form
           id="login"

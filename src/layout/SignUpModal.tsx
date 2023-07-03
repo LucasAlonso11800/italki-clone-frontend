@@ -1,10 +1,12 @@
 import { SVG } from "@/assets";
-import { API_BASE_URL, API_ROUTES } from "@/const";
+import { API_BASE_URL, API_ROUTES, DATE_FORMAT, EMAIL_REGEX, ROUTES } from "@/const";
+import { useTokenHandler } from "@/hooks";
 import { CountryType } from "@/types";
 import { Alert, DatePicker, Form, Modal, Select } from "antd";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import {useRouter} from "next/router"
 import React, { useEffect, useMemo, useState } from "react";
 
 type Props = {
@@ -46,6 +48,9 @@ export default function SignUpModal({ open, setModal }: Props) {
   });
   const [step, setStep] = useState<number>(3);
 
+  const router = useRouter();
+  const { setTokens } = useTokenHandler();
+
   const toggleIcon = () => setShowPassword(!showPassword);
   const cleanErrors = () => setError({ field: "", message: "" });
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,12 +58,24 @@ export default function SignUpModal({ open, setModal }: Props) {
   };
 
   const validateStepOne = (): boolean => {
+    if (!values.email.length) {
+      setError({ field: "email", message: "Email required" });
+      return false;
+    }
+    if (!EMAIL_REGEX.test(values.email)) {
+      setError({ field: "email", message: "Invalid email" });
+      return false;
+    }
     if (values.email.length > 40) {
       setError({ field: "email", message: "Email too long" });
       return false;
     }
+    if (!values.password.length) {
+      setError({ field: "password", message: "Password required" });
+      return false;
+    }
     if (values.password.length < 8) {
-      setError({ field: "password", message: "Password too short" });
+      setError({ field: "password", message: "Password must be at least 8 characters long" });
       return false;
     }
     if (values.password.length > 40) {
@@ -123,8 +140,11 @@ export default function SignUpModal({ open, setModal }: Props) {
     try {
       setLoading(true);
       const url = `${API_BASE_URL}/${API_ROUTES.signup.student}`;
-      const response = await (await axios.post(url, values)).data;
-      console.log(response);
+      const response = await axios.post(url, values);
+      if (response.data.code === 1){
+        setTokens(response.headers.access_token, response.headers.refresh_token);
+        router.push(ROUTES.user.dashboard)
+      }
     } catch (err: any) {
       console.log(err);
       setStep(1);
@@ -253,7 +273,7 @@ export default function SignUpModal({ open, setModal }: Props) {
                 <div className="ant-form-item-control-input">
                   <div className="ant-form-item-control-input-content">
                     <input
-                      placeholder="John"
+                      placeholder="First name"
                       type="text"
                       id="first_name"
                       className={`ant-input ${
@@ -276,7 +296,7 @@ export default function SignUpModal({ open, setModal }: Props) {
                 <div className="ant-form-item-control-input">
                   <div className="ant-form-item-control-input-content">
                     <input
-                      placeholder="Doe"
+                      placeholder="Last name"
                       type="text"
                       id="last_name"
                       className={`ant-input ${
@@ -307,6 +327,7 @@ export default function SignUpModal({ open, setModal }: Props) {
                       value: c.country_id,
                       label: c.country_name,
                     }))}
+                    placeholder="Country"
                     className="w-full"
                     onChange={(value) =>
                       handleChange({
@@ -326,6 +347,7 @@ export default function SignUpModal({ open, setModal }: Props) {
                   <Select
                     options={genders}
                     className="w-full"
+                    placeholder="Gender"
                     onChange={(value) =>
                       handleChange({
                         target: { name: "gender", value },
@@ -344,6 +366,7 @@ export default function SignUpModal({ open, setModal }: Props) {
                   <DatePicker
                     name="birthdate"
                     className="w-full"
+                    placeholder="Birthdate"
                     onChange={(value) =>
                       handleChange({
                         target: {
@@ -364,7 +387,7 @@ export default function SignUpModal({ open, setModal }: Props) {
       default:
         return <></>;
     }
-  }, [step, values, error, countries]);
+  }, [step, values, error, countries, showPassword]);
 
   return (
     <Modal

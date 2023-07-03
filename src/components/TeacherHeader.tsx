@@ -15,9 +15,11 @@ export default function TeacherHeader() {
       <div className="flex items-center mr-4">
         <span className="ant-avatar inline-flex rounded-full justify-center items-center mr-2 md:mr-4 w-10 h-10 ant-avatar-circle ant-avatar-image w-[40px] h-[40px] text-lg">
           <Image
-            className="w-[36px] h-[36px] rounded-full"
+            width={36}
+            height={36}
+            className="rounded-full"
             src="https://imagesavatar-static01.italki.com/1T095076430_Avatar.jpg"
-            srcSet="https://imagesavatar-static01.italki.com/1T095076430_Avatar.jpg"
+            alt="Avatar"
           />
         </span>
         <div className="hidden text-xl font-medium text-gray1 md:block">

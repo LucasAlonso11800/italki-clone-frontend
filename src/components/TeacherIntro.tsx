@@ -9,6 +9,7 @@ import {
 } from ".";
 import { Avatar } from "antd";
 import { GenderType, LanguageType, YesOrNoType } from "@/types";
+import Image from "next/image";
 
 type Props = {
   country_name: string;
@@ -98,12 +99,11 @@ export default function TeacherIntro(props: Props) {
             <div className="flex justify-start items-center h-8">
               <div className="w-6 h-6 flex justify-center items-center ml-2">
                 <Image
-                  height="14"
-                  width="14"
+                  height={14}
+                  width={14}
                   className="flex-none ls-is-cached lazyloaded"
-                  data-src="https://scdn.italki.com/ng/static/image/teacherSearch/verify_icon.svg"
                   loading="lazy"
-                  alt=""
+                  alt="Verify"
                   src="https://scdn.italki.com/ng/static/image/teacherSearch/verify_icon.svg"
                 />
               </div>

@@ -1,8 +1,8 @@
 import { IMAGES } from '@/const';
-import { API_BASE_URL, API_ROUTES, DATE_FORMAT, EMAIL_REGEX, ROUTES } from "@/const";
+import { API_BASE_URL, API_ROUTES, EMAIL_REGEX, ROUTES } from "@/const";
 import { useTokenHandler } from "@/hooks";
 import { CountryType } from "@/types";
-import { Alert, DatePicker, Form, Modal, Select } from "antd";
+import { Alert, DatePicker, Modal, Select } from "antd";
 import axios from "axios";
 import Link from "next/link";
 import {useRouter} from "next/router"

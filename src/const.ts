@@ -83,8 +83,10 @@ export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export const IMAGES = {
   ArrowDown: "/svg/arrow-right.svg",
   ArrowRight: "/svg/arrow-down.svg",
+  AvatarPlaceholder: "/svg/avatar-placeholder.svg",
   BurgerMenu: "/svg/burger-menu.svg",
   CloseMenu: "/svg/close-menu.svg",
+  Edit: "/svg/edit.svg",
   Facebook: "/svg/facebook.svg",
   Fav: "/svg/fav.svg",
   HeaderCommunity: "/svg/header-community.svg",

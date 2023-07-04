@@ -1,4 +1,4 @@
-import { SVG } from "@/assets";
+import { IMAGES } from '@/const';
 import { Avatar } from "antd";
 import React, { useMemo } from "react";
 import { TeacherFavButton } from ".";
@@ -67,7 +67,7 @@ export default function TeacherListItem({ teacher }: Props) {
                     <div className="mr-0 mb-1">
                       <div className="italki-ratings  text-warning font-medium leading-none flex justify-center">
                         <img
-                          src={SVG.Star}
+                          src={IMAGES.Star}
                           alt="star"
                           className="h-[16px] w-[16px]"
                         />
@@ -95,7 +95,7 @@ export default function TeacherListItem({ teacher }: Props) {
                 </span>
                 <div>
                   <img
-                    src={SVG.VerifyIcon}
+                    src={IMAGES.VerifyIcon}
                     className="w-[14px] h-[14px]"
                     alt="verified"
                   />

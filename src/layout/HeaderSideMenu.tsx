@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SVG } from "@/assets";
+import { IMAGES } from '@/const';
 import { ROUTES } from "@/const";
 import { Menu } from "antd";
 import Link from "next/link";
@@ -15,7 +15,7 @@ export default function HeaderSideMenu({ setModal }: Props) {
   return (
     <div>
       <div>
-        <img src={SVG.BurgerMenu} alt="Burger menu" onClick={handleOpen} />
+        <img src={IMAGES.BurgerMenu} alt="Burger menu" onClick={handleOpen} />
       </div>
 
       {/* Overlay */}
@@ -38,7 +38,7 @@ export default function HeaderSideMenu({ setModal }: Props) {
           <div className="h-full overflow-auto pt-12 bg-white">
             <div>
               <div className="absolute w-4 h-4 top-3.5 right-4">
-                <img src={SVG.CloseMenu} alt="close" onClick={handleOpen} />
+                <img src={IMAGES.CloseMenu} alt="close" onClick={handleOpen} />
               </div>
             </div>
 
@@ -47,7 +47,7 @@ export default function HeaderSideMenu({ setModal }: Props) {
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
                     <img
-                      src={SVG.HeaderFindTeacher}
+                      src={IMAGES.HeaderFindTeacher}
                       alt="Find a teacher"
                       className="w-[24px] h-[24px]"
                     />
@@ -64,7 +64,7 @@ export default function HeaderSideMenu({ setModal }: Props) {
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
                     <img
-                      src={SVG.HeaderGroupClass}
+                      src={IMAGES.HeaderGroupClass}
                       alt="Group class"
                       className="h-[24px] w-[24px]"
                     />
@@ -81,7 +81,7 @@ export default function HeaderSideMenu({ setModal }: Props) {
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
                     <img
-                      src={SVG.HeaderCommunity}
+                      src={IMAGES.HeaderCommunity}
                       alt="Community"
                       className="h-[24px] w-[24px]"
                     />
@@ -103,7 +103,7 @@ export default function HeaderSideMenu({ setModal }: Props) {
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
                     <img
-                      src={SVG.HeaderLogin}
+                      src={IMAGES.HeaderLogin}
                       alt="Login"
                       className="h-[24px] w-[24px]"
                     />
@@ -120,7 +120,7 @@ export default function HeaderSideMenu({ setModal }: Props) {
                 <div className="pl-2 flex items-center w-full">
                   <div className="flex items-center mr-4">
                     <img
-                      src={SVG.HeaderSignup}
+                      src={IMAGES.HeaderSignup}
                       alt="Sign up"
                       className="h-[24px] w-[24px]"
                     />

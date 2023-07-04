@@ -1,4 +1,4 @@
-import { SVG } from "@/assets";
+import { IMAGES } from '@/const';
 import { LessonPostType } from "@/types";
 import { Modal } from "antd";
 import React from "react";
@@ -15,7 +15,7 @@ export default function LessonModal({ open, handleClose, lesson }: Props) {
       open={open}
       centered
       closeIcon={
-        <img src={SVG.CloseMenu} alt="Close" onClick={handleClose} />
+        <img src={IMAGES.CloseMenu} alt="Close" onClick={handleClose} />
       }
       width={730}
       footer={<ModalFooter />}
@@ -73,7 +73,7 @@ export default function LessonModal({ open, handleClose, lesson }: Props) {
         </div>
 
         <div className="flex items-center">
-          <img src={SVG.Speaker} alt="speaker" />
+          <img src={IMAGES.Speaker} alt="speaker" />
           <div className="ml-3 text-sm text-gray1">
             Some teachers may include a 5 minute break in the lesson time
           </div>

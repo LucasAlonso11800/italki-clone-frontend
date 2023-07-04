@@ -1,4 +1,4 @@
-import { SVG } from "@/assets";
+import { IMAGES } from '@/const';
 import { API_BASE_URL, API_ROUTES, EMAIL_REGEX, ROUTES } from "@/const";
 import { useTokenHandler } from "@/hooks";
 import { Alert, Modal } from "antd";
@@ -90,7 +90,7 @@ export default function LoginModal({ open, setModal }: Props) {
       open={open}
       centered
       closeIcon={
-        <img src={SVG.CloseMenu} alt="Close" onClick={() => setModal(null)} />
+        <img src={IMAGES.CloseMenu} alt="Close" onClick={() => setModal(null)} />
       }
       width={520}
       cancelButtonProps={{ hidden: true }}
@@ -180,8 +180,8 @@ export default function LoginModal({ open, setModal }: Props) {
                     <img
                       src={
                         showPassword
-                          ? SVG.VisiblePassword
-                          : SVG.InvisiblePassword
+                          ? IMAGES.VisiblePassword
+                          : IMAGES.InvisiblePassword
                       }
                       alt="password"
                       className="cursor-pointer"

@@ -1,4 +1,4 @@
-import { SVG } from "@/assets";
+import { IMAGES } from '@/const';
 import Link from "next/link";
 import React from "react";
 
@@ -39,7 +39,7 @@ export default function WhatItalkiOffersItem({
               >
                 {linkText}
               </span>
-              <img src={SVG.ArrowRight} alt="right" />
+              <img src={IMAGES.ArrowRight} alt="right" />
             </p>
           </Link>
         </div>

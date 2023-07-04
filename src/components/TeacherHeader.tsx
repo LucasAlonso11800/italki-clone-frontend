@@ -1,7 +1,7 @@
 import { useScrollPosition } from "@/hooks";
 import React from "react";
 import List from "./List";
-import { SVG } from "@/assets";
+import { IMAGES } from '@/const';
 
 export default function TeacherHeader() {
   const scrollPosition = useScrollPosition();
@@ -35,8 +35,8 @@ export default function TeacherHeader() {
       />
 
       <div className="hidden md:w-20 md:flex md:justify-end">
-        <img src={SVG.Fav} className="cursor-pointer mr-4" alt="Fav" />
-        <img src={SVG.Options} className="cursor-pointer" alt="Options" />
+        <img src={IMAGES.Fav} className="cursor-pointer mr-4" alt="Fav" />
+        <img src={IMAGES.Options} className="cursor-pointer" alt="Options" />
       </div>
     </div>
   );

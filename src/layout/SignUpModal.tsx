@@ -1,4 +1,4 @@
-import { SVG } from "@/assets";
+import { IMAGES } from '@/const';
 import { API_BASE_URL, API_ROUTES, DATE_FORMAT, EMAIL_REGEX, ROUTES } from "@/const";
 import { useTokenHandler } from "@/hooks";
 import { CountryType } from "@/types";
@@ -247,8 +247,8 @@ export default function SignUpModal({ open, setModal }: Props) {
                       <img
                         src={
                           showPassword
-                            ? SVG.VisiblePassword
-                            : SVG.InvisiblePassword
+                            ? IMAGES.VisiblePassword
+                            : IMAGES.InvisiblePassword
                         }
                         alt="password"
                         className="cursor-pointer"
@@ -393,7 +393,7 @@ export default function SignUpModal({ open, setModal }: Props) {
       open={open}
       centered
       closeIcon={
-        <img src={SVG.CloseMenu} alt="Close" onClick={() => setModal(null)} />
+        <img src={IMAGES.CloseMenu} alt="Close" onClick={() => setModal(null)} />
       }
       width={520}
       cancelButtonProps={{ hidden: true }}
@@ -406,7 +406,7 @@ export default function SignUpModal({ open, setModal }: Props) {
     >
       {step > 1 && (
         <img
-          src={SVG.ArrowRight}
+          src={IMAGES.ArrowRight}
           className="rotate-180	absolute left-[17px] top-[14px] w-[32px] h-[32px] cursor-pointer"
           alt="Back"
           onClick={() => setStep(step - 1)}

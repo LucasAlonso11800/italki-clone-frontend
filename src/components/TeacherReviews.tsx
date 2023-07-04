@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { SVG } from "@/assets";
+import { IMAGES } from '@/const';
 import { ReviewType } from "@/types";
 import { Avatar, Spin } from "antd";
 import moment from "moment";
@@ -101,7 +101,7 @@ export default function TeacherReviews(props: Props) {
             <span className="font-bold text-gray2 text-sm tracking-wider">
               Show more
             </span>
-            <img src={SVG.ArrowDown} alt="down" />
+            <img src={IMAGES.ArrowDown} alt="down" />
           </button>
         )}
       </div>

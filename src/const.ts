@@ -39,8 +39,8 @@ export const ROUTES = {
     community: "/resources/community",
   },
   user: {
-    dashboard: "/user"
-  }
+    dashboard: "/user",
+  },
 };
 
 export const EXTERNAL_LINKS = {
@@ -54,28 +54,57 @@ export const EXTERNAL_LINKS = {
 
 export const API_ROUTES = {
   auth: {
-      generate_access_token: 'auth/generate',
-      verify_access_token: 'auth/verify',
-      generate_refresh_token: 'auth/generate-refresh',
-      verify_refresh_token: 'auth/verify-refresh'
+    generate_access_token: "auth/generate",
+    verify_access_token: "auth/verify",
+    generate_refresh_token: "auth/generate-refresh",
+    verify_refresh_token: "auth/verify-refresh",
   },
-  services: 'services',
+  services: "services",
   signin: {
-      student: 'signin/student',
-      teacher: 'signin/teacher'
+    student: "signin/student",
+    teacher: "signin/teacher",
   },
   signup: {
-      student: 'signup/student',
-      teacher: 'signup/teacher'
+    student: "signup/student",
+    teacher: "signup/teacher",
   },
   teacher: {
-    info: 'teacher',
-    ids: 'teacher/ids'
+    info: "teacher",
+    ids: "teacher/ids",
   },
-  teachers: 'teachers'
+  teachers: "teachers",
 };
 
-
-export const API_BASE_URL = 'https://cls9taco80.execute-api.us-west-2.amazonaws.com';
-export const DATE_FORMAT = 'MMM, DD, YYYY'
+export const API_BASE_URL =
+  "https://cls9taco80.execute-api.us-west-2.amazonaws.com";
+export const DATE_FORMAT = "MMM, DD, YYYY";
 export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+export const IMAGES = {
+  ArrowDown: "/svg/arrow-right.svg",
+  ArrowRight: "/svg/arrow-down.svg",
+  BurgerMenu: "/svg/burger-menu.svg",
+  CloseMenu: "/svg/close-menu.svg",
+  Facebook: "/svg/facebook.svg",
+  Fav: "/svg/fav.svg",
+  HeaderCommunity: "/svg/header-community.svg",
+  HeaderFindTeacher: "/svg/header-find-teacher.svg",
+  HeaderGroupClass: "/svg/header-group-class.svg",
+  HeaderLogin: "/svg/header-login.svg",
+  HeaderSignup: "/svg/header-signup.svg",
+  Instagram: "/svg/instagram.svg",
+  InvisiblePassword: "/svg/invisible-password.svg",
+  Italki: "/svg/italki.svg",
+  Options: "/svg/options.svg",
+  Share: "/svg/share.svg",
+  Speaker: "/svg/speaker.sv",
+  Star: "/svg/star.svg",
+  TeacherPageBannerLogo: "/svg/teacher-page-banner-logo.svg",
+  VerifyIcon: "/svg/verify-icon.svg",
+  Twitter: "/svg/twitter.svg",
+  VideoPlay: "/svg/video-play.svg",
+  VisiblePassword: "/svg/visible-password.sv",
+  VK: "/svg/vk.svg",
+  Weibo: "/svg/weibo.svg",
+  Youtube: "/svg/youtube.svg",
+};

@@ -1,4 +1,4 @@
-import { SVG } from "@/assets";
+import { IMAGES } from '@/const';
 import React from "react";
 
 type Props = {
@@ -25,7 +25,7 @@ export default function TeacherPageBanner({ language }: Props) {
           <img
             alt="banner"
             className="h-[150px] w-[180px] mt-4"
-            src={SVG.TeacherPageBannerLogo}
+            src={IMAGES.TeacherPageBannerLogo}
           />
         </div>
       </div>

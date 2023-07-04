@@ -1,4 +1,4 @@
-import { SVG } from "@/assets";
+import { IMAGES } from '@/const';
 import React from "react";
 
 export default function TeacherVideo() {
@@ -16,7 +16,7 @@ export default function TeacherVideo() {
               <div className="absolute top-0 left-0 right-0 bottom-0">
                 <div className="absolute top-0 left-0 right-0 bottom-0 cursor-pointer ">
                   <img
-                    src={SVG.VideoPlay}
+                    src={IMAGES.VideoPlay}
                     alt="play"
                     className="absolute w-12 h-12"
                     style={{

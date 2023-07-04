@@ -1,4 +1,4 @@
-import { SVG } from "@/assets";
+import { IMAGES } from '@/const';
 import { ROUTES } from "@/const";
 import Link from "next/link";
 import React from "react";
@@ -13,7 +13,7 @@ export default function Header({ setModal }: Props) {
     <header className="bg-white border-b-gray">
       <div className="h-18 flex flex-row items-center px-4 py-4 md:px-10">
         <Link href="/">
-          <img src={SVG.Italki} alt="Italki" />
+          <img src={IMAGES.Italki} alt="Italki" />
         </Link>
         <div className="flex flex-1 justify-end">
           <Link

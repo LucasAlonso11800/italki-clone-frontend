@@ -1,5 +1,5 @@
 import React from "react";
-import { SVG } from "@/assets";
+import { IMAGES } from '@/const';
 import { EXTERNAL_LINKS, ROUTES } from "@/const";
 import Link from "next/link";
 
@@ -314,34 +314,34 @@ export default function Footer() {
             <div className="flex space-x-6">
               <Link href={EXTERNAL_LINKS.facebook} target="_blank">
                 <img
-                  src={SVG.Facebook}
+                  src={IMAGES.Facebook}
                   alt="Facebook"
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.twitter} target="_blank">
                 <img
-                  src={SVG.Twitter}
+                  src={IMAGES.Twitter}
                   alt="Twitter"
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.instagram} target="_blank">
                 <img
-                  src={SVG.Instagram}
+                  src={IMAGES.Instagram}
                   alt="Instagram"
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.youtube} target="_blank">
                 <img
-                  src={SVG.Youtube}
+                  src={IMAGES.Youtube}
                   alt="Youtube"
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.vk} target="_blank">
-                <img src={SVG.VK} alt="VK" />
+                <img src={IMAGES.VK} alt="VK" />
               </Link>
               <Link href={EXTERNAL_LINKS.weibo} target="_blank">
                 <img
-                  src={SVG.Weibo}
+                  src={IMAGES.Weibo}
                   alt="Weibo"
                 />
               </Link>
@@ -419,34 +419,34 @@ export default function Footer() {
             <div className="flex space-x-6">
               <Link href={EXTERNAL_LINKS.facebook} target="_blank">
                 <img
-                  src={SVG.Facebook}
+                  src={IMAGES.Facebook}
                   alt="Facebook"
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.twitter} target="_blank">
                 <img
-                  src={SVG.Twitter}
+                  src={IMAGES.Twitter}
                   alt="Twitter"
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.instagram} target="_blank">
                 <img
-                  src={SVG.Instagram}
+                  src={IMAGES.Instagram}
                   alt="Instagram"
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.youtube} target="_blank">
                 <img
-                  src={SVG.Youtube}
+                  src={IMAGES.Youtube}
                   alt="Youtube"
                 />
               </Link>
               <Link href={EXTERNAL_LINKS.vk} target="_blank">
-                <img src={SVG.VK} alt="VK" />
+                <img src={IMAGES.VK} alt="VK" />
               </Link>
               <Link href={EXTERNAL_LINKS.weibo} target="_blank">
                 <img
-                  src={SVG.Weibo}
+                  src={IMAGES.Weibo}
                   alt="Weibo"
                 />
               </Link>

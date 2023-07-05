@@ -65,13 +65,10 @@ export default function LoginModal({ open, setModal }: Props) {
 
       setLoading(true);
       const url = `${API_BASE_URL}/${API_ROUTES.signin.student}`;
-      const response = await (await axios.post(url, values)).data;
-      if (response.data.code === 1) {
-        setTokens(
-          response.headers.access_token,
-          response.headers.refresh_token
-        );
-        router.push(ROUTES.user.dashboard);
+      const response = await axios.post(url, values);
+      if (response.data.code === 1){
+        setTokens(response.headers.access_token, response.headers.refresh_token);
+        router.push(ROUTES.student.settings.profile);
       }
     } catch (err: any) {
       console.log(err);

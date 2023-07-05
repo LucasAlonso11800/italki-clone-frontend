@@ -41,6 +41,11 @@ export const ROUTES = {
   user: {
     dashboard: "/user",
   },
+  student: {
+    settings: {
+      profile: '/student/settings/profile'
+    }
+  }
 };
 
 export const EXTERNAL_LINKS = {
@@ -73,6 +78,9 @@ export const API_ROUTES = {
     ids: "teacher/ids",
   },
   teachers: "teachers",
+  student: {
+    profile: 'student/profile'
+  }
 };
 
 export const API_BASE_URL =
@@ -81,8 +89,8 @@ export const DATE_FORMAT = "MMM, DD, YYYY";
 export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const IMAGES = {
-  ArrowDown: "/svg/arrow-right.svg",
-  ArrowRight: "/svg/arrow-down.svg",
+  ArrowDown: "/svg/arrow-down.svg",
+  ArrowRight: "/svg/arrow-right.svg",
   AvatarPlaceholder: "/svg/avatar-placeholder.svg",
   BurgerMenu: "/svg/burger-menu.svg",
   CloseMenu: "/svg/close-menu.svg",
@@ -99,13 +107,13 @@ export const IMAGES = {
   Italki: "/svg/italki.svg",
   Options: "/svg/options.svg",
   Share: "/svg/share.svg",
-  Speaker: "/svg/speaker.sv",
+  Speaker: "/svg/speaker.svg",
   Star: "/svg/star.svg",
   TeacherPageBannerLogo: "/svg/teacher-page-banner-logo.svg",
   VerifyIcon: "/svg/verify-icon.svg",
   Twitter: "/svg/twitter.svg",
   VideoPlay: "/svg/video-play.svg",
-  VisiblePassword: "/svg/visible-password.sv",
+  VisiblePassword: "/svg/visible-password.svg",
   VK: "/svg/vk.svg",
   Weibo: "/svg/weibo.svg",
   Youtube: "/svg/youtube.svg",

@@ -1,20 +1,30 @@
-import { API_BASE_URL, API_ROUTES } from "@/const";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import jwtDecode from 'jwt-decode';
+import jwtDecode from "jwt-decode";
+import { refreshAccessToken } from "@/utils";
 
-const useTokenHandler = () => {
+export default function useTokenHandler() {
   const [accessToken, setAccessToken] = useState<string | null>(
-    typeof(localStorage) !== 'undefined' ? localStorage.getItem("access_token") : null
+    typeof localStorage !== "undefined"
+      ? localStorage.getItem("access_token")
+      : null
   );
   const [refreshToken, setRefreshToken] = useState<string | null>(
-    typeof(localStorage) !== 'undefined' ? localStorage.getItem("refresh_token") : null
+    typeof localStorage !== "undefined"
+      ? localStorage.getItem("refresh_token")
+      : null
   );
 
   // Function to set the access token and refresh token
   const setTokens = (newAccessToken: string, newRefreshToken: string) => {
+    
+  console.log('accessToken', newAccessToken)
+  console.log('refreshToken', newRefreshToken)
     setAccessToken(newAccessToken);
     setRefreshToken(newRefreshToken);
+    if (typeof localStorage !== 'undefined'){
+      localStorage.setItem('access_token', newAccessToken)
+      localStorage.setItem('refresh_token', newRefreshToken)
+    }
   };
 
   // Function to clear the tokens
@@ -24,30 +34,14 @@ const useTokenHandler = () => {
     localStorage.clear();
   };
 
-  // Function to refresh the access token using the refresh token
-  const refreshAccessToken = async () => {
-    try {
-      const url = `${API_BASE_URL}/${API_ROUTES.auth.generate_refresh_token}`;
-      const response = await axios.post(url, {}, { headers: { refresh_token: refreshToken } });
-      if (response.data.code === 1 && response.headers.access_token) {
-        setAccessToken(response.headers.access_token);
-      } else {
-        clearTokens();
-      }
-    } catch (error) {
-      console.error("Error refreshing access token:", error);
-      clearTokens();
-    }
-  };
-
   // Effect to check the validity of the access token
   useEffect(() => {
     if (!accessToken) return;
     const decodedToken: any = jwtDecode(accessToken);
-    const isAccessTokenValid = decodedToken.exp * 1000 >= Date.now()
+    const isAccessTokenValid = decodedToken.exp * 1000 >= Date.now();
 
     if (!isAccessTokenValid && refreshToken) {
-      refreshAccessToken();
+      refreshAccessToken(refreshToken, setAccessToken, clearTokens);
     }
   }, [accessToken, refreshToken]);
 
@@ -57,6 +51,5 @@ const useTokenHandler = () => {
     setTokens,
     clearTokens,
   };
-};
+}
 
-export default useTokenHandler;

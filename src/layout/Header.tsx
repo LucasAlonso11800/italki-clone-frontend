@@ -64,7 +64,7 @@ export default function Header({ setModal }: Props) {
                   className="inline-block w-full whitespace-no-wrap overflow-hidden text-xs"
                   style={{ maxWidth: "156px", textOverflow: "ellipsis" }}
                 >
-                  Abrir en la app
+                  Open with the App
                 </span>
               </button>
 

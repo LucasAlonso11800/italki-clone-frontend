@@ -142,7 +142,7 @@ export default function SignUpModal({ open, setModal }: Props) {
       const response = await axios.post(url, values);
       if (response.data.code === 1){
         setTokens(response.headers.access_token, response.headers.refresh_token);
-        router.push(ROUTES.user.dashboard)
+        router.push(ROUTES.student.settings.profile);
       }
     } catch (err: any) {
       console.log(err);
@@ -243,6 +243,7 @@ export default function SignUpModal({ open, setModal }: Props) {
                         name="password"
                         onChange={handleChange}
                         disabled={loading}
+                        value={values.password}
                       />
                       <img
                         src={

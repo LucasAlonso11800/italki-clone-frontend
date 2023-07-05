@@ -1,4 +1,11 @@
-export type LanguageLevelCodeType = "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | "N";
+export type LanguageLevelCodeType =
+  | "A1"
+  | "A2"
+  | "B1"
+  | "B2"
+  | "C1"
+  | "C2"
+  | "N";
 export type YesOrNoType = "Y" | "N";
 export type GenderType = "M" | "F" | "X";
 export type ReviewType = {
@@ -44,22 +51,34 @@ export type LanguageType = {
 };
 
 export type TeacherListItemType = {
-    teacher_id: number
-    teacher_image: string
-    country_image: string
-    average_rating: string
-    teacher_first_name: string
-    teacher_last_name: string
-    teacher_professional: YesOrNoType
-    teacher_description: string
-    teacher_me_as_a_teacher: string
-    trial_lesson_price: number
-    total_lessons: number
-    teacher_languages: LanguageType[]
-}
+  teacher_id: number;
+  teacher_image: string;
+  country_image: string;
+  average_rating: string;
+  teacher_first_name: string;
+  teacher_last_name: string;
+  teacher_professional: YesOrNoType;
+  teacher_description: string;
+  teacher_me_as_a_teacher: string;
+  trial_lesson_price: number;
+  total_lessons: number;
+  teacher_languages: LanguageType[];
+};
 
 export type CountryType = {
+  country_id: number;
+  country_name: string;
+  country_image: string;
+};
+
+export type StudentType = {
   country_id: number
   country_name: string
-  country_image: string
-}
+  student_birthdate: string
+  student_email: string
+  student_first_name: string
+  student_gender: GenderType
+  student_id: number
+  student_image: string
+  student_last_name: string
+};

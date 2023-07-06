@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import { IMAGES } from '@/const';
-import { ReviewType } from "@/types";
+import { IMAGES, SERVICES_URL } from "@/const";
+import { ReviewType, ServiceConfig } from "@/types";
 import { Avatar, Spin } from "antd";
 import moment from "moment";
 import { API_BASE_URL, API_ROUTES, DATE_FORMAT } from "@/const";
@@ -19,18 +19,20 @@ export default function TeacherReviews(props: Props) {
   const fetchReviews = async () => {
     try {
       setLoading(true);
-      const url = `${API_BASE_URL}/${API_ROUTES.services}`;
       page.current++;
 
-      const response = await (
-        await axios.post(url, {
+      const options: ServiceConfig = {
+        method: "POST",
+        url: SERVICES_URL,
+        data: {
           procedure: "TeacherReviewGet",
           params: {
-            teacher_id: props.reviews.at(0)?.teacher_id.toString(),
+            teacher_id: props.reviews[0].teacher_id.toString(),
             page: page.current,
           },
-        })
-      ).data;
+        },
+      };
+      const response = await (await axios(options)).data;
       setReviews((reviews) => [...reviews, ...response.result]);
     } catch (err) {
       console.error(err);
@@ -92,7 +94,9 @@ export default function TeacherReviews(props: Props) {
           </div>
         ))}
 
-        {loading && <Spin size="large" style={{ margin: "auto", marginTop: '16px' }} />}
+        {loading && (
+          <Spin size="large" style={{ margin: "auto", marginTop: "16px" }} />
+        )}
         {reviews.length < props.totalReviews && (
           <button
             className="mt-4 w-full flex justify-center items-center cursor-pointer px-4 py-2.5"

@@ -10,12 +10,13 @@ import {
 } from "@/components";
 import { GetStaticPaths, GetStaticProps } from "next";
 import axios from "axios";
-import { API_BASE_URL, API_ROUTES } from "@/const";
+import { API_BASE_URL, API_ROUTES, SERVICES_URL } from "@/const";
 import {
   GenderType,
   LanguageType,
   LessonPostType,
   ReviewType,
+  ServiceConfig,
   YesOrNoType,
 } from "@/types";
 
@@ -107,13 +108,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
   type Item = {
     teacher_id: number;
   };
-  const url = `${API_BASE_URL}/${API_ROUTES.services}`;
-  const { result } = await (
-    await axios.post(url, {
-      procedure: "TeacherIdsGet",
+  const options: ServiceConfig = {
+    method: "POST",
+    url: SERVICES_URL,
+    data: {
+      procedure: "CountryGet",
       params: {},
-    })
-  ).data;
+    },
+  };
+  const { result } = await (await axios(options)).data;
   return {
     paths: result.map((item: Item) => ({
       params: { id: item.teacher_id.toString() },

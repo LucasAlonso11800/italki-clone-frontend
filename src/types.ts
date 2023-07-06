@@ -1,3 +1,6 @@
+import { AxiosRequestConfig } from "axios";
+import { ServiceDataType } from "./ServiceDataType";
+
 export type LanguageLevelCodeType =
   | "A1"
   | "A2"
@@ -82,3 +85,5 @@ export type StudentType = {
   student_image: string
   student_last_name: string
 };
+
+export type ServiceConfig = AxiosRequestConfig<ServiceDataType>;

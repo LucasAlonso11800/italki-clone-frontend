@@ -1,11 +1,14 @@
-import { LanguageLevel } from "@/components";
-import { API_BASE_URL, API_ROUTES, DATE_FORMAT, IMAGES } from "@/const";
+import {
+  DATE_FORMAT,
+  IMAGES,
+  SERVICES_URL,
+} from "@/const";
 import { useTokenHandler } from "@/hooks";
 import { Layout } from "@/layout";
-import { CountryType, StudentType } from "@/types";
+import { CountryType, ServiceConfig, StudentType } from "@/types";
 import { authenticatedCall } from "@/utils";
-import { Spin } from "antd";
-import axios, { AxiosRequestConfig } from "axios";
+import { Alert, Spin } from "antd";
+import axios from "axios";
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 
@@ -19,13 +22,20 @@ export default function StudentProfile({ countries }: Props) {
 
   const [loading, setLoading] = useState<boolean>(true);
   const [profile, setProfile] = useState<StudentType>();
+  const [error, setError] = useState({
+    field: "student_first_name",
+    message: "First name required.",
+  });
+  const [fieldToEdit, setFieldToEdit] = useState<string>("");
+
+  const cleanErrors = () => setError({ field: "", message: "" });
 
   const fetchStudentProfile = useCallback(async () => {
     try {
       setLoading(true);
-      const options: AxiosRequestConfig = {
+      const options: ServiceConfig = {
         method: "POST",
-        url: `${API_BASE_URL}/${API_ROUTES.services}`,
+        url: SERVICES_URL,
         data: {
           procedure: "StudentProfileGet",
           params: {},
@@ -35,12 +45,9 @@ export default function StudentProfile({ countries }: Props) {
           "refresh-token": refreshToken,
         },
       };
-      const response = await authenticatedCall(
-        options,
-        setTokens,
-        clearTokens
-      );
+      const response = await authenticatedCall(options, setTokens, clearTokens);
       setProfile(response?.result[0]);
+      cleanErrors();
     } catch (err) {
       console.error(err);
     } finally {
@@ -52,19 +59,114 @@ export default function StudentProfile({ countries }: Props) {
     fetchStudentProfile();
   }, [fetchStudentProfile]);
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setProfile({
+      ...profile,
+      [event.target.name]: event.target.value,
+    } as StudentType);
+  };
+
+  const validateParams = (): boolean => {
+    if (!profile?.student_first_name.trim().length) {
+      setError({ field: "student_first_name", message: "First name required" });
+      return false;
+    }
+    if (profile?.student_first_name.trim().length > 40) {
+      setError({
+        field: "student_first_name",
+        message: "First name longer than 40 characters",
+      });
+      return false;
+    }
+    if (!profile?.student_last_name.trim().length) {
+      setError({
+        field: "student_last_name",
+        message: "Last name required",
+      });
+      return false;
+    }
+    if (profile?.student_last_name.trim().length > 40) {
+      setError({
+        field: "student_last_name",
+        message: "Last name longer than 40 characters",
+      });
+      return false;
+    }
+    if (!profile?.country_id) {
+      setError({ field: "country_id", message: "Country required" });
+      return false;
+    }
+    if (!profile?.student_gender) {
+      setError({ field: "student_gender", message: "Gender required" });
+      return false;
+    }
+    if (!["M", "F", "X"].includes(profile?.student_gender)) {
+      setError({ field: "student_gender", message: "Invalid gender" });
+      return false;
+    }
+    cleanErrors();
+    return true;
+  };
+
+  const updateStudentProfile = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+      setFieldToEdit('');
+      if (!validateParams()) return;
+      if (!profile) return;
+
+      setLoading(true);
+      const options: ServiceConfig = {
+        method: "POST",
+        url: SERVICES_URL,
+        data: {
+          procedure: "StudentProfileUpd",
+          params: {
+            first_name: profile.student_first_name,
+            last_name: profile.student_last_name,
+            gender: profile.student_gender,
+            image: profile.student_image,
+            country_id: profile.country_id,
+          },
+        },
+        headers: {
+          authorization: accessToken,
+          "refresh-token": refreshToken,
+        },
+      };
+      await authenticatedCall(options, setTokens, clearTokens);
+      await fetchStudentProfile();
+    } catch (err: any) {
+      setError({ field: "server", message: "Error updating the profile" });
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Layout>
       <main className="italki-app-container flex-container pt-6 min-h-[80px]">
         <div className="bg-white pt-6 -mt-6">
           <div className="max-w-grid-8 mx-auto md:px-3">
+            {error.field === "server" && !loading && (
+              <Alert
+                type="error"
+                message={error.message}
+                style={{ marginBottom: "16px" }}
+              />
+            )}
             {loading && (
               <Spin
                 size="large"
-                style={{ margin: "auto", marginTop: "16px" }}
+                style={{ margin: "auto", marginTop: "16px", display: 'block' }}
               />
             )}
             {!loading && profile && (
-              <form className="ant-form ant-form-horizontal">
+              <form
+                className="ant-form ant-form-horizontal"
+                onSubmit={updateStudentProfile}
+              >
                 <div className="userprofile-avatar border-b-gray py-4 md:pb-8">
                   <div className="flex items-center">
                     <div className="ant-col ant-col-xs-20 ant-col-sm-22 ant-col-md-24">
@@ -123,14 +225,37 @@ export default function StudentProfile({ countries }: Props) {
                     <div className="ant-col md:pr-0 sm:w-[90%]">
                       <div className="flex items-center h-10">
                         <div className="md:w-[30%] h6 mb-1 md:mb-0">
-                          <span>Display Name</span>
+                          <span>First Name</span>
                         </div>
-                        <div className="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-17">
-                          <div className="md:pl-4 regular-body text-gray3">
-                            {profile.student_first_name}{" "}
-                            {profile.student_last_name}
+                        {fieldToEdit === "student_first_name" ? (
+                          <div className="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-17">
+                            <div className="ant-form-item-control">
+                              <div className="ant-form-item-control-input">
+                                <div className="ant-form-item-control-input-content">
+                                  <input
+                                    placeholder="First name"
+                                    type="text"
+                                    id="student_first_name"
+                                    className={`ant-input ${
+                                      error.field === "student_first_name" &&
+                                      "border-red"
+                                    }`}
+                                    value={profile.student_first_name}
+                                    name="student_first_name"
+                                    onChange={handleChange}
+                                    disabled={loading}
+                                  />
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
+                        ) : (
+                          <div className="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-17">
+                            <div className="md:pl-4 regular-body text-gray3">
+                              {profile.student_first_name}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className="ant-col md:flex flex items-center justify-end ant-col-xs-4 sm:w-[10%]">
@@ -138,6 +263,53 @@ export default function StudentProfile({ countries }: Props) {
                         src={IMAGES.Edit}
                         alt="Edit"
                         className="edit-icon cursor-pointer"
+                        onClick={() => setFieldToEdit("student_first_name")}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex border-b-gray md:border-b-0 pl-4 pr-2 py-3 md:pt-0">
+                    <div className="ant-col md:pr-0 sm:w-[90%]">
+                      <div className="flex items-center h-10">
+                        <div className="md:w-[30%] h6 mb-1 md:mb-0">
+                          <span>Last Name</span>
+                        </div>
+                        {fieldToEdit === "student_last_name" ? (
+                          <div className="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-17">
+                            <div className="ant-form-item-control">
+                              <div className="ant-form-item-control-input">
+                                <div className="ant-form-item-control-input-content">
+                                  <input
+                                    placeholder="Last name"
+                                    type="text"
+                                    id="student_last_name"
+                                    className={`ant-input ${
+                                      error.field === "student_last_name" &&
+                                      "border-red"
+                                    }`}
+                                    value={profile.student_last_name}
+                                    name="student_last_name"
+                                    onChange={handleChange}
+                                    disabled={loading}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-17">
+                            <div className="md:pl-4 regular-body text-gray3">
+                              {profile.student_last_name}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="ant-col md:flex flex items-center justify-end ant-col-xs-4 sm:w-[10%]">
+                      <img
+                        src={IMAGES.Edit}
+                        alt="Edit"
+                        className="edit-icon cursor-pointer"
+                        onClick={() => setFieldToEdit("student_last_name")}
                       />
                     </div>
                   </div>
@@ -160,12 +332,21 @@ export default function StudentProfile({ countries }: Props) {
                         </div>
                       </div>
                     </div>
-                    <div className="ant-col md:flex flex items-center justify-end ant-col-xs-4 sm:w-[10%]">
-                      <img
-                        src={IMAGES.Edit}
-                        alt="Edit"
-                        className="edit-icon cursor-pointer"
-                      />
+                  </div>
+                  <div className="flex border-b-gray md:border-b-0 pl-4 pr-2 py-3 md:pt-0">
+                    <div className="ant-col md:pr-0 sm:w-[90%]">
+                      <div className="flex items-center h-10">
+                        <div className="md:w-[30%] h6 mb-1 md:mb-0">
+                          <span>Email</span>
+                        </div>
+                        <div className="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-17">
+                          <div className="md:pl-4 regular-body text-gray3 profile_title__ZClxV">
+                            <span className="text-gray4">
+                              <span>{profile.student_email}</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div className="flex border-b-gray md:border-b-0 pl-4 pr-2 py-3 md:pt-0">
@@ -192,6 +373,7 @@ export default function StudentProfile({ countries }: Props) {
                         src={IMAGES.Edit}
                         alt="Edit"
                         className="edit-icon cursor-pointer"
+                        onClick={() => setFieldToEdit("student_gender")}
                       />
                     </div>
                   </div>
@@ -213,10 +395,17 @@ export default function StudentProfile({ countries }: Props) {
                         src={IMAGES.Edit}
                         alt="Edit"
                         className="edit-icon cursor-pointer"
+                        onClick={() => setFieldToEdit("student_country")}
                       />
                     </div>
                   </div>
                 </div>
+                <button
+                  type="submit"
+                  className="rounded-lg tracking-wider font-bold py-2.5 px-4 transition-all cursor-pointer text-white bg-red2 hover:bg-red1 mt-auto"
+                >
+                  <span>Update profile</span>
+                </button>
               </form>
             )}
           </div>
@@ -228,13 +417,15 @@ export default function StudentProfile({ countries }: Props) {
 
 export async function getStaticProps() {
   try {
-    const url = `${API_BASE_URL}/${API_ROUTES.services}`;
-    const { result } = await (
-      await axios.post(url, {
+    const options: ServiceConfig = {
+      method: "POST",
+      url: SERVICES_URL,
+      data: {
         procedure: "CountryGet",
         params: {},
-      })
-    ).data;
+      },
+    };
+    const { result } = await (await axios(options)).data;
     return {
       props: {
         countries: result,

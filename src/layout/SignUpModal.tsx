@@ -1,11 +1,11 @@
-import { IMAGES } from '@/const';
+import { IMAGES, SERVICES_URL } from "@/const";
 import { API_BASE_URL, API_ROUTES, EMAIL_REGEX, ROUTES } from "@/const";
 import { useTokenHandler } from "@/hooks";
-import { CountryType } from "@/types";
+import { CountryType, ServiceConfig } from "@/types";
 import { Alert, DatePicker, Modal, Select } from "antd";
 import axios from "axios";
 import Link from "next/link";
-import {useRouter} from "next/router"
+import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 
 type Props = {
@@ -74,7 +74,10 @@ export default function SignUpModal({ open, setModal }: Props) {
       return false;
     }
     if (values.password.length < 8) {
-      setError({ field: "password", message: "Password must be at least 8 characters long" });
+      setError({
+        field: "password",
+        message: "Password must be at least 8 characters long",
+      });
       return false;
     }
     if (values.password.length > 40) {
@@ -140,8 +143,11 @@ export default function SignUpModal({ open, setModal }: Props) {
       setLoading(true);
       const url = `${API_BASE_URL}/${API_ROUTES.signup.student}`;
       const response = await axios.post(url, values);
-      if (response.data.code === 1){
-        setTokens(response.headers.access_token, response.headers.refresh_token);
+      if (response.data.code === 1) {
+        setTokens(
+          response.headers.access_token,
+          response.headers.refresh_token
+        );
         router.push(ROUTES.student.settings.profile);
       }
     } catch (err: any) {
@@ -171,13 +177,15 @@ export default function SignUpModal({ open, setModal }: Props) {
 
   const countryGet = async () => {
     try {
-      const url = `${API_BASE_URL}/${API_ROUTES.services}`;
-      const { result } = await (
-        await axios.post(url, {
+      const options: ServiceConfig = {
+        method: "POST",
+        url: SERVICES_URL,
+        data: {
           procedure: "CountryGet",
           params: {},
-        })
-      ).data;
+        },
+      };
+      const { result } = await (await axios(options)).data;
       setCountries(result);
       setValues({ ...values, country: result[0].country_id });
     } catch (err: any) {
@@ -394,7 +402,11 @@ export default function SignUpModal({ open, setModal }: Props) {
       open={open}
       centered
       closeIcon={
-        <img src={IMAGES.CloseMenu} alt="Close" onClick={() => setModal(null)} />
+        <img
+          src={IMAGES.CloseMenu}
+          alt="Close"
+          onClick={() => setModal(null)}
+        />
       }
       width={520}
       cancelButtonProps={{ hidden: true }}

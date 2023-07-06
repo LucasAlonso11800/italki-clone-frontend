@@ -1,4 +1,6 @@
 import {
+  API_BASE_URL,
+  API_ROUTES,
   DATE_FORMAT,
   IMAGES,
   SERVICES_URL,
@@ -8,9 +10,10 @@ import { Layout } from "@/layout";
 import { CountryType, ServiceConfig, StudentType } from "@/types";
 import { authenticatedCall } from "@/utils";
 import { Alert, Spin } from "antd";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import moment from "moment";
-import React, { useCallback, useEffect, useState } from "react";
+import Router from "next/router";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 type Props = {
   countries: CountryType[];
@@ -27,32 +30,35 @@ export default function StudentProfile({ countries }: Props) {
     message: "First name required.",
   });
   const [fieldToEdit, setFieldToEdit] = useState<string>("");
+  const [file, setFile] = useState<Blob | Uint8Array | ArrayBuffer | null>(
+    null
+  );
 
   const cleanErrors = () => setError({ field: "", message: "" });
 
   const fetchStudentProfile = useCallback(async () => {
-    try {
-      setLoading(true);
-      const options: ServiceConfig = {
-        method: "POST",
-        url: SERVICES_URL,
-        data: {
-          procedure: "StudentProfileGet",
-          params: {},
-        },
-        headers: {
-          authorization: accessToken,
-          "refresh-token": refreshToken,
-        },
-      };
-      const response = await authenticatedCall(options, setTokens, clearTokens);
-      setProfile(response?.result[0]);
-      cleanErrors();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
+    setLoading(true);
+    setFile(null);
+    const options: ServiceConfig = {
+      method: "POST",
+      url: SERVICES_URL,
+      data: {
+        procedure: "StudentProfileGet",
+        params: {},
+      },
+      headers: {
+        authorization: accessToken,
+        "refresh-token": refreshToken,
+      },
+    };
+    const response = await authenticatedCall(options, setTokens, clearTokens);
+    if (response.code === 0 || response.result.length !== 1) {
+      Router.push("/");
+    } else {
+      setProfile(response.result[0]);
     }
+    cleanErrors();
+    setLoading(false);
   }, [accessToken, authenticatedCall]);
 
   useEffect(() => {
@@ -69,6 +75,7 @@ export default function StudentProfile({ countries }: Props) {
   const validateParams = (): boolean => {
     if (!profile?.student_first_name.trim().length) {
       setError({ field: "student_first_name", message: "First name required" });
+      setFieldToEdit("student_first_name");
       return false;
     }
     if (profile?.student_first_name.trim().length > 40) {
@@ -76,6 +83,7 @@ export default function StudentProfile({ countries }: Props) {
         field: "student_first_name",
         message: "First name longer than 40 characters",
       });
+      setFieldToEdit("student_first_name");
       return false;
     }
     if (!profile?.student_last_name.trim().length) {
@@ -83,6 +91,7 @@ export default function StudentProfile({ countries }: Props) {
         field: "student_last_name",
         message: "Last name required",
       });
+      setFieldToEdit("student_last_name");
       return false;
     }
     if (profile?.student_last_name.trim().length > 40) {
@@ -90,18 +99,22 @@ export default function StudentProfile({ countries }: Props) {
         field: "student_last_name",
         message: "Last name longer than 40 characters",
       });
+      setFieldToEdit("student_last_name");
       return false;
     }
     if (!profile?.country_id) {
       setError({ field: "country_id", message: "Country required" });
+      setFieldToEdit("country_id");
       return false;
     }
     if (!profile?.student_gender) {
       setError({ field: "student_gender", message: "Gender required" });
+      setFieldToEdit("student_gender");
       return false;
     }
     if (!["M", "F", "X"].includes(profile?.student_gender)) {
       setError({ field: "student_gender", message: "Invalid gender" });
+      setFieldToEdit("student_gender");
       return false;
     }
     cleanErrors();
@@ -109,40 +122,57 @@ export default function StudentProfile({ countries }: Props) {
   };
 
   const updateStudentProfile = async (e: React.FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
-      setFieldToEdit('');
-      if (!validateParams()) return;
-      if (!profile) return;
+    e.preventDefault();
+    setFieldToEdit("");
+    if (!validateParams()) return;
+    if (!profile) return;
 
-      setLoading(true);
-      const options: ServiceConfig = {
-        method: "POST",
-        url: SERVICES_URL,
-        data: {
-          procedure: "StudentProfileUpd",
-          params: {
-            first_name: profile.student_first_name,
-            last_name: profile.student_last_name,
-            gender: profile.student_gender,
-            image: profile.student_image,
-            country_id: profile.country_id,
-          },
-        },
-        headers: {
-          authorization: accessToken,
-          "refresh-token": refreshToken,
-        },
-      };
-      await authenticatedCall(options, setTokens, clearTokens);
+    setLoading(true);
+    const options: AxiosRequestConfig = {
+      method: "PUT",
+      url: `${API_BASE_URL}/${API_ROUTES.student.profile}`,
+      data: {
+        first_name: profile.student_first_name,
+        last_name: profile.student_last_name,
+        gender: profile.student_gender,
+        image: profile.student_image,
+        country_id: profile.country_id,
+        email: profile.student_email,
+      },
+      headers: {
+        authorization: accessToken,
+        "refresh-token": refreshToken,
+      },
+    };
+    const response = await authenticatedCall(options, setTokens, clearTokens);
+    if (response.code === 0) {
+      setError({ field: "server", message: response.errmsg });
+    } else {
       await fetchStudentProfile();
-    } catch (err: any) {
-      setError({ field: "server", message: "Error updating the profile" });
-      console.error(err);
-    } finally {
-      setLoading(false);
+    }
+    setLoading(false);
+  };
+
+  const handleReaderLoaded = (readerEvt: any) => {
+    const binaryString = readerEvt.target.result;
+    setProfile({
+      ...profile,
+      student_image: btoa(binaryString),
+    } as StudentType);
+  };
+
+  const handleImg = (e: any) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFile(file);
+      const reader = new FileReader();
+      reader.onload = handleReaderLoaded;
+      reader.readAsBinaryString(file);
     }
   };
+
+  const inputFile: any = useRef(null);
+  const handleButtonClick = () => inputFile.current.click();
 
   return (
     <Layout>
@@ -159,7 +189,7 @@ export default function StudentProfile({ countries }: Props) {
             {loading && (
               <Spin
                 size="large"
-                style={{ margin: "auto", marginTop: "16px", display: 'block' }}
+                style={{ margin: "auto", marginTop: "16px", display: "block" }}
               />
             )}
             {!loading && profile && (
@@ -185,9 +215,13 @@ export default function StudentProfile({ countries }: Props) {
                       >
                         <img
                           src={
-                            profile.student_image || IMAGES.AvatarPlaceholder
+                            file
+                              ? `data:image/png;base64,${profile.student_image}`
+                              : profile.student_image ||
+                                IMAGES.AvatarPlaceholder
                           }
                           alt="Avatar"
+                          onError={() => setProfile({...profile, student_image: ''})}
                         />
                       </span>
                     </div>
@@ -202,15 +236,20 @@ export default function StudentProfile({ countries }: Props) {
                           </div>
                         </div>
                         <div>
-                          <label>
-                            <input
-                              className="absolute -left-[9999px]"
-                              type="file"
-                            />
-                            <button className="inline-block px-4 rounded border border-solid border-gray5 text-gray2  text-button uppercase cursor-pointer hover:border-black hover:text-black h-[40px]">
-                              <span>Upload</span>
-                            </button>
-                          </label>
+                          <input
+                            style={{ display: "none" }}
+                            accept="image/png, image/jpeg, image/jpg"
+                            ref={inputFile}
+                            onChange={handleImg}
+                            type="file"
+                          />
+                          <button
+                            type="button"
+                            onClick={handleButtonClick}
+                            className="inline-block px-4 rounded border border-solid border-gray5 text-gray2  text-button uppercase cursor-pointer hover:border-black hover:text-black h-[40px]"
+                          >
+                            <span>Upload</span>
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -221,6 +260,13 @@ export default function StudentProfile({ countries }: Props) {
                   <div className="h5 mb-4 pl-4 hidden md:block">
                     <span>Basic Information</span>
                   </div>
+                  {error.field === "student_first_name" && !loading && (
+                    <Alert
+                      type="error"
+                      message={error.message}
+                      style={{ marginBottom: "16px" }}
+                    />
+                  )}
                   <div className="flex border-b-gray md:border-b-0 pl-4 pr-2 py-3 md:pt-0">
                     <div className="ant-col md:pr-0 sm:w-[90%]">
                       <div className="flex items-center h-10">
@@ -267,6 +313,13 @@ export default function StudentProfile({ countries }: Props) {
                       />
                     </div>
                   </div>
+                  {error.field === "student_last_name" && !loading && (
+                    <Alert
+                      type="error"
+                      message={error.message}
+                      style={{ marginBottom: "16px" }}
+                    />
+                  )}
                   <div className="flex border-b-gray md:border-b-0 pl-4 pr-2 py-3 md:pt-0">
                     <div className="ant-col md:pr-0 sm:w-[90%]">
                       <div className="flex items-center h-10">
@@ -349,6 +402,13 @@ export default function StudentProfile({ countries }: Props) {
                       </div>
                     </div>
                   </div>
+                  {error.field === "student_gender" && !loading && (
+                    <Alert
+                      type="error"
+                      message={error.message}
+                      style={{ marginBottom: "16px" }}
+                    />
+                  )}
                   <div className="flex border-b-gray md:border-b-0 pl-4 pr-2 py-3 md:pt-0">
                     <div className="ant-col md:pr-0 sm:w-[90%]">
                       <div className="flex items-center h-10">
@@ -377,6 +437,13 @@ export default function StudentProfile({ countries }: Props) {
                       />
                     </div>
                   </div>
+                  {error.field === "country_id" && !loading && (
+                    <Alert
+                      type="error"
+                      message={error.message}
+                      style={{ marginBottom: "16px" }}
+                    />
+                  )}
                   <div className="flex border-b-gray md:border-b-0 pl-4 pr-2 py-3 md:pt-0">
                     <div className="ant-col md:pr-0 sm:w-[90%]">
                       <div className="flex items-center h-10">
@@ -395,7 +462,7 @@ export default function StudentProfile({ countries }: Props) {
                         src={IMAGES.Edit}
                         alt="Edit"
                         className="edit-icon cursor-pointer"
-                        onClick={() => setFieldToEdit("student_country")}
+                        onClick={() => setFieldToEdit("country_id")}
                       />
                     </div>
                   </div>

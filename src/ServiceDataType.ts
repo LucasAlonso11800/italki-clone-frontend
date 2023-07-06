@@ -8,6 +8,7 @@ type StudentProfileUpd = {
     gender: GenderType;
     image: string | null;
     country_id: number;
+    email: string
   };
 };
 

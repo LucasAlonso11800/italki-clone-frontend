@@ -16,9 +16,6 @@ export default function useTokenHandler() {
 
   // Function to set the access token and refresh token
   const setTokens = (newAccessToken: string, newRefreshToken: string) => {
-    
-  console.log('accessToken', newAccessToken)
-  console.log('refreshToken', newRefreshToken)
     setAccessToken(newAccessToken);
     setRefreshToken(newRefreshToken);
     if (typeof localStorage !== 'undefined'){

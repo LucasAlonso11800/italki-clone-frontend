@@ -21,26 +21,23 @@ export const authenticatedCall = async (
         setTokens,
         clearToken
       );
-      console.log("newAccessToken", newAccessToken);
       if (!newAccessToken) {
+        console.error("Error generating new access token");
         return Router.push("/");
       }
       // Retry the API call with the new access token
       options.headers["authorization"] = newAccessToken;
-      const response = await axios(options);
-      if (response.status === 200 && response.data.code === 1) {
-        return response.data;
-      } else {
-        console.error(response);
-        return Router.push("/");
-      }
+      return (await axios(options)).data;
     } else {
       console.error("No refresh token present");
       return Router.push("/");
     }
   } catch (error: any) {
-    console.error(error.response);
-    return Router.push("/");
+    if (error.response) {
+      return error.response.data;
+    } else {
+      return Router.push("/");
+    }
   }
 };
 

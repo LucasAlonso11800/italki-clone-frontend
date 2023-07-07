@@ -5,11 +5,11 @@ import { ROUTES } from "@/const";
 export default function WhatItalkiOffers() {
   return (
     <div className="flex flex-col items-center justify-center bg-bg1 py-5 mx-auto md:py-18 bg-white">
-      <h2 className="w-full pb-6 text-lg leading-7 md:leading-10 md:text-2xl font-bold text-gray1 md:text-center md:pb-18 pl-4 md:ml-0">
+      <h2 className="w-full pb-6 leading-7 md:leading-10 text-3xl font-bold text-gray1 text-center md:pb-18 pl-4 md:ml-0">
         See what italki offers
       </h2>
       <div className="w-full px-4 flex md:justify-center overflow-hidden AgardHPBelow_HideScrollBar__AMORC">
-        <div className="flex m-auto w-auto flex-nowrap md:max-w-grid-12 -mx-6">
+        <div className="flex m-auto w-auto flex-wrap md:flex-nowrap md:max-w-grid-12 -mx-6">
           <WhatItalkiOffersItem
             title="1-on-1 lessons"
             text="Find teachers from all over the world sharing their languages,

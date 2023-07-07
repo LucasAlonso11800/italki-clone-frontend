@@ -6,10 +6,10 @@ export default function HomePageBanner() {
       className="bg-white pt-4 pb-6 md:pt-12 md:pb-8"
       style={{ borderTop: "1px solid #F5F6F9" }}
     >
-      <div className="flex m-auto max-w-grid-12 flex-col sm:flex-row md:px-6">
+      <div className="flex m-auto max-w-grid-12 flex-col sm:flex-row px-2 md:px-6">
         <div className="flex flex-col flex-1">
           <h1
-            className=" font-bold sm:text-5xl text-gray1 text-2xl text-center sm:text-left"
+            className=" font-bold md:text-5xl text-gray1 text-2xl text-center sm:text-left"
             style={{ lineHeight: "60px" }}
           >
             Become fluent in any language
@@ -59,7 +59,7 @@ export default function HomePageBanner() {
         </div>
         <div className="flex-1 flex justify-end">
           <img
-            className="h-[360px] w-[560px]"
+            className="h-[200px] sm:h-[280px] md:h-[320px] lg:h-[360px] w-[300px] sm:w-[360px] md:w-[450px] lg:w-[560px]"
             src="https://scdn.italki.com/ng/static/image/asgardhp/hp_cover_w.png"
             alt=""
           />

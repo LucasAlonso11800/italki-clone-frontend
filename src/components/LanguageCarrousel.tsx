@@ -6,10 +6,10 @@ import CarouselItem from "./CarouselItem";
 
 export default function LanguageCarrousel() {
   return (
-    <div className="pt-8 mx-auto md:px-6 max-w-grid-12 bg-white pb-6 md:pb-8">
+    <div className="pt-8 mx-auto md:px-6 max-w-grid-12 pb-6 md:pb-8">
       <div
         style={{ border: "1px solid #E5E8ED" }}
-        className="relative bg-white rounded-3 py-4 px-8 flex justify-end items-center max-w-grid-12"
+        className="relative rounded-3 py-4 px-8 flex justify-end items-center max-w-grid-12"
       >
         <div className="absolute z-20 left-6 my-auto w-10 h-10 bg-gray6 rounded-full flex justify-center items-center cursor-pointer hover:shadow-hover flex items-center">
           <svg

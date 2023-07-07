@@ -7,7 +7,7 @@ export default function FAQ() {
 
   return (
     <div className="py-5 mx-auto md:py-18">
-      <h2 className="text-2xl text-center leading-7 font-bold mb-10">
+      <h2 className="text-3xl text-center leading-7 font-bold mb-10">
         Frequently asked questions
       </h2>
       <div className="mx-auto" style={{ maxWidth: 744 }}>

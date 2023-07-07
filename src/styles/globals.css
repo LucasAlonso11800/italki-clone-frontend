@@ -19,6 +19,11 @@
     font-family: Noto Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
 }
 
+body {
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
 img {
     object-fit: cover;
 }
@@ -171,7 +176,9 @@ img {
 .max-w-grid-8 {
     max-width: 768px;
 }
-
+.max-w-grid-12 {
+    max-width: 1176px;
+}
 .edit-icon:hover {
     filter: brightness(0) saturate(100%) invert(17%) sepia(12%) saturate(1066%) hue-rotate(201deg) brightness(92%) contrast(89%);
 }

@@ -8,7 +8,7 @@ type Props = {
 };
 export default function CarouselItem({ href, image, language }: Props) {
   return (
-    <div style={{ width: "156px" }}>
+    <div className="w-[156px]">
       <Link href={href} target="_blank" style={{ width: "156px" }}>
         <div
           style={{ width: "156px" }}

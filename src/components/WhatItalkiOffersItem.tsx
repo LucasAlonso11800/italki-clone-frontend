@@ -18,7 +18,7 @@ export default function WhatItalkiOffersItem({
   image,
 }: Props) {
   return (
-    <div className="ant-col ant-col-8 px-6">
+    <div className="w-full md:w-auto mx-auto px-6">
       <div className="AgardHPBelow_SeeWhatOffersCard__tl_KK flex flex-col justify-center items-center space-y-2 text-center rounded-3 h-full py-6 px-4 md:bg-transparent md:py-0">
         <img
           className="felx-none w-[250px] h-[160px] lazyloaded rounded-full"

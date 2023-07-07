@@ -112,11 +112,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
     method: "POST",
     url: SERVICES_URL,
     data: {
-      procedure: "CountryGet",
+      procedure: "TeacherIdsGet",
       params: {},
     },
   };
   const { result } = await (await axios(options)).data;
+
   return {
     paths: result.map((item: Item) => ({
       params: { id: item.teacher_id.toString() },

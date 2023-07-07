@@ -33,6 +33,7 @@ export default function StudentProfile({ countries }: Props) {
   const [file, setFile] = useState<Blob | Uint8Array | ArrayBuffer | null>(
     null
   );
+  const [success, setSuccess] = useState<boolean>(false);
 
   const cleanErrors = () => setError({ field: "", message: "" });
 
@@ -149,6 +150,10 @@ export default function StudentProfile({ countries }: Props) {
       setError({ field: "server", message: response.errmsg });
     } else {
       await fetchStudentProfile();
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+      }, 3000)
     }
     setLoading(false);
   };
@@ -183,6 +188,13 @@ export default function StudentProfile({ countries }: Props) {
               <Alert
                 type="error"
                 message={error.message}
+                style={{ marginBottom: "16px" }}
+              />
+            )}
+            {success && (
+              <Alert
+                type="success"
+                message="Profile updated"
                 style={{ marginBottom: "16px" }}
               />
             )}

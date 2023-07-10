@@ -21,6 +21,7 @@ import {
   TeacherAvailabilityType,
   YesOrNoType,
 } from "@/types";
+import { getWeekLimits } from "@/utils";
 
 type Props = {
   average_rating: string;
@@ -48,11 +49,10 @@ type Props = {
   teacher_languages: LanguageType[];
   country_image: string;
   total_reviews: number;
-  teacher_availability: TeacherAvailabilityType[]
+  teacher_availability: TeacherAvailabilityType[];
 };
 
 export default function TeacherPage(props: Props) {
-  console.log(props)
   const languagesTheyTeach = useMemo(
     () =>
       props.teacher_languages?.filter((lang) => lang.teacher_teaches === "Y"),
@@ -89,7 +89,10 @@ export default function TeacherPage(props: Props) {
                   );
                 }
               })}
-              <TeacherAvailability availability={props.teacher_availability}/>
+              <TeacherAvailability
+                teacherId={props.teacher_id}
+                availability={props.teacher_availability}
+              />
               <TeacherReviews
                 reviews={props.teacher_reviews}
                 totalReviews={props.total_reviews}
@@ -132,20 +135,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const teacherInfoURL = `${API_BASE_URL}/${API_ROUTES.teacher.info}/${context.params?.id}`;
-    const teacherAvailabilityURL = `${API_BASE_URL}/${API_ROUTES.teacher.availability}`;
-    const teacherAvailabilityData = {
-      teacher_id: parseInt(context.params?.id as string),
-      date_from: "2023-07-10",
-      date_to: "2023-07-16",
-    };
+    const infoURL = `${API_BASE_URL}/${API_ROUTES.teacher.info}/${context.params?.id}`;
+    const weekLimits = getWeekLimits(0);
 
-    const teacherInfo = await (await axios.get(teacherInfoURL)).data;
-    const teacherAvailability = await (
-      await axios.get(teacherAvailabilityURL, {
-        data: teacherAvailabilityData,
-      })
-    ).data;
+    const availabilityURL = `${API_BASE_URL}/${
+      API_ROUTES.teacher.availability
+    }?teacher_id=${context.params?.id}&date_from=${weekLimits.start}&date_to=${weekLimits.end}`;
+
+    const teacherInfo = await (await axios.get(infoURL)).data;
+    const teacherAvailability = await (await axios.get(availabilityURL)).data;
 
     return {
       props: {

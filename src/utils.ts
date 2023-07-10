@@ -63,3 +63,18 @@ export const refreshAccessToken = async (
     clearTokens();
   }
 };
+
+export const getWeekLimits = (offset: number) => {
+  if (offset <= 0) offset = 0;
+  const today = new Date();
+  const d = new Date(today.setDate(today.getDate() + 7 * offset));
+  const day = d.getDay();
+  const diff = d.getDate() - day + (day == 0 ? -6 : 1);
+
+  const start = new Date(d.setDate(diff)).toISOString().substring(0,10);
+  const end = new Date(d.setDate(d.getDate() + 6)).toISOString().substring(0,10);
+  return {
+    start,
+    end,
+  };
+};

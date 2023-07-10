@@ -182,3 +182,23 @@ img {
 .edit-icon:hover {
     filter: brightness(0) saturate(100%) invert(17%) sepia(12%) saturate(1066%) hue-rotate(201deg) brightness(92%) contrast(89%);
 }
+.green-bg {
+    background: rgb(126, 201, 55)
+}
+
+/* Small schedule */
+.small-schedule-cell {
+    flex: 1 1 0%;
+    border-top: 1px solid rgb(229, 232, 237);
+    border-left: 1px solid rgb(229, 232, 237);
+    overflow: hidden;
+}
+.small-schedule-section:nth-child(7) .small-schedule-cell:nth-child(1) {
+    border-top-right-radius: 8px;
+}
+.small-schedule-section:nth-child(7) .small-schedule-cell:nth-child(6) {
+    border-bottom-right-radius: 8px;
+}
+.small-schedule-cell:nth-child(6) {
+    border-bottom: 1px solid rgb(229, 232, 237);
+}

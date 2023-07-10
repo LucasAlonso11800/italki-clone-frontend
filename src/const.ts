@@ -76,6 +76,7 @@ export const API_ROUTES = {
   teacher: {
     info: "teacher",
     ids: "teacher/ids",
+    availability: "teacher/availability"
   },
   teachers: "teachers",
   student: {

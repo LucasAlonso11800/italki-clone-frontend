@@ -11,6 +11,7 @@ export type LanguageLevelCodeType =
   | "N";
 export type YesOrNoType = "Y" | "N";
 export type GenderType = "M" | "F" | "X";
+export type WeekDayType = "SU" | "MO" | "TU" | "WE" | "TH" | "FR" | "SA";
 export type ReviewType = {
   student_first_name: string;
   student_id: number;
@@ -75,15 +76,22 @@ export type CountryType = {
 };
 
 export type StudentType = {
-  country_id: number
-  country_name: string
-  student_birthdate: string
-  student_email: string
-  student_first_name: string
-  student_gender: GenderType
-  student_id: number
-  student_image: string
-  student_last_name: string
+  country_id: number;
+  country_name: string;
+  student_birthdate: string;
+  student_email: string;
+  student_first_name: string;
+  student_gender: GenderType;
+  student_id: number;
+  student_image: string;
+  student_last_name: string;
 };
 
+export type TeacherAvailabilityType = {
+  teacher_availability_id: number;
+  teacher_availability_day_of_week: WeekDayType;
+  teacher_availability_start_time: string;
+  teacher_availability_end_time: string;
+  is_booked: false;
+};
 export type ServiceConfig = AxiosRequestConfig<ServiceDataType>;

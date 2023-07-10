@@ -7,6 +7,7 @@ import {
   TeacherLessons,
   TeacherReviews,
   TeacherVideo,
+  TeacherAvailability,
 } from "@/components";
 import { GetStaticPaths, GetStaticProps } from "next";
 import axios from "axios";
@@ -17,6 +18,7 @@ import {
   LessonPostType,
   ReviewType,
   ServiceConfig,
+  TeacherAvailabilityType,
   YesOrNoType,
 } from "@/types";
 
@@ -46,9 +48,11 @@ type Props = {
   teacher_languages: LanguageType[];
   country_image: string;
   total_reviews: number;
+  teacher_availability: TeacherAvailabilityType[]
 };
 
 export default function TeacherPage(props: Props) {
+  console.log(props)
   const languagesTheyTeach = useMemo(
     () =>
       props.teacher_languages?.filter((lang) => lang.teacher_teaches === "Y"),
@@ -85,7 +89,7 @@ export default function TeacherPage(props: Props) {
                   );
                 }
               })}
-              {/* Availability */}
+              <TeacherAvailability availability={props.teacher_availability}/>
               <TeacherReviews
                 reviews={props.teacher_reviews}
                 totalReviews={props.total_reviews}
@@ -128,10 +132,26 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const url = `${API_BASE_URL}/${API_ROUTES.teacher.info}/${context.params?.id}`;
-    const { result } = await (await axios.get(url)).data;
+    const teacherInfoURL = `${API_BASE_URL}/${API_ROUTES.teacher.info}/${context.params?.id}`;
+    const teacherAvailabilityURL = `${API_BASE_URL}/${API_ROUTES.teacher.availability}`;
+    const teacherAvailabilityData = {
+      teacher_id: parseInt(context.params?.id as string),
+      date_from: "2023-07-10",
+      date_to: "2023-07-16",
+    };
+
+    const teacherInfo = await (await axios.get(teacherInfoURL)).data;
+    const teacherAvailability = await (
+      await axios.get(teacherAvailabilityURL, {
+        data: teacherAvailabilityData,
+      })
+    ).data;
+
     return {
-      props: result[0],
+      props: {
+        ...teacherInfo.result[0],
+        teacher_availability: teacherAvailability.result,
+      },
       revalidate: 60,
     };
   } catch (err) {

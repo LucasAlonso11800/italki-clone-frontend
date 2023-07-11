@@ -92,6 +92,7 @@ export default function TeacherPage(props: Props) {
               <TeacherAvailability
                 teacherId={props.teacher_id}
                 availability={props.teacher_availability}
+                lessons={props.teacher_lessons}
               />
               <TeacherReviews
                 reviews={props.teacher_reviews}

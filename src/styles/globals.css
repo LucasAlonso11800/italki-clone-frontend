@@ -1,204 +1,235 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;300;400;500;600;700;800;900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    list-style-type: none;
-    outline: none;
-    border: none;
-    line-height: 1.5;
-    -webkit-font-feature-settings: normal;
-    font-feature-settings: normal;
-    font-variant: normal;
-    font-family: Noto Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+  outline: none;
+  border: none;
+  line-height: 1.5;
+  -webkit-font-feature-settings: normal;
+  font-feature-settings: normal;
+  font-variant: normal;
+  font-family: Noto Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, sans-serif;
 }
 
 body {
-    width: 100vw;
-    min-height: 100vh;
-    overflow-x: hidden;
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 img {
-    object-fit: cover;
+  object-fit: cover;
 }
 
-@media all and (min-width: 1280px){
-    .container {
-        max-width: 1176px;
-        margin: auto;
-    }
+@media all and (min-width: 1280px) {
+  .container {
+    max-width: 1176px;
+    margin: auto;
+  }
 }
 
 /* Fonts */
-.h4, h4 {
-    font-size: 24px;
-    line-height: 32px;
+.h4,
+h4 {
+  font-size: 24px;
+  line-height: 32px;
 }
-.h5, h5 {
-    font-size: 20px;
-    line-height: 28px;
+.h5,
+h5 {
+  font-size: 20px;
+  line-height: 28px;
 }
-.h6, .regular-body, h6 {
-    font-size: 16px;
-    line-height: 24px;
+.h6,
+.regular-body,
+h6 {
+  font-size: 16px;
+  line-height: 24px;
 }
 .regular-body {
-    font-weight: 500;
+  font-weight: 500;
 }
-.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-    color: #313140;
-    font-weight: 700;
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #313140;
+  font-weight: 700;
 }
 .small-secondary {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 22px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
 }
 .tiny-caption {
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 18px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
 }
 .speech-italic {
-    font-style: italic;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 22px;
+  font-style: italic;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
 }
 .break-words {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    word-break: break-word;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .truncate-2 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow-wrap: break-word;
-    -webkit-line-clamp: 2;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow-wrap: break-word;
+  -webkit-line-clamp: 2;
 }
 
 .text-button {
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 22px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
 }
 
 /* Form */
 .ant-form-item {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 0;
-    color: #515164;
-    font-size: 14px;
-    font-variant: normal;
-    line-height: 1.5715;
-    list-style: none;
-    -webkit-font-feature-settings: normal;
-    font-feature-settings: normal;
-    margin: 0 0 16px;
-    vertical-align: top;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+  color: #515164;
+  font-size: 14px;
+  font-variant: normal;
+  line-height: 1.5715;
+  list-style: none;
+  -webkit-font-feature-settings: normal;
+  font-feature-settings: normal;
+  margin: 0 0 16px;
+  vertical-align: top;
 }
 
 .ant-form-item-control-input {
-    position: relative;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    min-height: 40px;
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  min-height: 40px;
 }
 
 .ant-form-item-control-input-content {
-    -ms-flex: auto;
-    flex: auto;
-    max-width: 100%;
+  -ms-flex: auto;
+  flex: auto;
+  max-width: 100%;
 }
 
 .ant-input-affix-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    min-width: 0;
-    padding: 8px 12px;
-    color: #515164;
-    font-size: 14px;
-    line-height: 1.5715;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #e5e8ed;
-    border-radius: 8px;
-    -webkit-transition: all .3s;
-    transition: all .3s;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  min-width: 0;
+  padding: 8px 12px;
+  color: #515164;
+  font-size: 14px;
+  line-height: 1.5715;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #e5e8ed;
+  border-radius: 8px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
 .ant-input {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    margin: 0;
-    font-variant: normal;
-    list-style: none;
-    -webkit-font-feature-settings: normal;
-    font-feature-settings: normal;
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    min-width: 0;
-    padding: 8px 12px;
-    color: #515164;
-    font-size: 14px;
-    line-height: 1.5715;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #e5e8ed;
-    border-radius: 8px;
-    -webkit-transition: all .3s;
-    transition: all .3s;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  font-variant: normal;
+  list-style: none;
+  -webkit-font-feature-settings: normal;
+  font-feature-settings: normal;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  min-width: 0;
+  padding: 8px 12px;
+  color: #515164;
+  font-size: 14px;
+  line-height: 1.5715;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #e5e8ed;
+  border-radius: 8px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
-.ant-input.border-red{
-    border-color: rgb(211 56 47);
+.ant-input.border-red {
+  border-color: rgb(211 56 47);
 }
 
-.ant-input-affix-wrapper>input.ant-input {
-    padding: 0;
-    border: none;
-    outline: none;
+.ant-input-affix-wrapper > input.ant-input {
+  padding: 0;
+  border: none;
+  outline: none;
 }
 .max-w-grid-8 {
-    max-width: 768px;
+  max-width: 768px;
 }
 .max-w-grid-12 {
-    max-width: 1176px;
+  max-width: 1176px;
 }
 .edit-icon:hover {
-    filter: brightness(0) saturate(100%) invert(17%) sepia(12%) saturate(1066%) hue-rotate(201deg) brightness(92%) contrast(89%);
+  filter: brightness(0) saturate(100%) invert(17%) sepia(12%) saturate(1066%)
+    hue-rotate(201deg) brightness(92%) contrast(89%);
 }
 .green-bg {
-    background: rgb(126, 201, 55)
+  background: rgb(126, 201, 55);
 }
 
 /* Small schedule */
 .small-schedule-cell {
-    flex: 1 1 0%;
-    border-top: 1px solid rgb(229, 232, 237);
-    border-left: 1px solid rgb(229, 232, 237);
-    overflow: hidden;
+  flex: 1 1 0%;
+  min-height: 25px;
+  border-top: 1px solid rgb(229, 232, 237);
+  border-left: 1px solid rgb(229, 232, 237);
+  overflow: hidden;
+  line-height: 25px;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+}
+.small-schedule-cell.selected {
+  background: rgb(0, 179, 189);
+}
+.small-schedule-cell.disabled {
+    background: #ccc;
+    background-image: repeating-linear-gradient(135deg, transparent, transparent 2px, #eee 2px, #eee 7px);
 }
 .small-schedule-section:nth-child(7) .small-schedule-cell:nth-child(1) {
-    border-top-right-radius: 8px;
+  border-top-right-radius: 8px;
 }
-.small-schedule-section:nth-child(7) .small-schedule-cell:nth-child(6) {
-    border-bottom-right-radius: 8px;
+.small-schedule-section:nth-child(7) .small-schedule-cell:nth-child(24) {
+  border-bottom-right-radius: 8px;
 }
-.small-schedule-cell:nth-child(6) {
-    border-bottom: 1px solid rgb(229, 232, 237);
+.small-schedule-cell:nth-child(24) {
+  border-bottom: 1px solid rgb(229, 232, 237);
+}
+.small-schedule-section:nth-child(7) .small-schedule-cell {
+  border-right: 1px solid rgb(229, 232, 237);
 }

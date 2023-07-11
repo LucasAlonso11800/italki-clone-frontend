@@ -35,9 +35,18 @@ type TeacherIdsGet = {
   params: {};
 };
 
+type LessonIns = {
+  procedure: "LessonIns";
+  params: {
+    lesson_post_id: number,
+    datetime: string
+  };
+};
+
 export type ServiceDataType =
   | StudentProfileUpd
   | StudentProfileGet
   | TeacherReviewGet
   | CountryGet
-  | TeacherIdsGet;
+  | TeacherIdsGet
+  | LessonIns;

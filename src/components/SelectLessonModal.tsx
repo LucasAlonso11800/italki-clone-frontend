@@ -67,7 +67,7 @@ export default function SelectLessonModal({
     }
   }, [open]);
 
-  if (!lessons.length || !selectedDate) return;
+  if (!lessons || !lessons.length || !selectedDate) return;
   return (
     <Modal
       open={open}

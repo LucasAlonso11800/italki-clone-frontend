@@ -15,10 +15,10 @@ export default function useTokenHandler() {
   );
 
   // Function to set the access token and refresh token
-  const setTokens = (newAccessToken: string, newRefreshToken: string) => {
+  const setTokens = (newAccessToken: string| null, newRefreshToken: string | null) => {
     setAccessToken(newAccessToken);
     setRefreshToken(newRefreshToken);
-    if (typeof localStorage !== 'undefined'){
+    if (typeof localStorage !== 'undefined' && newAccessToken && newRefreshToken){
       localStorage.setItem('access_token', newAccessToken)
       localStorage.setItem('refresh_token', newRefreshToken)
     }
@@ -38,15 +38,15 @@ export default function useTokenHandler() {
     const isAccessTokenValid = decodedToken.exp * 1000 >= Date.now();
 
     if (!isAccessTokenValid && refreshToken) {
-      refreshAccessToken(refreshToken, setAccessToken, clearTokens);
+      refreshAccessToken(refreshToken, setTokens, clearTokens);
     }
   }, [accessToken, refreshToken]);
-
+  
   return {
     accessToken,
     refreshToken,
     setTokens,
-    clearTokens,
+    clearTokens
   };
 }
 

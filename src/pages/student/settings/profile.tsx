@@ -38,6 +38,7 @@ export default function StudentProfile({ countries }: Props) {
   const cleanErrors = () => setError({ field: "", message: "" });
 
   const fetchStudentProfile = useCallback(async () => {
+    if (!accessToken && !refreshToken) return Router.replace("/");
     setLoading(true);
     setFile(null);
     const options: ServiceConfig = {
@@ -53,7 +54,7 @@ export default function StudentProfile({ countries }: Props) {
       },
     };
     const response = await authenticatedCall(options, setTokens, clearTokens);
-    if (response.code === 0 || response.result.length !== 1) {
+    if (response.code === 0 || response.result?.length !== 1) {
       Router.push("/");
     } else {
       setProfile(response.result[0]);
@@ -153,7 +154,7 @@ export default function StudentProfile({ countries }: Props) {
       setSuccess(true);
       setTimeout(() => {
         setSuccess(false);
-      }, 3000)
+      }, 3000);
     }
     setLoading(false);
   };
@@ -233,7 +234,10 @@ export default function StudentProfile({ countries }: Props) {
                                 IMAGES.AvatarPlaceholder
                           }
                           alt="Avatar"
-                          onError={() => setProfile({...profile, student_image: ''})}
+                          className="rounded-full"
+                          onError={() =>
+                            setProfile({ ...profile, student_image: "" })
+                          }
                         />
                       </span>
                     </div>

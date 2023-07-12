@@ -43,10 +43,16 @@ type LessonIns = {
   };
 };
 
+type StudentImageGet = {
+  procedure: "StudentImageGet";
+  params: {};
+};
+
 export type ServiceDataType =
   | StudentProfileUpd
   | StudentProfileGet
   | TeacherReviewGet
   | CountryGet
   | TeacherIdsGet
-  | LessonIns;
+  | LessonIns
+  | StudentImageGet

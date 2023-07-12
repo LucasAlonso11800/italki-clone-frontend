@@ -1,7 +1,7 @@
-import { IMAGES } from '@/const';
+import { IMAGES } from "@/const";
 import { API_BASE_URL, API_ROUTES, EMAIL_REGEX, ROUTES } from "@/const";
 import { useTokenHandler } from "@/hooks";
-import { Alert, Modal } from "antd";
+import { Alert, Modal, Spin } from "antd";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -47,7 +47,10 @@ export default function LoginModal({ open, setModal }: Props) {
       return false;
     }
     if (values.password.length < 8) {
-      setError({ field: "password", message: "Password must be at least 8 characters long" });
+      setError({
+        field: "password",
+        message: "Password must be at least 8 characters long",
+      });
       return false;
     }
     if (values.password.length > 40) {
@@ -66,9 +69,15 @@ export default function LoginModal({ open, setModal }: Props) {
       setLoading(true);
       const url = `${API_BASE_URL}/${API_ROUTES.signin.student}`;
       const response = await axios.post(url, values);
-      if (response.data.code === 1){
-        setTokens(response.headers.access_token, response.headers.refresh_token);
-        router.push(ROUTES.student.settings.profile);
+      if (response.data.code === 1) {
+        setTokens(
+          response.headers.access_token,
+          response.headers.refresh_token
+        );
+        setModal(null);
+        if (router.pathname === "/") {
+          router.push(ROUTES.student.settings.profile);
+        }
       }
     } catch (err: any) {
       console.log(err);
@@ -87,7 +96,11 @@ export default function LoginModal({ open, setModal }: Props) {
       open={open}
       centered
       closeIcon={
-        <img src={IMAGES.CloseMenu} alt="Close" onClick={() => setModal(null)} />
+        <img
+          src={IMAGES.CloseMenu}
+          alt="Close"
+          onClick={() => setModal(null)}
+        />
       }
       width={520}
       cancelButtonProps={{ hidden: true }}
@@ -129,94 +142,105 @@ export default function LoginModal({ open, setModal }: Props) {
             style={{ marginBottom: "16px" }}
           />
         )}
-        <form
-          id="login"
-          className="ant-form ant-form-horizontal"
-          onSubmit={handleSubmit}
-        >
-          <div className="ant-form-item">
-            <div className="ant-form-item-control">
-              <div className="ant-form-item-control-input">
-                <div className="ant-form-item-control-input-content">
-                  <input
-                    placeholder="Email"
-                    type="email"
-                    id="email"
-                    className={`ant-input ${
-                      error.field === "email" && "border-red"
-                    }`}
-                    value={values.email}
-                    name="email"
-                    onChange={handleChange}
-                    disabled={loading}
-                  />
-                </div>
-              </div>
-              {error.field === "email" && (
-                <div className="mt-1 text-red1 text-xs">{error.message}</div>
-              )}
-            </div>
-          </div>
-
-          <div className="ant-form-item ant-form-item-has-success">
-            <div className="ant-form-item-control">
-              <div className="ant-form-item-control-input">
-                <div className="ant-form-item-control-input-content">
-                  <span className="ant-input-password signinForm-input-password ant-input-affix-wrapper">
+        {loading ? (
+          <Spin
+            size="large"
+            style={{ margin: "16px auto", display: "block" }}
+          />
+        ) : (
+          <form
+            id="login"
+            className="ant-form ant-form-horizontal"
+            onSubmit={handleSubmit}
+          >
+            <div className="ant-form-item">
+              <div className="ant-form-item-control">
+                <div className="ant-form-item-control-input">
+                  <div className="ant-form-item-control-input-content">
                     <input
-                      placeholder="Password"
-                      id="password"
-                      type={showPassword ? "text" : "password"}
+                      placeholder="Email"
+                      type="email"
+                      id="email"
                       className={`ant-input ${
-                        error.field === "password" && "border-red"
+                        error.field === "email" && "border-red"
                       }`}
-                      name="password"
+                      value={values.email}
+                      name="email"
                       onChange={handleChange}
                       disabled={loading}
                     />
-                    <img
-                      src={
-                        showPassword
-                          ? IMAGES.VisiblePassword
-                          : IMAGES.InvisiblePassword
-                      }
-                      alt="password"
-                      className="cursor-pointer"
-                      onClick={toggleIcon}
-                    />
-                  </span>
+                  </div>
                 </div>
+                {error.field === "email" && (
+                  <div className="mt-1 text-red1 text-xs">{error.message}</div>
+                )}
               </div>
-              {error.field === "password" && (
-                <div className="mt-1 text-red1 text-xs">{error.message}</div>
-              )}
             </div>
-          </div>
 
-          <div className="flex justify-end items-center mb-4">
-            <Link className="small-secondary text-gray3" href="/resetpassword">
-              Forgot password?
-            </Link>
-          </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="block w-full mb-6 rounded-lg tracking-wider font-bold py-2.5 px-4 transition-all cursor-pointer text-white bg-red2 hover:bg-red1 mt-auto"
-          >
-            <span>Log In</span>
-          </button>
-        </form>
+            <div className="ant-form-item ant-form-item-has-success">
+              <div className="ant-form-item-control">
+                <div className="ant-form-item-control-input">
+                  <div className="ant-form-item-control-input-content">
+                    <span className="ant-input-password signinForm-input-password ant-input-affix-wrapper">
+                      <input
+                        placeholder="Password"
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        className={`ant-input ${
+                          error.field === "password" && "border-red"
+                        }`}
+                        name="password"
+                        onChange={handleChange}
+                        disabled={loading}
+                      />
+                      <img
+                        src={
+                          showPassword
+                            ? IMAGES.VisiblePassword
+                            : IMAGES.InvisiblePassword
+                        }
+                        alt="password"
+                        className="cursor-pointer"
+                        onClick={toggleIcon}
+                      />
+                    </span>
+                  </div>
+                </div>
+                {error.field === "password" && (
+                  <div className="mt-1 text-red1 text-xs">{error.message}</div>
+                )}
+              </div>
+            </div>
+
+            <div className="flex justify-end items-center mb-4">
+              <Link
+                className="small-secondary text-gray3"
+                href="/resetpassword"
+              >
+                Forgot password?
+              </Link>
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="block w-full mb-6 rounded-lg tracking-wider font-bold py-2.5 px-4 transition-all cursor-pointer text-white bg-red2 hover:bg-red1 mt-auto"
+            >
+              <span>Log In</span>
+            </button>
+          </form>
+        )}
       </div>
 
       <div className="toggle pb-10">
         <div className="toggle-hint small-secondary text-center">
           <span className="text-gray3">No account yet?</span>
-          <span
+          <button
+            disabled={loading}
             className="text-gray2 ml-2 cursor-pointer font-medium hover:text-gray1"
             onClick={() => setModal("signup")}
           >
             Sign up
-          </span>
+          </button>
         </div>
       </div>
     </Modal>

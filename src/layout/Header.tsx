@@ -1,14 +1,51 @@
-import { IMAGES } from '@/const';
+import { IMAGES, SERVICES_URL } from "@/const";
 import { ROUTES } from "@/const";
 import Link from "next/link";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { HeaderSideMenu } from ".";
+import { useTokenHandler } from "@/hooks";
+import { authenticatedCall } from "@/utils";
+import { ServiceConfig } from "@/types";
+import Router from "next/router";
 
 type Props = {
   setModal: React.Dispatch<React.SetStateAction<"login" | "signup" | null>>;
 };
 
 export default function Header({ setModal }: Props) {
+  const { accessToken, refreshToken, setTokens, clearTokens } =
+    useTokenHandler();
+  const [image, setImage] = useState<string>("");
+
+  const fetchUserImage = useCallback(async () => {
+    if (!accessToken && !refreshToken) return;
+    const options: ServiceConfig = {
+      method: "POST",
+      url: SERVICES_URL,
+      data: {
+        procedure: "StudentImageGet",
+        params: {},
+      },
+      headers: {
+        authorization: accessToken,
+        "refresh-token": refreshToken,
+      },
+    };
+    const response = await authenticatedCall(options, setTokens, clearTokens);
+    if (response.result[0]) {
+      setImage(response.result[0].student_image);
+    }
+  }, [accessToken, refreshToken, setTokens, clearTokens]);
+
+  useEffect(() => {
+    fetchUserImage();
+  }, [fetchUserImage]);
+
+  const handleLogout = () => {
+    clearTokens();
+    Router.push('/');
+  };
+
   return (
     <header className="bg-white border-b-gray">
       <div className="h-18 flex flex-row items-center px-4 py-4 md:px-10">
@@ -40,18 +77,43 @@ export default function Header({ setModal }: Props) {
               Community
             </div>
           </Link>
-          <div
-            className="hidden p-2 mr-4 md:inline-block small-secondary cursor-pointer hover:text-gray2 text-gray3"
-            onClick={() => setModal("login")}
-          >
-            Login
-          </div>
-          <div
-            className="hidden p-2 md:inline-block small-secondary cursor-pointer hover:text-gray2 text-gray3"
-            onClick={() => setModal("signup")}
-          >
-            Sign Up
-          </div>
+          {accessToken || refreshToken ? (
+            <>
+              <div
+                className="hidden p-2 mr-4 md:inline-block small-secondary cursor-pointer hover:text-gray2 text-gray3"
+                onClick={handleLogout}
+              >
+                Logout
+              </div>
+              <Link
+                href={ROUTES.student.settings.profile}
+                className="hidden px-2 md:inline-block"
+                title="Profile"
+              >
+                <img
+                  src={image || IMAGES.AvatarPlaceholder}
+                  alt="Avatar"
+                  width={38}
+                  className="rounded-full"
+                />
+              </Link>
+            </>
+          ) : (
+            <>
+              <div
+                className="hidden p-2 mr-4 md:inline-block small-secondary cursor-pointer hover:text-gray2 text-gray3"
+                onClick={() => setModal("login")}
+              >
+                Login
+              </div>
+              <div
+                className="hidden p-2 md:inline-block small-secondary cursor-pointer hover:text-gray2 text-gray3"
+                onClick={() => setModal("signup")}
+              >
+                Sign Up
+              </div>
+            </>
+          )}
 
           <div className="md:hidden">
             <div className="flex items-center md:hidden">
@@ -68,7 +130,10 @@ export default function Header({ setModal }: Props) {
                 </span>
               </button>
 
-              <HeaderSideMenu setModal={setModal}/>
+              <HeaderSideMenu
+                setModal={setModal}
+                image={image || IMAGES.AvatarPlaceholder}
+              />
             </div>
           </div>
 

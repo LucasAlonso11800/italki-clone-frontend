@@ -6,6 +6,7 @@ import axios from "axios";
 import moment from "moment";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { SelectLessonModal } from "@/components";
+import { useTokenHandler } from "@/hooks";
 
 type Props = {
   teacherId: number;
@@ -17,6 +18,7 @@ type SelectedType = {
   time: string;
 };
 export default function TeacherAvailability(props: Props) {
+  const { accessToken, refreshToken } = useTokenHandler();
   const [availability, setAvailability] = useState<TeacherAvailabilityType[][]>(
     [props.availability]
   );
@@ -48,7 +50,7 @@ export default function TeacherAvailability(props: Props) {
       }
 
       const isBooked = cell.is_booked;
-      
+
       if (isBooked) {
         return <div className="small-schedule-cell disabled" key={index}></div>;
       }
@@ -213,19 +215,26 @@ export default function TeacherAvailability(props: Props) {
           <span className="text-tiny text-gray3">Based on your timezone</span>
         </div>
 
-        <div className="flex justify-center items-center">
-          <button
-            type="button"
-            className="ant-btn ant-btn-default"
-            disabled={selected === null}
-            onClick={handleModal}
-          >
-            <span>Schedule lesson</span>
-          </button>
-        </div>
+        {accessToken || refreshToken ? (
+          <div className="flex justify-center items-center">
+            <button
+              type="button"
+              className="ant-btn ant-btn-default"
+              disabled={selected === null}
+              onClick={handleModal}
+            >
+              <span>Schedule lesson</span>
+            </button>
+          </div>
+        ) : (
+          <div className="flex justify-center items-center">
+            <button type="button" className="ant-btn ant-btn-default" disabled>
+              <span>Login to schedule a lesson</span>
+            </button>
+          </div>
+        )}
       </div>
 
-      
       <SelectLessonModal
         handleClose={handleModal}
         open={open}

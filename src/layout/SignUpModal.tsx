@@ -2,7 +2,7 @@ import { IMAGES, SERVICES_URL } from "@/const";
 import { API_BASE_URL, API_ROUTES, EMAIL_REGEX, ROUTES } from "@/const";
 import { useTokenHandler } from "@/hooks";
 import { CountryType, ServiceConfig } from "@/types";
-import { Alert, DatePicker, Modal, Select } from "antd";
+import { Alert, DatePicker, Modal, Select, Spin } from "antd";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -148,7 +148,10 @@ export default function SignUpModal({ open, setModal }: Props) {
           response.headers.access_token,
           response.headers.refresh_token
         );
-        router.push(ROUTES.student.settings.profile);
+        setModal(null);
+        if (router.pathname === "/") {
+          router.push(ROUTES.student.settings.profile);
+        }
       }
     } catch (err: any) {
       console.log(err);
@@ -460,30 +463,39 @@ export default function SignUpModal({ open, setModal }: Props) {
             style={{ marginBottom: "16px" }}
           />
         )}
-        <form
-          id="signup"
-          className="ant-form ant-form-horizontal"
-          onSubmit={handleSubmit}
-        >
-          {Inputs}
-
-          <button
-            type="submit"
-            className="block w-full mb-6 rounded-lg tracking-wider font-bold py-2.5 px-4 transition-all cursor-pointer text-white bg-red2 hover:bg-red1 mt-auto"
+        {loading ? (
+          <Spin
+            size="large"
+            style={{ margin: "16px auto", display: "block" }}
+          />
+        ) : (
+          <form
+            id="signup"
+            className="ant-form ant-form-horizontal"
+            onSubmit={handleSubmit}
           >
-            <span>{step === 3 ? "Sign Up" : "Continue"}</span>
-          </button>
-        </form>
+            {Inputs}
+
+            <button
+              disabled={loading}
+              type="submit"
+              className="block w-full mb-6 rounded-lg tracking-wider font-bold py-2.5 px-4 transition-all cursor-pointer text-white bg-red2 hover:bg-red1 mt-auto"
+            >
+              <span>{step === 3 ? "Sign Up" : "Continue"}</span>
+            </button>
+          </form>
+        )}
       </div>
       <div className="toggle pb-10">
         <div className="toggle-hint small-secondary text-center">
           <span className="text-gray3">Already have an account?</span>
-          <span
+          <button
+            disabled={loading}
             className="text-gray2 ml-2 cursor-pointer font-medium hover:text-gray1"
             onClick={() => setModal("login")}
           >
             Log In
-          </span>
+          </button>
         </div>
       </div>
     </Modal>

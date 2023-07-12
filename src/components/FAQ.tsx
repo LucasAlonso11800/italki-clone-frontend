@@ -17,7 +17,7 @@ export default function FAQ() {
           expandIcon={({ isActive }) => (
             <CaretRightOutlined rotate={isActive ? 90 : 0} />
           )}
-          style={{background: 'transparent'}}
+          style={{background: 'transparent', border: 'none'}}
         >
           <Panel
             header={

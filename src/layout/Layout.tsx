@@ -9,20 +9,7 @@ type Props = {
 type Modal = "login" | "signup" | null;
 
 export default function Layout({ children }: Props) {
-  const { setTokens } = useTokenHandler();
   const [modal, setModal] = useState<Modal>(null);
-
-  useEffect(() => {
-    const accessToken =
-      typeof localStorage !== "undefined"
-        ? localStorage.getItem("access_token")
-        : null;
-    const refreshToken =
-      typeof localStorage !== "undefined"
-        ? localStorage.getItem("refresh_token")
-        : null;
-    setTokens(accessToken, refreshToken);
-  }, []);
 
   return (
     <>

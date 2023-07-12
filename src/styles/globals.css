@@ -233,3 +233,7 @@ h6 {
 .small-schedule-section:nth-child(7) .small-schedule-cell {
   border-right: 1px solid rgb(229, 232, 237);
 }
+
+.ant-collapse-content-box .ant-collapse-content {
+  border-top: 0!important;
+}

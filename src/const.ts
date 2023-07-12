@@ -150,3 +150,18 @@ export const RANGES = [
   ["22:00", "23:00"],
   ["23:00", "24:00"],
 ];
+
+export const GENDERS = [
+  {
+    value: "M",
+    label: "Male",
+  },
+  {
+    value: "F",
+    label: "Female",
+  },
+  {
+    value: "X",
+    label: "Other",
+  },
+];

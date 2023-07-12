@@ -2,6 +2,7 @@ import {
   API_BASE_URL,
   API_ROUTES,
   DATE_FORMAT,
+  GENDERS,
   IMAGES,
   SERVICES_URL,
 } from "@/const";
@@ -9,7 +10,7 @@ import { useTokenHandler } from "@/hooks";
 import { Layout } from "@/layout";
 import { CountryType, ServiceConfig, StudentType } from "@/types";
 import { authenticatedCall } from "@/utils";
-import { Alert, Spin } from "antd";
+import { Alert, Select, Spin } from "antd";
 import axios, { AxiosRequestConfig } from "axios";
 import moment from "moment";
 import Router from "next/router";
@@ -431,17 +432,33 @@ export default function StudentProfile({ countries }: Props) {
                         <div className="md:w-[30%] h6 mb-1 md:mb-0">
                           <span>Gender</span>
                         </div>
-                        <div className="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-17">
-                          <div className="md:pl-4 regular-body text-gray3 profile_title__ZClxV">
-                            <span>
+                        {fieldToEdit === "student_gender" ? (
+                          <div className="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-17">
+                            <div className="min-w-[200px] pl-4 regular-body text-gray3 profile_title__ZClxV">
+                              <Select
+                                options={GENDERS}
+                                className="w-full"
+                                placeholder="Gender"
+                                onChange={(value) =>
+                                  handleChange({
+                                    target: { name: "student_gender", value },
+                                  } as any)
+                                }
+                                value={profile.student_gender}
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-17">
+                            <div className="md:pl-4 regular-body text-gray3">
                               {profile.student_gender === "M"
                                 ? "Male"
                                 : profile.student_gender === "F"
                                 ? "Female"
-                                : "Non binary"}
-                            </span>
+                                : "Other"}
+                            </div>
                           </div>
-                        </div>
+                        )}
                       </div>
                     </div>
                     <div className="ant-col md:flex flex items-center justify-end ant-col-xs-4 sm:w-[10%]">
@@ -466,11 +483,32 @@ export default function StudentProfile({ countries }: Props) {
                         <div className="md:w-[30%] h6 mb-1 md:mb-0">
                           <span>From</span>
                         </div>
-                        <div className="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-17">
-                          <div className="md:pl-4 regular-body text-gray3 profile_title__ZClxV">
-                            {profile.country_name}
+                        {fieldToEdit === "country_id" ? (
+                          <div className="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-17">
+                            <div className="min-w-[200px] pl-4 regular-body text-gray3 profile_title__ZClxV">
+                              <Select
+                                options={countries.map((c) => ({
+                                  value: c.country_id,
+                                  label: c.country_name,
+                                }))}
+                                placeholder="Country"
+                                className="w-full"
+                                onChange={(value) =>
+                                  handleChange({
+                                    target: { name: "country_id", value },
+                                  } as any)
+                                }
+                                value={profile.country_id}
+                              />
+                            </div>
                           </div>
-                        </div>
+                        ) : (
+                          <div className="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-17">
+                            <div className="md:pl-4 regular-body text-gray3">
+                              {profile.country_name}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className="ant-col md:flex flex items-center justify-end ant-col-xs-4 sm:w-[10%]">

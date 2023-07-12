@@ -1,4 +1,4 @@
-import { IMAGES, SERVICES_URL } from "@/const";
+import { GENDERS, IMAGES, SERVICES_URL } from "@/const";
 import { API_BASE_URL, API_ROUTES, EMAIL_REGEX, ROUTES } from "@/const";
 import { useTokenHandler } from "@/hooks";
 import { CountryType, ServiceConfig } from "@/types";
@@ -23,20 +23,7 @@ export default function SignUpModal({ open, setModal }: Props) {
     gender: "M",
     country: 0,
   };
-  const genders = [
-    {
-      value: "M",
-      label: "Male",
-    },
-    {
-      value: "F",
-      label: "Female",
-    },
-    {
-      value: "X",
-      label: "Other",
-    },
-  ];
+
   const [values, setValues] = useState(initialValues);
   const [countries, setCountries] = useState<CountryType[]>([]);
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -345,6 +332,7 @@ export default function SignUpModal({ open, setModal }: Props) {
                         target: { name: "country", value },
                       } as any)
                     }
+                    value={values.country}
                   />
                 </div>
                 {error.field === "country" && (
@@ -356,7 +344,7 @@ export default function SignUpModal({ open, setModal }: Props) {
               <div className="ant-form-item-control">
                 <div className="ant-form-item-control-input">
                   <Select
-                    options={genders}
+                    options={GENDERS}
                     className="w-full"
                     placeholder="Gender"
                     onChange={(value) =>
@@ -364,6 +352,7 @@ export default function SignUpModal({ open, setModal }: Props) {
                         target: { name: "gender", value },
                       } as any)
                     }
+                    value={values.gender}
                   />
                 </div>
                 {error.field === "gender" && (
